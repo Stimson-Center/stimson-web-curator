@@ -36,3 +36,6 @@ awsconfiguration.json
 src/__tests__/units/Amplify.test.js
 
 amplify/.config/local-env-info.json
+*.pyc
+**/__pycache__
+
