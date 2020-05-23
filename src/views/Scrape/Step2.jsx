@@ -22,7 +22,7 @@ class Step2 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      percentage: 0
+      percentage: 25
     };
     // this.urlChange = this.urlChange.bind(this);
   }
@@ -37,7 +37,7 @@ class Step2 extends React.Component {
         <div className="progress-container">
           <span className="progress-badge">Progress</span>
           <Progress max="100" value="25">
-            <span className="progress-value">25%</span>
+            <span className="progress-value">{this.state.percentage}%</span>
           </Progress>
         </div>
       </>
