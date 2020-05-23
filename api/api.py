@@ -50,6 +50,7 @@ class ExportingThread(threading.Thread):
 
 
 
+# https://stackoverflow.com/questions/24251898/flask-app-update-progress-bar-while-function-runs
 @app.route('/article', methods=['GET'])
 def get_article():
     global exporting_threads
@@ -58,8 +59,8 @@ def get_article():
     thread_id = random.randint(0, 10000)
     exporting_threads[thread_id] = ExportingThread(url)
     exporting_threads[thread_id].start()
-
-    return 'task id: #%s' % thread_id
+    result = json.dumps({"thread_id": thread_id})
+    return result, 200, {'Content-Type': 'application/json'}
 
 # https://stackoverflow.com/questions/24251898/flask-app-update-progress-bar-while-function-runs
 @app.route('/article/<int:thread_id>', methods=['GET'])
