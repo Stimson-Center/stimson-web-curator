@@ -63,6 +63,7 @@ class Sidebar extends React.Component {
   getCollapseStates = routes => {
     let initialState = {};
     routes.map((prop, key) => {
+      if (prop.invisible) return null;
       if (prop.collapse) {
         initialState = {
           [prop.state]: this.getCollapseInitialState(prop.views),
@@ -90,6 +91,7 @@ class Sidebar extends React.Component {
   // this function creates the links and collapses that appear in the sidebar (left menu)
   createLinks = routes => {
     return routes.map((prop, key) => {
+      if(prop.invisible) return null;
       if (prop.collapse) {
         const st = {};
         st[prop["state"]] = !this.state[prop.state];
@@ -130,9 +132,6 @@ class Sidebar extends React.Component {
             </Collapse>
           </li>
         );
-      }
-      else if (prop.invisible) {
-        return null;
       }
       return (
         <li className={this.activeRoute(prop.layout + prop.path)} key={key}>

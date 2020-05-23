@@ -65,6 +65,7 @@ let routes = [
     name: "Pages",
     state: "openPages",
     icon: "now-ui-icons design_image",
+    invisible: true,
     views: [
       // {
       //   path: "/timeline-page",
