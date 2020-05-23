@@ -26,8 +26,8 @@ import PerfectScrollbar from "perfect-scrollbar";
 import { Nav, Collapse, Button } from "reactstrap";
 
 // core components
-import avatar from "assets/img/ryan.jpg";
-import logo from "logo-white.svg";
+import avatar from "assets/img/Brian_Finlay_2-1-768x1159.jpg";
+import logo from "assets/img/Stimson_Logo.png";
 
 let ps;
 
@@ -131,6 +131,9 @@ class Sidebar extends React.Component {
           </li>
         );
       }
+      else if (prop.invisible) {
+        return null;
+      }
       return (
         <li className={this.activeRoute(prop.layout + prop.path)} key={key}>
           <NavLink to={prop.layout + prop.path} activeClassName="">
@@ -160,20 +163,20 @@ class Sidebar extends React.Component {
         <div className="sidebar" data-color={this.props.backgroundColor}>
           <div className="logo">
             <a
-              href="https://www.creative-tim.com?ref=nudr-sidebar"
+              href="https://www.stimson.org/"
               className="simple-text logo-mini"
               target="_blank"
             >
               <div className="logo-img">
-                <img src={logo} alt="react-logo" />
+                <img src={logo} alt="stimcon-logo" />
               </div>
             </a>
             <a
-              href="https://www.creative-tim.com?ref=nudr-sidebar"
+              href="https://www.stimson.org/"
               className="simple-text logo-normal"
               target="_blank"
             >
-              Creative Tim
+              Stimson Center
             </a>
             <div className="navbar-minimize">
               <Button
@@ -204,7 +207,7 @@ class Sidebar extends React.Component {
                   }
                 >
                   <span>
-                    Ryan Gosling
+                    Brian Finlay
                     <b className="caret" />
                   </span>
                 </a>
