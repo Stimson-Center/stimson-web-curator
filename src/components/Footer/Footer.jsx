@@ -27,49 +27,12 @@ class Footer extends React.Component {
         className={"footer" + (this.props.default ? " footer-default" : "")}
       >
         <Container fluid={this.props.fluid}>
-          <nav>
-            <ul>
-              <li>
-                <a
-                  href="https://www.creative-tim.com?ref=nudr-footer"
-                  className="mr-4-px"
-                  target="_blank"
-                >
-                  Creative Tim
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://presentation.creative-tim.com?ref=nudr-footer"
-                  className="mr-4-px"
-                  target="_blank"
-                >
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://blog.creative-tim.com?ref=nudr-footer"
-                  target="_blank"
-                >
-                  Blog
-                </a>
-              </li>
-            </ul>
-          </nav>
+
           <div className="copyright">
-            &copy; {1900 + new Date().getYear()}, Designed by{" "}
-            <a href="https://www.invisionapp.com" target="_blank">
-              Invision
+            &copy; {1900 + new Date().getYear()} {" "}
+            <a href="https://www.stimson.org/" target="_blank">
+              The Stimson Center
             </a>
-            . Coded by{" "}
-            <a
-              href="https://www.creative-tim.com?ref=nudr-footer"
-              target="_blank"
-            >
-              Creative Tim
-            </a>
-            .
           </div>
         </Container>
       </footer>
