@@ -33,8 +33,7 @@ class Step1 extends React.Component {
     super(props);
     this.state = {
       url: "",
-      urlState: "",
-      article: {}
+      urlState: ""
     };
     this.urlChange = this.urlChange.bind(this);
   }
