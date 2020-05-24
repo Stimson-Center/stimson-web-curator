@@ -29,6 +29,8 @@ import taskRTLImage1 from "assets/img/emilyz.jpg";
 import taskRTLImage2 from "assets/img/james.jpg";
 import taskRTLImage3 from "assets/img/mike.jpg";
 
+const domain = "http://localhost:5000";
+
 // ##############################
 // // // tasks list for Tasks card in Dashboard view
 // #############################
@@ -497,6 +499,7 @@ const table_data = [
 // data for populating the calendar in BigCalendar view
 // data for populating the table from Dashboard view
 export {
+  domain,
   tasks,
   tasksRTL,
   thead,
