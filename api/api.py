@@ -14,11 +14,18 @@ import json
 import logging
 
 from flask import Flask, request, render_template
+#from flask.ext.cors import CORS, cross_origin
+from flask_cors import CORS, cross_origin
+
+
 from scraper import Article
 from scraper.configuration import Configuration
 
 exporting_threads = {}
 app = Flask(__name__)
+cors = CORS(app, resources={r"/article": {"origins": "http://localhost:port"}})
+
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -51,9 +58,14 @@ class ExportingThread(threading.Thread):
 
 
 # https://stackoverflow.com/questions/24251898/flask-app-update-progress-bar-while-function-runs
-@app.route('/article', methods=['GET'])
+# https://stackoverflow.com/questions/13279399/how-to-obtain-values-of-request-variables-using-python-and-flask
+@app.route('/article', methods=['GET', 'OPTIONS'])
+@cross_origin(origin='localhost', headers=['Content-Type','Authorization','Access-Control-Allow-Origin'])
 def get_article():
     global exporting_threads
+    # print("Args=" + json.dumps(request.args))
+    # print("Values=" + json.dumps(request.values))
+    # print("Form=" + json.dumps(request.form))
     url = request.args.get('url')
 
     thread_id = random.randint(0, 10000)
@@ -62,8 +74,10 @@ def get_article():
     result = json.dumps({"thread_id": thread_id})
     return result, 200, {'Content-Type': 'application/json'}
 
+
 # https://stackoverflow.com/questions/24251898/flask-app-update-progress-bar-while-function-runs
-@app.route('/article/<int:thread_id>', methods=['GET'])
+@app.route('/article/<int:thread_id>', methods=['GET','OPTIONS'])
+@cross_origin(origin='localhost', headers=['Content-Type','Authorization','Access-Control-Allow-Origin'])
 def get_article_progress(thread_id):
     global exporting_threads
     article = exporting_threads[thread_id].article
