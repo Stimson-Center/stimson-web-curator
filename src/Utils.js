@@ -4,5 +4,5 @@ export const sleep = (milliseconds) => {
 }
 
 export const isEmpty = (obj) => {
-  return Object.keys(obj).length === 0;
+  return obj === null || obj === undefined || Object.keys(obj).length === 0;
 }
