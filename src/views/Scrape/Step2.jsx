@@ -4,6 +4,7 @@ import React from 'react';
 
 import {isEmpty} from 'Utils';
 import {Article} from "../../components/Article/Article";
+import {Progress} from "reactstrap";
 
 class Step2 extends React.Component {
   constructor(props) {
@@ -26,33 +27,51 @@ class Step2 extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  async isValidated() {
+  isValidated() {
     const {article, threadId} = this.state;
-    console.log("isValidated progress=" + article.progress);
+    // console.log("Step2: isValidated progress=" + article.progress);
+    if (article.progress < 100) {
+      this.render();
+    }
     return threadId !== 0 && article.progress === 100;
   }
 
   handleChange(event) {
-    console.log("Step2: handleChange=" + JSON.stringify(event, null, 2));
+    if (event.threadId > 0) {
+      // console.log("Step2: handleChange=" + JSON.stringify(event, null, 2));
+      this.setState({article: event.article, threadId: event.threadId });
+    }
   }
 
   render() {
     const {wizardData} = this.props;
-    const {article, threadId} = this.state;
-    let url = "";
+    const {threadId} = this.state;
+    let url = null;
     if (!isEmpty(wizardData) ) {
-      console.log("wizardData=" + JSON.stringify(wizardData, null, 2));
+      // console.log("Step2: wizardData=" + JSON.stringify(wizardData, null, 2));
       url = wizardData.Download.url;
     }
-    return (
-      <>
-        <Article
-          url={url}
-          threadId={threadId}
-          onChange={(event) => this.handleChange}
-        />
-      </>
-    );
+    // console.log("Step2: render threadId=" + threadId + " progress=" + article.progress);
+    if (url === null) {
+      return (
+        <div className="progress-container">
+          <span className="progress-badge">Progress</span>
+          <Progress max="100" value={0}>
+            <span className="progress-value">{0}%</span>
+          </Progress>
+        </div>
+      );
+    } else {
+      return (
+        <>
+          <Article
+            url={url}
+            threadId={threadId}
+            onChange={this.handleChange}
+          />
+        </>
+      );
+    }
   }
 }
 

@@ -4,21 +4,23 @@ import React, {useEffect, useState} from 'react';
 import {Progress} from "reactstrap";
 import axios from "axios";
 import {domain} from 'variables/general';
-import {isEmpty} from 'Utils';
+import {isEmpty, sleep} from 'Utils';
 
+function notify(handler, args) {
+  handler && handler.apply(null, [].concat(args));
+}
 
 // https://reactnavigation.org/docs/en/params.html
 // export const Article = (urlObj, threadIdObj) => {
 export function Article({...props}) {
   const [article, setArticle] = useState({progress: 0});
   const [threadId, setThreadId] = useState(props.threadId);
-  // console.log("In Article props=" + JSON.stringify(props, null, 2));
 
   const url = props.url;
   useEffect(() => {
     const fetchData = async () => {
-      if (url !== "" && threadId === 0) {
-        console.log("In Article url=" + url + " threadId=" + threadId);
+      // console.log("In Article fetchData url=" + url + " threadId=" + threadId);
+      if (url !== null && threadId === 0) {
         let response1 = await axios({
           method: 'get',
           baseUrl: domain,
@@ -32,12 +34,13 @@ export function Article({...props}) {
             console.log(err)
           });
         if (!isEmpty(response1) && !isEmpty(response1.data)) {
-          console.log("data=" + JSON.stringify(response1.data, null, 2));
+          // console.log("Article1: data=" + JSON.stringify(response1.data, null, 2));
           setThreadId(response1.data.thread_id);
+          notify(props.onChange, {article: article, threadId: response1.data.thread_id});
         }
       }
       if (threadId !== 0 && article.progress < 100) {
-        console.log("In Article threadId=" + threadId);
+        sleep(2000);
         let response2 = await axios({
           method: 'get',
           baseUrl: domain,
@@ -51,16 +54,18 @@ export function Article({...props}) {
           console.log(err)
         });
         if (!isEmpty(response2) && !isEmpty(response2.data)) {
-          console.log("data=" + JSON.stringify(response2.data, null, 2));
+          // console.log("Article2: data=" + JSON.stringify(response2.data, null, 2));
           setArticle(response2.data);
+          notify(props.onChange, {article: response2.data, threadId: threadId});
         }
       }
     }
     // noinspection JSIgnoredPromiseFromCall
     fetchData();
-  }, [url, threadId]); // Empty array ensures that effect is only run on mount and unmount
+  }); // Empty array ensures that effect is only run on mount and unmount
 
-  return article && threadId && (
+
+  return (
     <div className="progress-container">
       <span className="progress-badge">Progress</span>
       <Progress max="100" value={article.progress}>

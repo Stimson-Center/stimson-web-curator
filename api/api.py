@@ -94,7 +94,7 @@ def get_article_progress(thread_id):
         "topimage": article.top_image,
         "url": article.url
         })
-    exporting_threads.pop(thread_id, None)
+    # exporting_threads.pop(thread_id, None)
     return result, 200, {'Content-Type': 'application/json'}
 
 

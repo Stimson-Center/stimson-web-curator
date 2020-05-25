@@ -37,9 +37,10 @@ class Step3 extends React.Component {
     this.state = {
       select: null
     };
-    console.log("props=" + JSON.stringify(props, null, 2));
   }
   render() {
+    const {wizardData} = this.props;
+    console.log("Step3 wizardData=" + JSON.stringify(wizardData, null, 2));
     return (
       <>
         <h5 className="info-text"> Are you living in a nice area? </h5>
