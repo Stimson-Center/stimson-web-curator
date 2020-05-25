@@ -37,6 +37,7 @@ class Step3 extends React.Component {
     this.state = {
       select: null
     };
+    console.log("props=" + JSON.stringify(props, null, 2));
   }
   render() {
     return (
