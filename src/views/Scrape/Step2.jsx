@@ -1,10 +1,9 @@
-
 import React from 'react';
-// reactstrap components
-
 import {isEmpty} from 'Utils';
 import {Article} from "../../components/Article/Article";
 import {Progress} from "reactstrap";
+
+// reactstrap components
 
 class Step2 extends React.Component {
   constructor(props) {
@@ -39,7 +38,7 @@ class Step2 extends React.Component {
   handleChange(event) {
     if (event.threadId > 0) {
       // console.log("Step2: handleChange=" + JSON.stringify(event, null, 2));
-      this.setState({article: event.article, threadId: event.threadId });
+      this.setState({article: event.article, threadId: event.threadId});
     }
   }
 
@@ -47,7 +46,7 @@ class Step2 extends React.Component {
     const {wizardData} = this.props;
     const {threadId} = this.state;
     let url = null;
-    if (!isEmpty(wizardData) ) {
+    if (!isEmpty(wizardData)) {
       // console.log("Step2: wizardData=" + JSON.stringify(wizardData, null, 2));
       url = wizardData.Download.url;
     }

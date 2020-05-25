@@ -1,79 +1,94 @@
-/*!
-
-=========================================================
-* Now UI Dashboard PRO React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/now-ui-dashboard-pro-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 // react plugin used to create DropdownMenu for selecting items
-import Select from "react-select";
-
 // reactstrap components
-import { Row, Col, FormGroup, Label, Input } from "reactstrap";
+import {Col, FormGroup, Input, Label, Row} from "reactstrap";
+import {isEmpty} from "../../Utils";
 
 // core components
-const selectOptions = [
-  {value: "one", label: "One"},
-  {value: "two", label: "Two"},
-  {value: "three", label: "Three"},
-  {value: "four", label: "Four"},
-  {value: "five", label: "Five"},
-  {value: "six", label: "Six"}
-];
 
 class Step3 extends React.Component {
   constructor(props) {
     super(props);
+    const {wizardData} = props;
     this.state = {
-      select: null
+      select: null,
+      article: !isEmpty(wizardData) && !isEmpty(wizardData.Progress.article) ? props.wizardData.Progress.article : null
     };
   }
-  render() {
+
+  componentDidMount() {
     const {wizardData} = this.props;
-    console.log("Step3 wizardData=" + JSON.stringify(wizardData, null, 2));
+    const {article} = this.state;
+    if (!isEmpty(wizardData) && !isEmpty(wizardData.Progress.article) && isEmpty(article)) {
+      console.log("Step3 article=" + JSON.stringify(wizardData.Progress, null, 2));
+      this.setState({article: wizardData.Progress.article});
+    }
+  }
+
+  render() {
+    let {article} = this.state;
+    const {wizardData} = this.props;
+    if (!isEmpty(wizardData) && !isEmpty(wizardData.Progress)) {
+      article = wizardData.Progress.article;
+    }
     return (
       <>
-        <h5 className="info-text"> Are you living in a nice area? </h5>
+        <h5 className="info-text"> Review / Modify Results</h5>
         <Row className="justify-content-center">
           <Col xs={12} sm={7}>
             <FormGroup>
-              <Label>Street Name</Label>
-              <Input type="text" />
+              <Label>Title</Label>
+              <Input
+                type="text"
+                value={!isEmpty(article) ? article.title : "edit"}
+                onChange={value => this.setState({select: value})}
+              />
             </FormGroup>
           </Col>
           <Col xs={12} sm={3}>
             <FormGroup>
-              <Label>Street No.</Label>
-              <Input type="text" />
+              <Label>Publish Date</Label>
+              <Input
+                type="text"
+                value={!isEmpty(article) ? article.publish_date : "edit"}
+              />
             </FormGroup>
           </Col>
           <Col xs={12} sm={5}>
             <FormGroup>
-              <Label>City</Label>
-              <Input type="text" />
+              <Label>Authors</Label>
+              <Input
+                type="text"
+                value={!isEmpty(article) ? article.authors : "edit"}
+              />
             </FormGroup>
           </Col>
           <Col xs={12} sm={5}>
-            <Label>Country</Label>
-            <Select
-              className="primary react-select"
-              classNamePrefix="react-select"
-              placeholder="Single Select"
-              name="singleSelect"
-              value={this.state.select}
-              options={selectOptions}
-              onChange={value => this.setState({ select: value })}
-            />
+            <FormGroup>
+              <Label>Summary</Label>
+              <Input
+                type="text"
+                value={!isEmpty(article) ? article.summary : "edit"}
+              />
+            </FormGroup>
+          </Col>
+          <Col xs={12} sm={5}>
+            <FormGroup>
+              <Label>Keywords</Label>
+              <Input
+                type="text"
+                value={!isEmpty(article) ? article.keywords : "enter"}
+              />
+            </FormGroup>
+          </Col>
+          <Col xs={12} sm={5}>
+            <FormGroup>
+              <Label>Text</Label>
+              <Input
+                type="text"
+                value={!isEmpty(article) ? article.text : "enter"}
+              />
+            </FormGroup>
           </Col>
         </Row>
       </>

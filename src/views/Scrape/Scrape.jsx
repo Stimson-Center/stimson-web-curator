@@ -1,26 +1,8 @@
-/*!
-
-=========================================================
-* Now UI Dashboard PRO React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/now-ui-dashboard-pro-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-import React, { Component } from "react";
+import React, {Component} from "react";
 // react plugin used to create a form with multiple steps
 import ReactWizard from "react-bootstrap-wizard";
-
 // reactstrap components
-import { Col } from "reactstrap";
-
+import {Col} from "reactstrap";
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.jsx";
 
@@ -57,7 +39,7 @@ class Scrape extends Component {
   render() {
     return (
       <>
-        <PanelHeader size="sm" />
+        <PanelHeader size="sm"/>
         <div className="content">
           <Col xs={12} md={10} className="mr-auto ml-auto">
             <ReactWizard

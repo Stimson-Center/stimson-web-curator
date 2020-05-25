@@ -1,23 +1,7 @@
-/*!
-
-=========================================================
-* Now UI Dashboard PRO React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/now-ui-dashboard-pro-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import classnames from "classnames";
 // reactstrap components
-import { Row, Col } from "reactstrap";
+import {Col, Row} from "reactstrap";
 
 class Step4 extends React.Component {
   state = {
@@ -34,6 +18,7 @@ class Step4 extends React.Component {
       activeChoices: newState
     });
   };
+
   render() {
     return (
       <>
@@ -59,7 +44,7 @@ class Step4 extends React.Component {
                     })}
                   />
                   <div className="icon">
-                    <i className="now-ui-icons design-2_ruler-pencil" />
+                    <i className="now-ui-icons design-2_ruler-pencil"/>
                   </div>
                   <h6>Design</h6>
                 </div>
@@ -82,7 +67,7 @@ class Step4 extends React.Component {
                     })}
                   />
                   <div className="icon">
-                    <i className="now-ui-icons business_bulb-63" />
+                    <i className="now-ui-icons business_bulb-63"/>
                   </div>
                   <h6>Code</h6>
                 </div>
@@ -105,7 +90,7 @@ class Step4 extends React.Component {
                     })}
                   />
                   <div className="icon">
-                    <i className="now-ui-icons tech_tv" />
+                    <i className="now-ui-icons tech_tv"/>
                   </div>
                   <h6>Develop</h6>
                 </div>

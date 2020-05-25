@@ -1,30 +1,6 @@
-/*!
-
-=========================================================
-* Now UI Dashboard PRO React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/now-ui-dashboard-pro-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
-
 // reactstrap components
-import {
-  Row,
-  Col,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Input
-} from "reactstrap";
+import {Col, Input, InputGroup, InputGroupAddon, InputGroupText, Row} from "reactstrap";
 
 // core components
 
@@ -37,6 +13,7 @@ class Step1 extends React.Component {
     };
     this.urlChange = this.urlChange.bind(this);
   }
+
   urlChange(e) {
     this.setState({
       url: e.target.value
@@ -52,6 +29,7 @@ class Step1 extends React.Component {
       });
     }
   }
+
   isValidated() {
     if (
       this.state.urlState !== " has-success"
@@ -63,6 +41,7 @@ class Step1 extends React.Component {
     }
     return true;
   }
+
   render() {
     return (
       <>
@@ -81,7 +60,7 @@ class Step1 extends React.Component {
             >
               <InputGroupAddon addonType="prepend">
                 <InputGroupText>
-                  <i className="now-ui-icons text_caps-small" />
+                  <i className="now-ui-icons text_caps-small"/>
                 </InputGroupText>
               </InputGroupAddon>
               <Input
@@ -89,8 +68,8 @@ class Step1 extends React.Component {
                 type="url"
                 placeholder="URL (required)"
                 name="url"
-                onFocus={e => this.setState({ urlFocus: true })}
-                onBlur={e => this.setState({ urlFocus: false })}
+                onFocus={e => this.setState({urlFocus: true})}
+                onBlur={e => this.setState({urlFocus: false})}
                 onChange={e => this.urlChange(e)}
               />
             </InputGroup>
