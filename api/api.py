@@ -87,7 +87,7 @@ def get_article_progress(thread_id):
         "keywords": article.keywords,
         "movies": article.movies,
         "progress": exporting_threads[thread_id].progress,
-        "publish_date": article.publish_date.strftime("%s") if article.publish_date else None,
+        "publish_date": article.publish_date.strftime("%Y-%m-%d") if article.publish_date else None,
         "summary": article.summary,
         "text": article.text,
         "title": article.title,

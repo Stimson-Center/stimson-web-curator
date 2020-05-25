@@ -11,7 +11,7 @@ class Step3 extends React.Component {
     super(props);
     const {wizardData} = props;
     this.state = {
-      select: null,
+      updated: false,
       article: !isEmpty(wizardData) && !isEmpty(wizardData.Progress.article) ? props.wizardData.Progress.article : null
     };
   }
@@ -20,10 +20,21 @@ class Step3 extends React.Component {
     const {wizardData} = this.props;
     const {article} = this.state;
     if (!isEmpty(wizardData) && !isEmpty(wizardData.Progress.article) && isEmpty(article)) {
-      console.log("Step3 article=" + JSON.stringify(wizardData.Progress, null, 2));
+      // console.log("Step3 article=" + JSON.stringify(wizardData.Progress, null, 2));
       this.setState({article: wizardData.Progress.article});
     }
   }
+
+  handleChange(event, stateName) {
+    // console.log(stateName + " " + event.target.value + " " + stateNameMinLength);
+    let {article} = this.state;
+    article[stateName] = event.target.value
+    this.setState({
+      [stateName]: event.target.value,
+      updated: true
+    });
+  };
+
 
   render() {
     let {article} = this.state;
@@ -41,7 +52,7 @@ class Step3 extends React.Component {
               <Input
                 type="text"
                 value={!isEmpty(article) ? article.title : "edit"}
-                onChange={value => this.setState({select: value})}
+                onChange={event => this.handleChange(event, "title")}
               />
             </FormGroup>
           </Col>
@@ -51,6 +62,7 @@ class Step3 extends React.Component {
               <Input
                 type="text"
                 value={!isEmpty(article) ? article.publish_date : "edit"}
+                onChange={event => this.handleChange(event, "publish_date")}
               />
             </FormGroup>
           </Col>
@@ -60,6 +72,7 @@ class Step3 extends React.Component {
               <Input
                 type="text"
                 value={!isEmpty(article) ? article.authors : "edit"}
+                onChange={event => this.handleChange(event, "authors")}
               />
             </FormGroup>
           </Col>
@@ -69,6 +82,7 @@ class Step3 extends React.Component {
               <Input
                 type="text"
                 value={!isEmpty(article) ? article.summary : "edit"}
+                onChange={event => this.handleChange(event, "summary")}
               />
             </FormGroup>
           </Col>
@@ -78,6 +92,7 @@ class Step3 extends React.Component {
               <Input
                 type="text"
                 value={!isEmpty(article) ? article.keywords : "enter"}
+                onChange={event => this.handleChange(event, "keywords")}
               />
             </FormGroup>
           </Col>
@@ -87,6 +102,7 @@ class Step3 extends React.Component {
               <Input
                 type="text"
                 value={!isEmpty(article) ? article.text : "enter"}
+                onChange={event => this.handleChange(event, "text")}
               />
             </FormGroup>
           </Col>
