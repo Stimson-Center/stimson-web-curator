@@ -28,11 +28,12 @@ class Step2 extends React.Component {
 
   async isValidated() {
     const {article, threadId} = this.state;
-    return threadId > 0 && article.progress >= 100;
+    console.log("isValidated progress=" + article.progress);
+    return threadId !== 0 && article.progress === 100;
   }
 
   handleChange(event) {
-    console.log("handleChange=" + JSON.stringify(event, null, 2));
+    console.log("Step2: handleChange=" + JSON.stringify(event, null, 2));
   }
 
   render() {
