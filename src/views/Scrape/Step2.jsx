@@ -23,7 +23,7 @@ class Step2 extends React.Component {
     //     }
     //   }
     // }
-    // this.urlChange = this.urlChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   async isValidated() {
@@ -31,6 +31,9 @@ class Step2 extends React.Component {
     return threadId > 0 && article.progress >= 100;
   }
 
+  handleChange(event) {
+    console.log("handleChange=" + JSON.stringify(event, null, 2));
+  }
 
   render() {
     const {wizardData} = this.props;
@@ -45,6 +48,7 @@ class Step2 extends React.Component {
         <Article
           url={url}
           threadId={threadId}
+          onChange={(event) => this.handleChange}
         />
       </>
     );
