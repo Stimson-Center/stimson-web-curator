@@ -35,7 +35,7 @@ import {
 // core components
 import nowLogo from "assets/img/now-logo.png";
 
-import bgImage from "assets/img/bg14.jpg";
+import bgImage from "assets/img/Stimson_Background.jpg";
 
 class LoginPage extends React.Component {
   constructor(props) {

@@ -26,7 +26,7 @@ import PerfectScrollbar from "perfect-scrollbar";
 import { Nav, Collapse, Button } from "reactstrap";
 
 // core components
-import avatar from "assets/img/Brian_Finlay_2-1-768x1159.jpg";
+import avatar from "assets/img/Stimson_Brian_Finlay.jpg";
 import logo from "assets/img/Stimson_Logo.png";
 
 let ps;
