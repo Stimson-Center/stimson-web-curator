@@ -4,6 +4,7 @@ import React from "react";
 import {Col, FormGroup, Input, Label, Row, Progress} from "reactstrap";
 import {isEmpty} from "../../Utils";
 import {Article} from "../../components/Article/Article";
+import {TextArea} from "@thumbtack/thumbprint-react";
 
 // core components
 
@@ -133,10 +134,11 @@ class Step2 extends React.Component {
             <Col xs={12} sm={5}>
               <FormGroup>
                 <Label>Summary</Label>
-                <Input
+                <TextArea
                   type="text"
                   value={!isEmpty(article) ? article.summary : "edit"}
                   onChange={event => this.handleChange(event, "summary")}
+                  rows={5}
                 />
               </FormGroup>
             </Col>
@@ -153,7 +155,7 @@ class Step2 extends React.Component {
             <Col xs={12} sm={5}>
               <FormGroup>
                 <Label>Text</Label>
-                <Input
+                <TextArea
                   type="text"
                   value={!isEmpty(article) ? article.text : "enter"}
                   onChange={event => this.handleChange(event, "text")}
