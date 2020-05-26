@@ -45,7 +45,7 @@ class AdminNavbar extends React.Component {
     isOpen: false,
     dropdownOpen: false,
     color: "transparent",
-    redirect: false
+    signOut: false
   };
   sidebarToggle = React.createRef();
   toggle = () => {
@@ -96,17 +96,18 @@ class AdminNavbar extends React.Component {
       this.sidebarToggle.current.classList.toggle("toggled");
     }
   }
-  setRedirect = () => {
-    const { redirect } = this.state;
-    if (! redirect) {
+  setSignOut = () => {
+    const { signOut } = this.state;
+    if (! signOut) {
       this.setState({
-        redirect: true
+        signOut: true
       })
     }
   }
-  renderRedirect = () => {
-    const { redirect } = this.state;
-    if (redirect) {
+  // https://medium.com/p/4de5e517354a/responses/show
+  renderSignOut = () => {
+    const { signOut } = this.state;
+    if (signOut) {
       return (<Redirect push to="/auth/login-page" />);
     }
   }
@@ -165,7 +166,7 @@ class AdminNavbar extends React.Component {
               </InputGroup>
             </form>
             <Nav navbar>
-              {this.renderRedirect()}
+              {this.renderSignOut()}
               <NavItem>
                 <Link to="#pablo" className="nav-link">
                   <i className="now-ui-icons media-2_sound-wave" />
@@ -188,7 +189,7 @@ class AdminNavbar extends React.Component {
                 <DropdownMenu right>
                   <DropdownItem
                     href="SignOut"
-                    onClick={() => this.setRedirect()}
+                    onClick={() => this.setSignOut()}
                   >
                     Sign Out
                   </DropdownItem>
