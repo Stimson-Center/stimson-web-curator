@@ -58,7 +58,7 @@ class AuthNavbar extends React.Component {
               </NavbarToggler>
             </div>
             <Link to="/" className="navbar-brand">
-              Now Ui Dashboard Pro - React
+              Stimson Web Page Curator
             </Link>
           </div>
           <Collapse isOpen={this.state.isOpen} navbar>
