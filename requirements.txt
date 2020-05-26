@@ -3,5 +3,5 @@ flask-cors
 python-dotenv
 nltk
 requests
-stimson-web-scraper
+stimson-web-scraper>=0.0.6
 
