@@ -15,7 +15,8 @@
 
 */
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+
 // used for making the prop types of this component
 import PropTypes from "prop-types";
 
@@ -35,14 +36,16 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  Input
+  Input, Button
 } from "reactstrap";
+
 
 class AdminNavbar extends React.Component {
   state = {
     isOpen: false,
     dropdownOpen: false,
-    color: "transparent"
+    color: "transparent",
+    redirect: false
   };
   sidebarToggle = React.createRef();
   toggle = () => {
@@ -93,9 +96,23 @@ class AdminNavbar extends React.Component {
       this.sidebarToggle.current.classList.toggle("toggled");
     }
   }
+  setRedirect = () => {
+    const { redirect } = this.state;
+    if (! redirect) {
+      this.setState({
+        redirect: true
+      })
+    }
+  }
+  renderRedirect = () => {
+    const { redirect } = this.state;
+    if (redirect) {
+      return (<Redirect push to="/auth/login-page" />);
+    }
+  }
   render() {
     return (
-      // add or remove classes depending if we are on full-screen-maps page or not
+    // add or remove classes depending if we are on full-screen-maps page or not
       <Navbar
         color={
           window.location.href.indexOf("full-screen-maps") !== -1
@@ -148,6 +165,7 @@ class AdminNavbar extends React.Component {
               </InputGroup>
             </form>
             <Nav navbar>
+              {this.renderRedirect()}
               <NavItem>
                 <Link to="#pablo" className="nav-link">
                   <i className="now-ui-icons media-2_sound-wave" />
@@ -168,9 +186,12 @@ class AdminNavbar extends React.Component {
                   </p>
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem tag="a">Action</DropdownItem>
-                  <DropdownItem tag="a">Another Action</DropdownItem>
-                  <DropdownItem tag="a">Something else here</DropdownItem>
+                  <DropdownItem
+                    href="SignOut"
+                    onClick={() => this.setRedirect()}
+                  >
+                    Sign Out
+                  </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
               <NavItem>
