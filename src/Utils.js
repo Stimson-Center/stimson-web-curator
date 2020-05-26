@@ -1,4 +1,3 @@
-import "format-unicorn"
 
 // https://flaviocopes.com/javascript-sleep/
 export const sleep = (milliseconds) => {

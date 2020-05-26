@@ -78,11 +78,11 @@ class AuthNavbar extends React.Component {
                   <i className="now-ui-icons users_circle-08" /> Login
                 </Link>
               </NavItem>
-              <NavItem className={this.activeRoute("/auth/pricing-page")}>
-                <Link to="/auth/pricing-page" className="nav-link">
-                  <i className="now-ui-icons business_money-coins" /> Pricing
-                </Link>
-              </NavItem>
+              {/*<NavItem className={this.activeRoute("/auth/pricing-page")}>*/}
+              {/*  <Link to="/auth/pricing-page" className="nav-link">*/}
+              {/*    <i className="now-ui-icons business_money-coins" /> Pricing*/}
+              {/*  </Link>*/}
+              {/*</NavItem>*/}
               <NavItem className={this.activeRoute("/auth/lock-screen-page")}>
                 <Link to="/auth/lock-screen-page" className="nav-link">
                   <i className="now-ui-icons ui-1_lock-circle-open" /> Lock
