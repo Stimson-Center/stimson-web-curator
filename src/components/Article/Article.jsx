@@ -36,7 +36,7 @@ export function Article({...props}) {
         if (!isEmpty(response1) && !isEmpty(response1.data)) {
           // console.log("Article1: data=" + JSON.stringify(response1.data, null, 2));
           setThreadId(response1.data.thread_id);
-          notify(props.onChange, {article: article, threadId: response1.data.thread_id});
+          notify(props.onProgress, {article: article, threadId: response1.data.thread_id});
         }
       }
       if (threadId !== 0 && article.progress < 100) {
@@ -56,7 +56,7 @@ export function Article({...props}) {
         if (!isEmpty(response2) && !isEmpty(response2.data)) {
           // console.log("Article2: data=" + JSON.stringify(response2.data, null, 2));
           setArticle(response2.data);
-          notify(props.onChange, {article: response2.data, threadId: threadId});
+          notify(props.onProgress, {article: response2.data, threadId: threadId});
         }
       }
     }

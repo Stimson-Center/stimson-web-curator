@@ -1,110 +1,101 @@
 import React from "react";
-// react plugin used to create DropdownMenu for selecting items
+import classnames from "classnames";
 // reactstrap components
-import {Col, FormGroup, Input, Label, Row} from "reactstrap";
-import {isEmpty} from "../../Utils";
-
-// core components
+import {Col, Row} from "reactstrap";
 
 class Step3 extends React.Component {
-  constructor(props) {
-    super(props);
-    const {wizardData} = props;
-    this.state = {
-      updated: false,
-      article: !isEmpty(wizardData) && !isEmpty(wizardData.Progress.article) ? props.wizardData.Progress.article : null
-    };
-  }
-
-  componentDidMount() {
-    const {wizardData} = this.props;
-    const {article} = this.state;
-    if (!isEmpty(wizardData) && !isEmpty(wizardData.Progress.article) && isEmpty(article)) {
-      // console.log("Step3 article=" + JSON.stringify(wizardData.Progress, null, 2));
-      this.setState({article: wizardData.Progress.article});
+  state = {
+    activeChoices: []
+  };
+  choiceChange = number => {
+    let newState = this.state.activeChoices;
+    if (newState.includes(number)) {
+      newState = newState.filter(prop => prop !== number);
+    } else {
+      newState = newState.concat([number]);
     }
-  }
-
-  handleChange(event, stateName) {
-    // console.log(stateName + " " + event.target.value + " " + stateNameMinLength);
-    let {article} = this.state;
-    article[stateName] = event.target.value
     this.setState({
-      [stateName]: event.target.value,
-      updated: true
+      activeChoices: newState
     });
   };
 
-
   render() {
-    let {article} = this.state;
-    const {wizardData} = this.props;
-    if (!isEmpty(wizardData) && !isEmpty(wizardData.Progress)) {
-      article = wizardData.Progress.article;
-    }
     return (
       <>
-        <h5 className="info-text"> Review / Modify Results</h5>
+        <h5 className="info-text"> What are you doing? (checkboxes) </h5>
         <Row className="justify-content-center">
-          <Col xs={12} sm={7}>
-            <FormGroup>
-              <Label>Title</Label>
-              <Input
-                type="text"
-                value={!isEmpty(article) ? article.title : "edit"}
-                onChange={event => this.handleChange(event, "title")}
-              />
-            </FormGroup>
-          </Col>
-          <Col xs={12} sm={3}>
-            <FormGroup>
-              <Label>Publish Date</Label>
-              <Input
-                type="text"
-                value={!isEmpty(article) ? article.publish_date : "edit"}
-                onChange={event => this.handleChange(event, "publish_date")}
-              />
-            </FormGroup>
-          </Col>
-          <Col xs={12} sm={5}>
-            <FormGroup>
-              <Label>Authors</Label>
-              <Input
-                type="text"
-                value={!isEmpty(article) ? article.authors : "edit"}
-                onChange={event => this.handleChange(event, "authors")}
-              />
-            </FormGroup>
-          </Col>
-          <Col xs={12} sm={5}>
-            <FormGroup>
-              <Label>Summary</Label>
-              <Input
-                type="text"
-                value={!isEmpty(article) ? article.summary : "edit"}
-                onChange={event => this.handleChange(event, "summary")}
-              />
-            </FormGroup>
-          </Col>
-          <Col xs={12} sm={5}>
-            <FormGroup>
-              <Label>Keywords</Label>
-              <Input
-                type="text"
-                value={!isEmpty(article) ? article.keywords : "enter"}
-                onChange={event => this.handleChange(event, "keywords")}
-              />
-            </FormGroup>
-          </Col>
-          <Col xs={12} sm={5}>
-            <FormGroup>
-              <Label>Text</Label>
-              <Input
-                type="text"
-                value={!isEmpty(article) ? article.text : "enter"}
-                onChange={event => this.handleChange(event, "text")}
-              />
-            </FormGroup>
+          <Col xs={12} lg={10}>
+            <Row>
+              <Col sm="4">
+                <div
+                  className={classnames("choice", {
+                    active: this.state.activeChoices.includes(1)
+                  })}
+                  data-toggle="wizard-checkbox"
+                  onClick={() => this.choiceChange(1)}
+                >
+                  <input
+                    defaultValue="Design"
+                    name="jobb"
+                    type="checkbox"
+                    onChange={() => this.choiceChange(1)}
+                    checked={classnames({
+                      active: this.state.activeChoices.includes(1)
+                    })}
+                  />
+                  <div className="icon">
+                    <i className="now-ui-icons design-2_ruler-pencil"/>
+                  </div>
+                  <h6>Design</h6>
+                </div>
+              </Col>
+              <Col sm="4">
+                <div
+                  className={classnames("choice", {
+                    active: this.state.activeChoices.includes(2)
+                  })}
+                  data-toggle="wizard-checkbox"
+                  onClick={() => this.choiceChange(2)}
+                >
+                  <input
+                    defaultValue="Code"
+                    name="jobb"
+                    type="checkbox"
+                    onChange={() => this.choiceChange(2)}
+                    checked={classnames({
+                      active: this.state.activeChoices.includes(2)
+                    })}
+                  />
+                  <div className="icon">
+                    <i className="now-ui-icons business_bulb-63"/>
+                  </div>
+                  <h6>Code</h6>
+                </div>
+              </Col>
+              <Col sm="4">
+                <div
+                  className={classnames("choice", {
+                    active: this.state.activeChoices.includes(3)
+                  })}
+                  data-toggle="wizard-checkbox"
+                  onClick={() => this.choiceChange(3)}
+                >
+                  <input
+                    defaultValue="Develop"
+                    name="jobb"
+                    type="checkbox"
+                    onChange={() => this.choiceChange(3)}
+                    checked={classnames({
+                      active: this.state.activeChoices.includes(3)
+                    })}
+                  />
+                  <div className="icon">
+                    <i className="now-ui-icons tech_tv"/>
+                  </div>
+                  <h6>Develop</h6>
+                </div>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </>

@@ -9,7 +9,6 @@ import PanelHeader from "components/PanelHeader/PanelHeader.jsx";
 import Step1 from "./Step1.jsx";
 import Step2 from "./Step2.jsx";
 import Step3 from "./Step3.jsx";
-import Step4 from "./Step4.jsx";
 
 // https://demos.creative-tim.com/now-ui-dashboard-pro/examples/components/icons.html
 const steps = [
@@ -19,19 +18,14 @@ const steps = [
     component: Step1
   },
   {
-    stepName: "Progress",
+    stepName: "Curate",
     stepIcon: "now-ui-icons education_paper",
     component: Step2
   },
   {
-    stepName: "Curate",
-    stepIcon: "now-ui-icons education_paper",
-    component: Step3
-  },
-  {
     stepName: "Publish",
     stepIcon: "now-ui-icons arrows-1_cloud-upload-94",
-    component: Step4
+    component: Step3
   }
 ];
 
