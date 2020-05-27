@@ -137,7 +137,7 @@ class App extends React.Component {
       <div className="App">
         <div>
           {this.state.authState.isLoggedIn
-            ? <Redirect to="/admin/dashboard" />
+            ? <Redirect to="/admin/search" />
             : <Redirect from="/auth" to="/auth/login-page" />
             }
         </div>

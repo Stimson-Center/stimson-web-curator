@@ -137,7 +137,7 @@ class Admin extends React.Component {
           />
           <Switch>
             {this.getRoutes(routes)}
-            <Redirect from="/admin" to="/admin/dashboard" />
+            <Redirect from="/admin" to="/admin/search" />
           </Switch>
           {// we don't want the Footer to be rendered on full screen maps page
           window.location.href.indexOf("full-screen-maps") !== -1 ? null : (

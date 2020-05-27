@@ -14,8 +14,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import Dashboard from "./views/Dashboard/Dashboard.jsx";
+import Search from "./views/Search/Search";
 import Scrape from "./views/Scrape/Scrape";
+// import Dashboard from "./views/Dashboard/Dashboard.jsx";
 // import Buttons from "./views/Components/Buttons.jsx";
 // import GridSystem from "./views/Components/GridSystem.jsx";
 // import Panels from "./views/Components/Panels.jsx";
@@ -27,9 +28,9 @@ import Scrape from "./views/Scrape/Scrape";
 // import ExtendedForms from "./views/Forms/ExtendedForms.jsx";
 // import ValidationForms from "./views/Forms/ValidationForms.jsx";
 // import Wizard from "./views/Forms/Wizard/Wizard.jsx";
-import RegularTables from "./views/Tables/RegularTables.jsx";
-import ExtendedTables from "./views/Tables/ExtendedTables.jsx";
-import ReactTable from "./views/Tables/ReactTable.jsx";
+// import RegularTables from "./views/Tables/RegularTables.jsx";
+// import ExtendedTables from "./views/Tables/ExtendedTables.jsx";
+// import ReactTable from "./views/Tables/ReactTable.jsx";
 // import GoogleMaps from "./views/Maps/GoogleMaps.jsx";
 // import FullScreenMap from "./views/Maps/FullScreenMap.jsx";
 // import VectorMap from "views/Maps/VectorMap.jsx";
@@ -46,16 +47,23 @@ import LockScreenPage from "views/Pages/LockScreenPage.jsx";
 
 let routes = [
   {
-    path: "/dashboard",
-    name: "Dashboard",
-    icon: "now-ui-icons design_app",
-    component: Dashboard,
+    path: "/search",
+    name: "Search",
+    icon: "now-ui-icons ui-1_zoom-bold",
+    component: Search,
     layout: "/admin"
   },
+  // {
+  //   path: "/dashboard",
+  //   name: "Dashboard",
+  //   icon: "now-ui-icons design_app",
+  //   component: Dashboard,
+  //   layout: "/admin"
+  // },
   {
     path: "/scrape",
     name: "Scrape",
-    icon: "now-ui-icons education_agenda-bookmark",
+    icon: "now-ui-icons gestures_tap-01",
     component: Scrape,
     layout: "/admin"
   },
@@ -112,14 +120,14 @@ let routes = [
       //   component: PricingPage,
       //   layout: "/auth"
       // },
-      {
-        path: "/lock-screen-page",
-        name: "Lock Screen Page",
-        short: "Lock",
-        mini: "LSP",
-        component: LockScreenPage,
-        layout: "/auth"
-      }
+      // {
+      //   path: "/lock-screen-page",
+      //   name: "Lock Screen Page",
+      //   short: "Lock",
+      //   mini: "LSP",
+      //   component: LockScreenPage,
+      //   layout: "/auth"
+      // }
     ]
   },
   // {
@@ -217,36 +225,36 @@ let routes = [
   //     }
   //   ]
   // },
-  {
-    collapse: true,
-    path: "/tables",
-    name: "Tables",
-    state: "openTables",
-    icon: "now-ui-icons files_single-copy-04",
-    views: [
-      {
-        path: "/regular-tables",
-        name: "Regular Tables",
-        mini: "RT",
-        component: RegularTables,
-        layout: "/admin"
-      },
-      {
-        path: "/extended-tables",
-        name: "Extended Tables",
-        mini: "ET",
-        component: ExtendedTables,
-        layout: "/admin"
-      },
-      {
-        path: "/react-table",
-        name: "React Table",
-        mini: "RT",
-        component: ReactTable,
-        layout: "/admin"
-      }
-    ]
-  },
+  // {
+  //   collapse: true,
+  //   path: "/tables",
+  //   name: "Tables",
+  //   state: "openTables",
+  //   icon: "now-ui-icons files_single-copy-04",
+  //   views: [
+  //     {
+  //       path: "/regular-tables",
+  //       name: "Regular Tables",
+  //       mini: "RT",
+  //       component: RegularTables,
+  //       layout: "/admin"
+  //     },
+  //     {
+  //       path: "/extended-tables",
+  //       name: "Extended Tables",
+  //       mini: "ET",
+  //       component: ExtendedTables,
+  //       layout: "/admin"
+  //     },
+  //     {
+  //       path: "/react-table",
+  //       name: "React Table",
+  //       mini: "RT",
+  //       component: ReactTable,
+  //       layout: "/admin"
+  //     }
+  //   ]
+  // },
   // {
   //   collapse: true,
   //   path: "/maps",

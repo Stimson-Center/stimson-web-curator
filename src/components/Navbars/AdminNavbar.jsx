@@ -145,17 +145,17 @@ class AdminNavbar extends React.Component {
             navbar
             className="justify-content-end"
           >
-            <form>
-              <InputGroup className="no-border">
-                <Input placeholder="Search..." />
+            {/*<form>*/}
+            {/*  <InputGroup className="no-border">*/}
+            {/*    <Input placeholder="Search..." />*/}
 
-                <InputGroupAddon addonType="append">
-                  <InputGroupText>
-                    <i className="now-ui-icons ui-1_zoom-bold" />
-                  </InputGroupText>
-                </InputGroupAddon>
-              </InputGroup>
-            </form>
+            {/*    <InputGroupAddon addonType="append">*/}
+            {/*      <InputGroupText>*/}
+            {/*        <i className="now-ui-icons ui-1_zoom-bold" />*/}
+            {/*      </InputGroupText>*/}
+            {/*    </InputGroupAddon>*/}
+            {/*  </InputGroup>*/}
+            {/*</form>*/}
             <Nav navbar>
               {this.renderRedirect()}
               <Dropdown
