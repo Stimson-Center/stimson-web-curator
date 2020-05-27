@@ -27,9 +27,9 @@ import Scrape from "./views/Scrape/Scrape";
 // import ExtendedForms from "./views/Forms/ExtendedForms.jsx";
 // import ValidationForms from "./views/Forms/ValidationForms.jsx";
 // import Wizard from "./views/Forms/Wizard/Wizard.jsx";
-// import RegularTables from "./views/Tables/RegularTables.jsx";
-// import ExtendedTables from "./views/Tables/ExtendedTables.jsx";
-// import ReactTable from "./views/Tables/ReactTable.jsx";
+import RegularTables from "./views/Tables/RegularTables.jsx";
+import ExtendedTables from "./views/Tables/ExtendedTables.jsx";
+import ReactTable from "./views/Tables/ReactTable.jsx";
 // import GoogleMaps from "./views/Maps/GoogleMaps.jsx";
 // import FullScreenMap from "./views/Maps/FullScreenMap.jsx";
 // import VectorMap from "views/Maps/VectorMap.jsx";
@@ -217,36 +217,36 @@ let routes = [
   //     }
   //   ]
   // },
-  // {
-  //   collapse: true,
-  //   path: "/tables",
-  //   name: "Tables",
-  //   state: "openTables",
-  //   icon: "now-ui-icons files_single-copy-04",
-  //   views: [
-  //     {
-  //       path: "/regular-tables",
-  //       name: "Regular Tables",
-  //       mini: "RT",
-  //       component: RegularTables,
-  //       layout: "/admin"
-  //     },
-  //     {
-  //       path: "/extended-tables",
-  //       name: "Extended Tables",
-  //       mini: "ET",
-  //       component: ExtendedTables,
-  //       layout: "/admin"
-  //     },
-  //     {
-  //       path: "/react-table",
-  //       name: "React Table",
-  //       mini: "RT",
-  //       component: ReactTable,
-  //       layout: "/admin"
-  //     }
-  //   ]
-  // },
+  {
+    collapse: true,
+    path: "/tables",
+    name: "Tables",
+    state: "openTables",
+    icon: "now-ui-icons files_single-copy-04",
+    views: [
+      {
+        path: "/regular-tables",
+        name: "Regular Tables",
+        mini: "RT",
+        component: RegularTables,
+        layout: "/admin"
+      },
+      {
+        path: "/extended-tables",
+        name: "Extended Tables",
+        mini: "ET",
+        component: ExtendedTables,
+        layout: "/admin"
+      },
+      {
+        path: "/react-table",
+        name: "React Table",
+        mini: "RT",
+        component: ReactTable,
+        layout: "/admin"
+      }
+    ]
+  },
   // {
   //   collapse: true,
   //   path: "/maps",

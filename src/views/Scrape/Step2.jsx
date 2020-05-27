@@ -11,7 +11,6 @@ import {TextArea} from "@thumbtack/thumbprint-react";
 class Step2 extends React.Component {
   constructor(props) {
     super(props);
-    const {wizardData} = props;
     this.state = {
       article: {progress: 0},
       threadId: 0,
@@ -32,15 +31,6 @@ class Step2 extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  // componentDidMount() {
-  //   const {wizardData} = this.props;
-  //   const {article} = this.state;
-  //   if (!isEmpty(wizardData) && !isEmpty(wizardData.Progress.article) && isEmpty(article)) {
-  //     // console.log("Step3 article=" + JSON.stringify(wizardData.Progress, null, 2));
-  //     this.setState({article: wizardData.Progress.article});
-  //   }
-  // }
-
   isValidated() {
     const {article, threadId} = this.state;
     // console.log("Step2: isValidated progress=" + article.progress);
@@ -51,7 +41,6 @@ class Step2 extends React.Component {
   }
 
   handleProgress(event) {
-    const {threadId} = this.state;
     if (event.threadId > 0) {
       // console.log("Step2: handleProgress=" + JSON.stringify(event, null, 2));
       this.setState({article: event.article, threadId: event.threadId});

@@ -29,7 +29,7 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  Button, Nav
+  Button
 } from "reactstrap";
 
 // core components

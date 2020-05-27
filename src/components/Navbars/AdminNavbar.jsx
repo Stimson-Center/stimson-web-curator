@@ -15,7 +15,7 @@
 
 */
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 // used for making the prop types of this component
 import PropTypes from "prop-types";
@@ -27,7 +27,6 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
   Dropdown,
   DropdownToggle,
   DropdownMenu,
@@ -36,7 +35,7 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  Input, Button
+  Input
 } from "reactstrap";
 
 

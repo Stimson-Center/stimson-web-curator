@@ -17,11 +17,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {
-  Collapse,
   Navbar,
   NavbarToggler,
-  Nav,
-  NavItem,
   Container
 } from "reactstrap";
 
