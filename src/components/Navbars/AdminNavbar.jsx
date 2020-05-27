@@ -173,7 +173,7 @@ class AdminNavbar extends React.Component {
                 toggle={e => this.dropdownToggle(e)}
               >
                 <DropdownToggle caret nav>
-                  <i className="now-ui-icons location_world" />
+                  <i className="now-ui-icons text_align-center" />
                   <p>
                     <span className="d-lg-none d-md-block">Some Actions</span>
                   </p>
