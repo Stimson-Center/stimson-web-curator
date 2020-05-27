@@ -96,16 +96,8 @@ class AdminNavbar extends React.Component {
       this.sidebarToggle.current.classList.toggle("toggled");
     }
   }
-  setSignOut = () => {
-    const { signOut } = this.state;
-    if (! signOut) {
-      this.setState({
-        signOut: true
-      })
-    }
-  }
   // https://medium.com/p/4de5e517354a/responses/show
-  renderSignOut = () => {
+  renderRedirect = () => {
     const { signOut } = this.state;
     if (signOut) {
       return (<Redirect push to="/auth/login-page" />);
@@ -166,7 +158,7 @@ class AdminNavbar extends React.Component {
               </InputGroup>
             </form>
             <Nav navbar>
-              {this.renderSignOut()}
+              {this.renderRedirect()}
               <Dropdown
                 nav
                 isOpen={this.state.dropdownOpen}
@@ -181,7 +173,7 @@ class AdminNavbar extends React.Component {
                 <DropdownMenu right>
                   <DropdownItem
                     href="SignOut"
-                    onClick={() => this.setSignOut()}
+                    onClick={e => this.setState({signOut:true})}
                   >
                     Sign Out
                   </DropdownItem>

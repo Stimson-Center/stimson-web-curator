@@ -61,35 +61,35 @@ class AuthNavbar extends React.Component {
               Stimson Web Page Curator
             </Link>
           </div>
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <Link to="/admin/dashboard" className="nav-link">
-                  <i className="now-ui-icons design_bullet-list-67" /> Dashboard
-                </Link>
-              </NavItem>
-              <NavItem className={this.activeRoute("/auth/register-page")}>
-                <Link to="/auth/register-page" className="nav-link">
-                  <i className="now-ui-icons tech_mobile" /> Register
-                </Link>
-              </NavItem>
-              <NavItem className={this.activeRoute("/auth/login-page")}>
-                <Link to="/auth/login-page" className="nav-link">
-                  <i className="now-ui-icons users_circle-08" /> Login
-                </Link>
-              </NavItem>
+          {/*<Collapse isOpen={this.state.isOpen} navbar>*/}
+          {/*  <Nav className="ml-auto" navbar>*/}
+              {/*<NavItem>*/}
+              {/*  <Link to="/admin/dashboard" className="nav-link">*/}
+              {/*    <i className="now-ui-icons design_bullet-list-67" /> Dashboard*/}
+              {/*  </Link>*/}
+              {/*</NavItem>*/}
+              {/*<NavItem className={this.activeRoute("/auth/register-page")}>*/}
+              {/*  <Link to="/auth/register-page" className="nav-link">*/}
+              {/*    <i className="now-ui-icons tech_mobile" /> Register*/}
+              {/*  </Link>*/}
+              {/*</NavItem>*/}
+              {/*<NavItem className={this.activeRoute("/auth/login-page")}>*/}
+              {/*  <Link to="/auth/login-page" className="nav-link">*/}
+              {/*    <i className="now-ui-icons users_circle-08" /> Login*/}
+              {/*  </Link>*/}
+              {/*</NavItem>*/}
               {/*<NavItem className={this.activeRoute("/auth/pricing-page")}>*/}
               {/*  <Link to="/auth/pricing-page" className="nav-link">*/}
               {/*    <i className="now-ui-icons business_money-coins" /> Pricing*/}
               {/*  </Link>*/}
               {/*</NavItem>*/}
-              <NavItem className={this.activeRoute("/auth/lock-screen-page")}>
-                <Link to="/auth/lock-screen-page" className="nav-link">
-                  <i className="now-ui-icons ui-1_lock-circle-open" /> Lock
-                </Link>
-              </NavItem>
-            </Nav>
-          </Collapse>
+              {/*<NavItem className={this.activeRoute("/auth/lock-screen-page")}>*/}
+              {/*  <Link to="/auth/lock-screen-page" className="nav-link">*/}
+              {/*    <i className="now-ui-icons ui-1_lock-circle-open" /> Lock*/}
+              {/*  </Link>*/}
+              {/*</NavItem>*/}
+          {/*  </Nav>*/}
+          {/*</Collapse>*/}
         </Container>
       </Navbar>
     );

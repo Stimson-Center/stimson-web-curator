@@ -29,18 +29,22 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  Button
+  Button, Nav
 } from "reactstrap";
 
 // core components
-import nowLogo from "assets/img/now-logo.png";
+import nowLogo from "assets/img/Stimson_Logo.png";
 
 import bgImage from "assets/img/Stimson_Background.jpg";
+import {Redirect} from "react-router-dom";
 
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      login: false,
+      register: false
+    };
   }
   componentDidMount() {
     document.body.classList.add("login-page");
@@ -48,9 +52,20 @@ class LoginPage extends React.Component {
   componentWillUnmount() {
     document.body.classList.remove("login-page");
   }
+  // https://medium.com/p/4de5e517354a/responses/show
+  renderRedirect = () => {
+    const { login, register } = this.state;
+    if (login) {
+      return (<Redirect push to="/admin/dashboard" />);
+    }
+    if (register) {
+      return (<Redirect push to="/auth/register-page" />);
+    }
+  }
   render() {
     return (
       <>
+        {this.renderRedirect()}
         <div className="content">
           <div className="login-page">
             <Container>
@@ -107,12 +122,17 @@ class LoginPage extends React.Component {
                         size="lg"
                         href="#pablo"
                         className="mb-3 btn-round"
+                        onClick={e => this.setState({login:true})}
                       >
                         Get Started
                       </Button>
                       <div className="pull-left">
                         <h6>
-                          <a href="#pablo" className="link footer-link">
+                          <a
+                            href="#pablo"
+                            className="link footer-link"
+                            onClick={e => this.setState({register:true})}
+                          >
                             Create Account
                           </a>
                         </h6>
