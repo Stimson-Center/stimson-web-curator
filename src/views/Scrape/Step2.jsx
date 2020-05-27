@@ -133,6 +133,18 @@ class Step2 extends React.Component {
             </Col>
             <Col xs={12} sm={5}>
               <FormGroup>
+                <Label>Keywords</Label>
+                <Input
+                  type="text"
+                  value={!isEmpty(article) ? article.keywords : "enter"}
+                  onChange={event => this.handleChange(event, "keywords")}
+                />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row className="justify-content-center">
+          <Col xs={12} sm={10}>
+              <FormGroup>
                 <Label>Summary</Label>
                 <TextArea
                   type="text"
@@ -142,17 +154,9 @@ class Step2 extends React.Component {
                 />
               </FormGroup>
             </Col>
-            <Col xs={12} sm={5}>
-              <FormGroup>
-                <Label>Keywords</Label>
-                <Input
-                  type="text"
-                  value={!isEmpty(article) ? article.keywords : "enter"}
-                  onChange={event => this.handleChange(event, "keywords")}
-                />
-              </FormGroup>
-            </Col>
-            <Col xs={12} sm={5}>
+          </Row>
+          <Row className="justify-content-center">
+          <Col xs={12} sm={10}>
               <FormGroup>
                 <Label>Text</Label>
                 <TextArea
