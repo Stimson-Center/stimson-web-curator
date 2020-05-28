@@ -58,7 +58,7 @@ const getColumnWidth = (rows, accessor, headerText) => {
   return Math.min(maxWidth, cellLength * magicSpacing)
 }
 
-class Search extends Component {
+class Curate extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -148,19 +148,8 @@ class Search extends Component {
         <PanelHeader
           content={
             <div className="header text-center">
-              <h2 className="title">Keyword Search for Articles</h2>
+              <h2 className="title">Keyword Curate for Articles</h2>
               <p className="category">
-                <form>
-                  <InputGroup className="no-border">
-                    <Input placeholder="Search..." />
-
-                    <InputGroupAddon addonType="append">
-                      <InputGroupText>
-                        <i className="now-ui-icons ui-1_zoom-bold" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                  </InputGroup>
-                </form>
               </p>
 
             </div>
@@ -169,6 +158,20 @@ class Search extends Component {
         <div className="content">
           <Row>
             <Col xs={12} md={12}>
+              <Card>
+                <CardHeader>
+                  <form>
+                    <InputGroup className="no-border">
+                      <Input placeholder="Search..." />
+                      <InputGroupAddon addonType="append">
+                        <InputGroupText>
+                          <i className="now-ui-icons ui-1_zoom-bold" />
+                        </InputGroupText>
+                      </InputGroupAddon>
+                    </InputGroup>
+                  </form>
+                </CardHeader>
+              </Card>
               <Card>
                 <CardBody>
                   <ReactTable
@@ -207,4 +210,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
+export default Curate;

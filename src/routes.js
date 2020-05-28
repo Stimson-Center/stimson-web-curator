@@ -14,8 +14,11 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import Scrape from "./views/Scrape/Scrape";
-import Search from "./views/Search/Search";
+
+// https://demos.creative-tim.com/now-ui-dashboard-pro/examples/components/icons.html
+
+import Cleanse from "./views/Cleanse/Cleanse";
+import Curate from "./views/Curate/Curate";
 // import Dashboard from "./views/Dashboard/Dashboard.jsx";
 // import Buttons from "./views/Components/Buttons.jsx";
 // import GridSystem from "./views/Components/GridSystem.jsx";
@@ -47,10 +50,10 @@ import RegisterPage from "views/Pages/RegisterPage.jsx";
 
 let routes = [
   {
-    path: "/search",
-    name: "Search",
+    path: "/curate",
+    name: "Curate",
     icon: "now-ui-icons ui-1_zoom-bold",
-    component: Search,
+    component: Curate,
     layout: "/admin"
   },
   // {
@@ -61,10 +64,10 @@ let routes = [
   //   layout: "/admin"
   // },
   {
-    path: "/scrape",
-    name: "Scrape",
-    icon: "now-ui-icons gestures_tap-01",
-    component: Scrape,
+    path: "/cleanse",
+    name: "Cleanse",
+    icon: "now-ui-icons ui-2_settings-90",
+    component: Cleanse,
     layout: "/admin"
   },
   {

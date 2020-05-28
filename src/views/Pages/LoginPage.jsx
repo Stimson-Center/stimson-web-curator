@@ -56,7 +56,7 @@ class LoginPage extends React.Component {
   renderRedirect = () => {
     const { login, register } = this.state;
     if (login) {
-      return (<Redirect push to="/admin/search" />);
+      return (<Redirect push to="/admin/curate" />);
     }
     if (register) {
       return (<Redirect push to="/auth/register-page" />);

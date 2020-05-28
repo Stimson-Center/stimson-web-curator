@@ -29,7 +29,7 @@ const steps = [
   }
 ];
 
-class Scrape extends Component {
+class Cleanse extends Component {
   render() {
     return (
       <>
@@ -55,4 +55,4 @@ class Scrape extends Component {
   }
 }
 
-export default Scrape;
+export default Cleanse;
