@@ -38,49 +38,25 @@ import {
 import PanelHeader from "../../components/PanelHeader/PanelHeader.jsx";
 
 const dataTable = [
-  ["Tiger Nixon", "System Architect", "Edinburgh", "61"],
-  ["Garrett Winters", "Accountant", "Tokyo", "63"],
-  ["Ashton Cox", "Junior Technical Author", "San Francisco", "66"],
-  ["Cedric Kelly", "Senior Javascript Developer", "Edinburgh", "22"],
-  ["Airi Satou", "Accountant", "Tokyo", "33"],
-  ["Brielle Williamson", "Integration Specialist", "New York", "61"],
-  ["Herrod Chandler", "Sales Assistant", "San Francisco", "59"],
-  ["Rhona Davidson", "Integration Specialist", "Tokyo", "55"],
-  ["Colleen Hurst", "Javascript Developer", "San Francisco", "39"],
-  ["Sonya Frost", "Software Engineer", "Edinburgh", "23"],
-  ["Jena Gaines", "Office Manager", "London", "30"],
-  ["Quinn Flynn", "Support Lead", "Edinburgh", "22"],
-  ["Charde Marshall", "Regional Director", "San Francisco", "36"],
-  ["Haley Kennedy", "Senior Marketing Designer", "London", "43"],
-  ["Tatyana Fitzpatrick", "Regional Director", "London", "19"],
-  ["Michael Silva", "Marketing Designer", "London", "66"],
-  ["Paul Byrd", "Chief Financial Officer (CFO)", "New York", "64"],
-  ["Gloria Little", "Systems Administrator", "New York", "59"],
-  ["Bradley Greer", "Software Engineer", "London", "41"],
-  ["Dai Rios", "Personnel Lead", "Edinburgh", "35"],
-  ["Jenette Caldwell", "Development Lead", "New York", "30"],
-  ["Yuri Berry", "Chief Marketing Officer (CMO)", "New York", "40"],
-  ["Caesar Vance", "Pre-Sales Support", "New York", "21"],
-  ["Doris Wilder", "Sales Assistant", "Sidney", "23"],
-  ["Angelica Ramos", "Chief Executive Officer (CEO)", "London", "47"],
-  ["Gavin Joyce", "Developer", "Edinburgh", "42"],
-  ["Jennifer Chang", "Regional Director", "Singapore", "28"],
-  ["Brenden Wagner", "Software Engineer", "San Francisco", "28"],
-  ["Fiona Green", "Chief Operating Officer (COO)", "San Francisco", "48"],
-  ["Shou Itou", "Regional Marketing", "Tokyo", "20"],
-  ["Michelle House", "Integration Specialist", "Sidney", "37"],
-  ["Suki Burks", "Developer", "London", "53"],
-  ["Prescott Bartlett", "Technical Author", "London", "27"],
-  ["Gavin Cortez", "Team Leader", "San Francisco", "22"],
-  ["Martena Mccray", "Post-Sales support", "Edinburgh", "46"],
-  ["Unity Butler", "Marketing Designer", "San Francisco", "47"],
-  ["Howard Hatfield", "Office Manager", "San Francisco", "51"],
-  ["Hope Fuentes", "Secretary", "San Francisco", "41"],
-  ["Vivian Harrell", "Financial Controller", "San Francisco", "62"],
-  ["Timothy Mooney", "Office Manager", "London", "37"],
-  ["Jackson Bradshaw", "Director", "New York", "65"],
-  ["Olivia Liang", "Support Engineer", "Singapore", "64"]
+  ["61", "Tiger Nixon", "https://securefisheries.org/foreign-iuu-fishing-somali-waters-conflict"],
+  ["63", "Garrett Winters", "https://securefisheries.org/news/illegal-fishing-destabilizing-somalia"],
+  ["66", "Ashton Cox", "https://securefisheries.org/news"],
+  ["22", "Cedric Kelly", "https://www.seafoodsource.com/news/environment-sustainability/noaa-fisheries-report-identifies-iuu-in-ecuador-mexico-south-korea"],
+  ["33", "Airi Satou", "https://www.state.gov/key-topics-office-of-marine-conservation/illegal-unreported-and-unregulated-fishing"],
+  ["61", "Brielle Williamson", "https://ec.europa.eu/fisheries/cfp/illegal_fishing_en"],
+  ["59", "Herrod Chandler", "https://securefisheries.org/news/reasons-care-iuu-fishing"]
 ];
+
+// https://github.com/tannerlinsley/react-table/issues/94
+const getColumnWidth = (rows, accessor, headerText) => {
+  const maxWidth = 400
+  const magicSpacing = 10
+  const cellLength = Math.max(
+    ...rows.map(row => (`${row[accessor]}` || '').length),
+    headerText.length,
+  )
+  return Math.min(maxWidth, cellLength * magicSpacing)
+}
 
 class Search extends Component {
   constructor(props) {
@@ -89,10 +65,9 @@ class Search extends Component {
       data: dataTable.map((prop, key) => {
         return {
           id: key,
-          name: prop[0],
-          position: prop[1],
-          office: prop[2],
-          age: prop[3],
+          score: prop[0],
+          name: prop[1],
+          position: prop[2],
           actions: (
             // we've added some custom button actions
             <div className="actions-right">
@@ -101,14 +76,13 @@ class Search extends Component {
                 onClick={() => {
                   let obj = this.state.data.find(o => o.id === key);
                   alert(
-                    "You've clicked LIKE button on \n{ \nName: " +
+                    "You've clicked LIKE button on  \n{ \n" +
+                    "Score: " +
+                    obj.score +
+                    "Name: " +
                     obj.name +
                     ", \nposition: " +
                     obj.position +
-                    ", \noffice: " +
-                    obj.office +
-                    ", \nage: " +
-                    obj.age +
                     "\n}."
                   );
                 }}
@@ -123,14 +97,13 @@ class Search extends Component {
                 onClick={() => {
                   let obj = this.state.data.find(o => o.id === key);
                   alert(
-                    "You've clicked EDIT button on \n{ \nName: " +
+                    "You've clicked EDIT button on  \n{ \n" +
+                    "Score: " +
+                    obj.score +
+                    "Name: " +
                     obj.name +
                     ", \nposition: " +
                     obj.position +
-                    ", \noffice: " +
-                    obj.office +
-                    ", \nage: " +
-                    obj.age +
                     "\n}."
                   );
                 }}
@@ -168,6 +141,7 @@ class Search extends Component {
       })
     };
   }
+
   render() {
     return (
       <>
@@ -193,8 +167,6 @@ class Search extends Component {
           }
         />
         <div className="content">
-
-
           <Row>
             <Col xs={12} md={12}>
               <Card>
@@ -218,21 +190,18 @@ class Search extends Component {
                     filterable
                     columns={[
                       {
+                        Header: "Score",
+                        accessor: "score",
+                        width: getColumnWidth(this.state.data, 'accessor', 'Score')
+                      },
+                      {
                         Header: "Name",
                         accessor: "name"
                       },
-                      {
-                        Header: "Position",
-                        accessor: "position"
-                      },
-                      {
-                        Header: "Office",
-                        accessor: "office"
-                      },
-                      {
-                        Header: "Age",
-                        accessor: "age"
-                      },
+                      // {
+                      //   Header: "Position",
+                      //   accessor: "position"
+                      // },
                       {
                         Header: "Actions",
                         accessor: "actions",
