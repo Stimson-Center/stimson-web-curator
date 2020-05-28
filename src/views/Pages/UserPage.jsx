@@ -30,7 +30,7 @@ import {
 } from "reactstrap";
 
 // core components
-import PanelHeader from "components/PanelHeader/PanelHeader.jsx";
+import PanelHeader from "../../components/PanelHeader/PanelHeader.jsx";
 
 class User extends React.Component {
   render() {

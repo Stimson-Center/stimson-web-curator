@@ -43,9 +43,9 @@ import Curate from "./views/Curate/Curate";
 // import TimelinePage from "views/Pages/TimelinePage.jsx";
 // import RTL from "views/Pages/RTL.jsx";
 // import PricingPage from "views/Pages/PricingPage.jsx";
-import UserPage from "views/Pages/UserPage.jsx";
-import LoginPage from "views/Pages/LoginPage.jsx";
-import RegisterPage from "views/Pages/RegisterPage.jsx";
+import UserPage from "./views/Pages/UserPage.jsx";
+import LoginPage from "./views/Pages/LoginPage.jsx";
+import RegisterPage from "./views/Pages/RegisterPage.jsx";
 // import LockScreenPage from "views/Pages/LockScreenPage.jsx";
 
 let routes = [
