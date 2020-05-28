@@ -18,7 +18,7 @@ const steps = [
     component: Step1
   },
   {
-    stepName: "Curate",
+    stepName: "Cleanse",
     stepIcon: "now-ui-icons education_paper",
     component: Step2
   },
@@ -40,7 +40,7 @@ class Cleanse extends Component {
               steps={steps}
               navSteps
               validate
-              title="Examine Website Page"
+              title="Analyze Website Page"
               description=""
               headerTextCenter
               color="blue"
