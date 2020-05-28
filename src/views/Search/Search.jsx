@@ -38,18 +38,18 @@ import {
 import PanelHeader from "../../components/PanelHeader/PanelHeader.jsx";
 
 const dataTable = [
-  ["61", "Tiger Nixon", "https://securefisheries.org/foreign-iuu-fishing-somali-waters-conflict"],
-  ["63", "Garrett Winters", "https://securefisheries.org/news/illegal-fishing-destabilizing-somalia"],
-  ["66", "Ashton Cox", "https://securefisheries.org/news"],
-  ["22", "Cedric Kelly", "https://www.seafoodsource.com/news/environment-sustainability/noaa-fisheries-report-identifies-iuu-in-ecuador-mexico-south-korea"],
-  ["33", "Airi Satou", "https://www.state.gov/key-topics-office-of-marine-conservation/illegal-unreported-and-unregulated-fishing"],
-  ["61", "Brielle Williamson", "https://ec.europa.eu/fisheries/cfp/illegal_fishing_en"],
-  ["59", "Herrod Chandler", "https://securefisheries.org/news/reasons-care-iuu-fishing"]
+  ["61", "FOREIGN ILLEGAL, UNREPORTED, AND UNREGULATED FISHING IN SOMALI WATERS PERPETUATES CONFLICT", "https://securefisheries.org/foreign-iuu-fishing-somali-waters-conflict"],
+  ["63", "HOW RAMPANT ILLEGAL FISHING IS DESTABILIZING SOMALIA", "https://securefisheries.org/news/illegal-fishing-destabilizing-somalia"],
+  ["66", "NEWS & EVENTS", "https://securefisheries.org/news"],
+  ["22", "NOAA Fisheries report identifies IUU in Ecuador, Mexico, South Korea", "https://www.seafoodsource.com/news/environment-sustainability/noaa-fisheries-report-identifies-iuu-in-ecuador-mexico-south-korea"],
+  ["33", "Illegal, Unreported, and Unregulated Fishing", "https://www.state.gov/key-topics-office-of-marine-conservation/illegal-unreported-and-unregulated-fishing"],
+  ["61", "Illegal fishing - Fisheries - European Commission", "https://ec.europa.eu/fisheries/cfp/illegal_fishing_en"],
+  ["59", "EIGHT REASONS YOU CARE ABOUT IUU FISHING – YOU JUST DON’T KNOW IT YET", "https://securefisheries.org/news/reasons-care-iuu-fishing"]
 ];
 
 // https://github.com/tannerlinsley/react-table/issues/94
 const getColumnWidth = (rows, accessor, headerText) => {
-  const maxWidth = 400
+  const maxWidth = 800
   const magicSpacing = 10
   const cellLength = Math.max(
     ...rows.map(row => (`${row[accessor]}` || '').length),
@@ -170,20 +170,6 @@ class Search extends Component {
           <Row>
             <Col xs={12} md={12}>
               <Card>
-                {/*<CardHeader>*/}
-                {/*  /!*<CardTitle tag="h4">Keyword Search</CardTitle>*!/*/}
-                {/*  <form>*/}
-                {/*    <InputGroup className="no-border">*/}
-                {/*      <Input placeholder="Search..." />*/}
-
-                {/*      <InputGroupAddon addonType="append">*/}
-                {/*        <InputGroupText>*/}
-                {/*          <i className="now-ui-icons ui-1_zoom-bold" />*/}
-                {/*        </InputGroupText>*/}
-                {/*      </InputGroupAddon>*/}
-                {/*    </InputGroup>*/}
-                {/*  </form>*/}
-                {/*</CardHeader>*/}
                 <CardBody>
                   <ReactTable
                     data={this.state.data}
@@ -192,16 +178,13 @@ class Search extends Component {
                       {
                         Header: "Score",
                         accessor: "score",
-                        width: getColumnWidth(this.state.data, 'accessor', 'Score')
+                        width: getColumnWidth(this.state.data, 'accessor', 'score')
                       },
                       {
                         Header: "Name",
-                        accessor: "name"
+                        accessor: "name",
+                        width: 600
                       },
-                      // {
-                      //   Header: "Position",
-                      //   accessor: "position"
-                      // },
                       {
                         Header: "Actions",
                         accessor: "actions",
