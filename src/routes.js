@@ -43,7 +43,8 @@ import Curate from "./views/Curate/Curate";
 // import TimelinePage from "views/Pages/TimelinePage.jsx";
 // import RTL from "views/Pages/RTL.jsx";
 // import PricingPage from "views/Pages/PricingPage.jsx";
-import UserPage from "./views/Pages/UserPage.jsx";
+// import UserPage from "./views/Pages/UserPage.jsx";
+import UserProfile from "./views/Pages/UserProfilePage.jsx";
 import LoginPage from "./views/Pages/LoginPage.jsx";
 import RegisterPage from "./views/Pages/RegisterPage.jsx";
 // import LockScreenPage from "views/Pages/LockScreenPage.jsx";
@@ -71,6 +72,14 @@ let routes = [
     layout: "/admin"
   },
   {
+    path: "/user-page",
+    name: "User Profile",
+    mini: "UP",
+    component: UserProfile,
+    layout: "/admin",
+    invisible: true
+  },
+  {
     collapse: true,
     path: "/pages",
     name: "Pages",
@@ -85,13 +94,13 @@ let routes = [
       //   component: TimelinePage,
       //   layout: "/admin"
       // },
-      {
-        path: "/user-page",
-        name: "User Profile",
-        mini: "UP",
-        component: UserPage,
-        layout: "/admin"
-      },
+      // {
+      //   path: "/user-page",
+      //   name: "User Profile",
+      //   mini: "UP",
+      //   component: UserPage,
+      //   layout: "/admin"
+      // },
       // {
       //   path: "/rtl-support",
       //   name: "RTL Support",

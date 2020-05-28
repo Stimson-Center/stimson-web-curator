@@ -16,7 +16,7 @@
 */
 /*eslint-disable*/
 import React from "react";
-import { NavLink } from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 // used for making the prop types of this component
 import PropTypes from "prop-types";
 // javascript plugin used to create scrollbars on windows
@@ -36,6 +36,7 @@ class Sidebar extends React.Component {
     super(props);
     this.state = {
       openAvatar: false,
+      userProfile: false,
       ...this.getCollapseStates(props.routes)
     };
     this.sidebar = React.createRef();
@@ -156,6 +157,14 @@ class Sidebar extends React.Component {
   activeRoute = routeName => {
     return window.location.href.indexOf(routeName) > -1 ? "active" : "";
   };
+  // https://medium.com/p/4de5e517354a/responses/show
+  renderRedirect = () => {
+    const { userProfile } = this.state;
+    console.log("userProfile=" + userProfile);
+    if (userProfile) {
+      return (<Redirect push to="/admin/user-page" />);
+    }
+  }
   render() {
     return (
       <>
@@ -194,7 +203,13 @@ class Sidebar extends React.Component {
           <div className="sidebar-wrapper" ref={this.sidebar}>
             <div className="user">
               <div className="photo">
-                <img src={avatar} alt="Avatar" />
+                <img
+                  src={avatar}
+                  alt="Avatar"
+                />
+              </div>
+              <div>
+                {this.renderRedirect()}
               </div>
               <div className="info">
                 <a
@@ -202,7 +217,7 @@ class Sidebar extends React.Component {
                   data-toggle="collapse"
                   aria-expanded={this.state.openAvatar}
                   onClick={() =>
-                    this.setState({ openAvatar: !this.state.openAvatar })
+                    this.setState({ openAvatar: !this.state.openAvatar, userProfile: !this.state.userProfile} )
                   }
                 >
                   <span>
@@ -210,28 +225,28 @@ class Sidebar extends React.Component {
                     <b className="caret" />
                   </span>
                 </a>
-                <Collapse isOpen={this.state.openAvatar}>
-                  <ul className="nav">
-                    <li>
-                      <a href="#pablo" onClick={e => e.preventDefault}>
-                        <span className="sidebar-mini-icon">MP</span>
-                        <span className="sidebar-normal">My Profile</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#pablo" onClick={e => e.preventDefault}>
-                        <span className="sidebar-mini-icon">EP</span>
-                        <span className="sidebar-normal">Edit Profile</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#pablo" onClick={e => e.preventDefault}>
-                        <span className="sidebar-mini-icon">S</span>
-                        <span className="sidebar-normal">Settings</span>
-                      </a>
-                    </li>
-                  </ul>
-                </Collapse>
+                {/*<Collapse isOpen={this.state.openAvatar}>*/}
+                {/*  <ul className="nav">*/}
+                {/*    <li>*/}
+                {/*      <a href="#pablo" onClick={e => e.preventDefault}>*/}
+                {/*        <span className="sidebar-mini-icon">MP</span>*/}
+                {/*        <span className="sidebar-normal">My Profile</span>*/}
+                {/*      </a>*/}
+                {/*    </li>*/}
+                {/*    <li>*/}
+                {/*      <a href="#pablo" onClick={e => e.preventDefault}>*/}
+                {/*        <span className="sidebar-mini-icon">EP</span>*/}
+                {/*        <span className="sidebar-normal">Edit Profile</span>*/}
+                {/*      </a>*/}
+                {/*    </li>*/}
+                {/*    <li>*/}
+                {/*      <a href="#pablo" onClick={e => e.preventDefault}>*/}
+                {/*        <span className="sidebar-mini-icon">S</span>*/}
+                {/*        <span className="sidebar-normal">Settings</span>*/}
+                {/*      </a>*/}
+                {/*    </li>*/}
+                {/*  </ul>*/}
+                {/*</Collapse>*/}
               </div>
             </div>
             <Nav>{this.createLinks(this.props.routes)}</Nav>
