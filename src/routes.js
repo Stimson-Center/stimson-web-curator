@@ -14,8 +14,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import Search from "./views/Search/Search";
 import Scrape from "./views/Scrape/Scrape";
+import Search from "./views/Search/Search";
 // import Dashboard from "./views/Dashboard/Dashboard.jsx";
 // import Buttons from "./views/Components/Buttons.jsx";
 // import GridSystem from "./views/Components/GridSystem.jsx";
@@ -30,7 +30,7 @@ import Scrape from "./views/Scrape/Scrape";
 // import Wizard from "./views/Forms/Wizard/Wizard.jsx";
 // import RegularTables from "./views/Tables/RegularTables.jsx";
 // import ExtendedTables from "./views/Tables/ExtendedTables.jsx";
-// import ReactTable from "./views/Tables/ReactTable.jsx";
+// import ReactTable from "./views/Tables/ReactTables.jsx";
 // import GoogleMaps from "./views/Maps/GoogleMaps.jsx";
 // import FullScreenMap from "./views/Maps/FullScreenMap.jsx";
 // import VectorMap from "views/Maps/VectorMap.jsx";
@@ -43,7 +43,7 @@ import Scrape from "./views/Scrape/Scrape";
 import UserPage from "views/Pages/UserPage.jsx";
 import LoginPage from "views/Pages/LoginPage.jsx";
 import RegisterPage from "views/Pages/RegisterPage.jsx";
-import LockScreenPage from "views/Pages/LockScreenPage.jsx";
+// import LockScreenPage from "views/Pages/LockScreenPage.jsx";
 
 let routes = [
   {

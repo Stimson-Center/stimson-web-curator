@@ -163,7 +163,7 @@ now-ui-dashboad-pro-react
         │   └── UserPage.jsx
         ├── Tables
         │   ├── ExtendedTables.jsx
-        │   ├── ReactTable.jsx
+        │   ├── ReactTables.jsx
         │   └── RegularTables.jsx
         └── Widgets
             └── Widgets.jsx
