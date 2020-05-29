@@ -62,12 +62,13 @@ class Curate extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      cleanse_url: null,
       data: dataTable.map((prop, key) => {
         return {
           id: key,
           score: prop[0],
           name: prop[1],
-          position: prop[2],
+          url: prop[2],
           actions: (
             // we've added some custom button actions
             <div className="actions-right">
@@ -81,8 +82,8 @@ class Curate extends Component {
                     obj.score +
                     "Name: " +
                     obj.name +
-                    ", \nposition: " +
-                    obj.position +
+                    ", \nurl: " +
+                    obj.url +
                     "\n}."
                   );
                 }}
@@ -102,8 +103,8 @@ class Curate extends Component {
                     obj.score +
                     "Name: " +
                     obj.name +
-                    ", \nposition: " +
-                    obj.position +
+                    ", \nurl: " +
+                    obj.url +
                     "\n}."
                   );
                 }}
@@ -140,6 +141,14 @@ class Curate extends Component {
         };
       })
     };
+  }
+
+  componentDidMount() {
+    console.log("Curate: componentDidMount");
+    const {cleanse_url} = this.state;
+    if (cleanse_url !== null) {
+      this.setState({cleanse_url: null});
+    }
   }
 
   render() {

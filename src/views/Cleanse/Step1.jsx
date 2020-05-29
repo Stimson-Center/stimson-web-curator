@@ -8,11 +8,29 @@ class Step1 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: "",
-      urlState: ""
+      url: null,
+      urlState: null,
+      urlFocus: null
     };
     this.urlChange = this.urlChange.bind(this);
   }
+
+  //
+  // componentDidMount() {
+  //   console.log("Cleanse: componentDidMount");
+  //   const {url} = this.state;
+  //   if (url !== null) {
+  //     this.setState({url: null, urlState: null, urlFocus: null});
+  //   }
+  // }
+  //
+  // componentDidUpdate() {
+  //   console.log("Cleanse: componentDidUpdate");
+  //   const {url} = this.state;
+  //   if (url !== null) {
+  //     this.setState({url: null, urlState: null, urlFocus: null});
+  //   }
+  // }
 
   urlChange(e) {
     this.setState({
@@ -54,8 +72,8 @@ class Step1 extends React.Component {
             <InputGroup
               className={
                 "form-control-lg" +
-                (this.state.urlState ? this.state.urlState : "") +
-                (this.state.urlFocus ? " input-group-focus" : "")
+                (this.state.urlState ? this.state.urlState : null) +
+                (this.state.urlFocus ? " input-group-focus" : null)
               }
             >
               <InputGroupAddon addonType="prepend">
