@@ -65,7 +65,7 @@ class Curate extends Component {
       data: dataTable.map((prop, key) => {
         return {
           id: key,
-          score: prop[0],
+          rank: prop[0],
           title: prop[1],
           url: prop[2],
           actions: (
@@ -77,8 +77,8 @@ class Curate extends Component {
                   let obj = this.state.data.find(o => o.id === key);
                   alert(
                     "You've clicked LIKE button on  \n{ \n" +
-                    "Score: " +
-                    obj.score +
+                    "Rank: " +
+                    obj.rank +
                     "Title: " +
                     obj.title +
                     ", \nurl: " +
@@ -99,8 +99,8 @@ class Curate extends Component {
                   this.setState({cleanse_url: obj.url});
                   // alert(
                   //   "You've clicked EDIT button on  \n{ \n" +
-                  //   "Score: " +
-                  //   obj.score +
+                  //   "Rank: " +
+                  //   obj.rank +
                   //   "Title: " +
                   //   obj.title +
                   //   ", \nurl: " +
@@ -206,9 +206,9 @@ class Curate extends Component {
                     filterable
                     columns={[
                       {
-                        Header: "Score",
-                        accessor: "score",
-                        width: getColumnWidth(this.state.data, 'accessor', 'score')
+                        Header: "Rank",
+                        accessor: "rank",
+                        width: getColumnWidth(this.state.data, 'accessor', 'rank')
                       },
                       {
                         Header: "Title",
