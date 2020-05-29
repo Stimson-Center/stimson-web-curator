@@ -41,7 +41,7 @@ class Cleanse extends Component {
                   // />
                 },
                 {
-                  stepName: "Cleanse",
+                  stepName: "Review",
                   stepIcon: "now-ui-icons education_paper",
                   component: Step2
                 },
@@ -53,7 +53,7 @@ class Cleanse extends Component {
               ]}
               navSteps
               validate
-              title="Analyze Website Page"
+              title="Cleanse Article"
               description=""
               headerTextCenter
               color="blue"

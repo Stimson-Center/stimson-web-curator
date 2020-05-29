@@ -66,7 +66,7 @@ class Curate extends Component {
         return {
           id: key,
           score: prop[0],
-          name: prop[1],
+          title: prop[1],
           url: prop[2],
           actions: (
             // we've added some custom button actions
@@ -79,8 +79,8 @@ class Curate extends Component {
                     "You've clicked LIKE button on  \n{ \n" +
                     "Score: " +
                     obj.score +
-                    "Name: " +
-                    obj.name +
+                    "Title: " +
+                    obj.title +
                     ", \nurl: " +
                     obj.url +
                     "\n}."
@@ -101,8 +101,8 @@ class Curate extends Component {
                   //   "You've clicked EDIT button on  \n{ \n" +
                   //   "Score: " +
                   //   obj.score +
-                  //   "Name: " +
-                  //   obj.name +
+                  //   "Title: " +
+                  //   obj.title +
                   //   ", \nurl: " +
                   //   obj.url +
                   //   "\n}."
@@ -175,7 +175,7 @@ class Curate extends Component {
         <PanelHeader
           content={
             <div className="header text-center">
-              <h2 className="title">Keyword Curate for Articles</h2>
+              <h2 className="title">Curate Articles</h2>
               <p className="category">
               </p>
 
@@ -211,8 +211,8 @@ class Curate extends Component {
                         width: getColumnWidth(this.state.data, 'accessor', 'score')
                       },
                       {
-                        Header: "Name",
-                        accessor: "name",
+                        Header: "Title",
+                        accessor: "title",
                         width: 600
                       },
                       {
