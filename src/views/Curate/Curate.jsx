@@ -31,6 +31,7 @@ import {
   InputGroupText,
   Row
 } from "reactstrap";
+import { FaBinoculars } from 'react-icons/fa'; // https://react-icons.github.io/react-icons/icons?name=fa
 // core components
 import PanelHeader from "../../components/PanelHeader/PanelHeader.jsx";
 import {Redirect} from "react-router-dom";
@@ -75,22 +76,23 @@ class Curate extends Component {
               <Button
                 onClick={() => {
                   let obj = this.state.data.find(o => o.id === key);
-                  alert(
-                    "You've clicked LIKE button on  \n{ \n" +
-                    "Rank: " +
-                    obj.rank +
-                    "Title: " +
-                    obj.title +
-                    ", \nurl: " +
-                    obj.url +
-                    "\n}."
-                  );
+                //   alert(
+                //     "You've clicked LIKE button on  \n{ \n" +
+                //     "Rank: " +
+                //     obj.rank +
+                //     "Title: " +
+                //     obj.title +
+                //     ", \nurl: " +
+                //     obj.url +
+                //     "\n}."
+                //   );
+                  window.open(obj.url, "_blank")
                 }}
                 className="btn-icon btn-round"
-                color="info"
+                color="warning"
                 size="sm"
               >
-                <i className="fa fa-heart"/>
+                <FaBinoculars/>
               </Button>{" "}
               {/* use this button to add a edit kind of action */}
               <Button
@@ -109,10 +111,10 @@ class Curate extends Component {
                   // );
                 }}
                 className="btn-icon btn-round"
-                color="warning"
+                color="success"
                 size="sm"
               >
-                <i className="fa fa-edit"/>
+                <i className="fa fa-heart"/>
               </Button>{" "}
               {/* use this button to remove the data row */}
               <Button
