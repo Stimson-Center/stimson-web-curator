@@ -1,3 +1,6 @@
+.env
+.env.bak
+
 .idea/
 *.swp
 .bundle
