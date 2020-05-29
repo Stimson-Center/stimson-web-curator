@@ -15,27 +15,26 @@
 
 */
 /*eslint-disable*/
-import React, { Component } from "react";
+import React, {Component} from "react";
 // react component for creating dynamic tables
 import ReactTable from "react-table";
-
 // reactstrap components
 import {
+  Button,
   Card,
   CardBody,
   CardHeader,
-  CardTitle,
-  Row,
   Col,
-  Button,
+  Input,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  Input
+  Row
 } from "reactstrap";
-
 // core components
 import PanelHeader from "../../components/PanelHeader/PanelHeader.jsx";
+import {Redirect} from "react-router-dom";
+import Cookies from "universal-cookie";
 
 const dataTable = [
   ["61", "FOREIGN ILLEGAL, UNREPORTED, AND UNREGULATED FISHING IN SOMALI WATERS PERPETUATES CONFLICT", "https://securefisheries.org/foreign-iuu-fishing-somali-waters-conflict"],
@@ -91,28 +90,29 @@ class Curate extends Component {
                 color="info"
                 size="sm"
               >
-                <i className="fa fa-heart" />
+                <i className="fa fa-heart"/>
               </Button>{" "}
               {/* use this button to add a edit kind of action */}
               <Button
                 onClick={() => {
                   let obj = this.state.data.find(o => o.id === key);
-                  alert(
-                    "You've clicked EDIT button on  \n{ \n" +
-                    "Score: " +
-                    obj.score +
-                    "Name: " +
-                    obj.name +
-                    ", \nurl: " +
-                    obj.url +
-                    "\n}."
-                  );
+                  this.setState({cleanse_url: obj.url});
+                  // alert(
+                  //   "You've clicked EDIT button on  \n{ \n" +
+                  //   "Score: " +
+                  //   obj.score +
+                  //   "Name: " +
+                  //   obj.name +
+                  //   ", \nurl: " +
+                  //   obj.url +
+                  //   "\n}."
+                  // );
                 }}
                 className="btn-icon btn-round"
                 color="warning"
                 size="sm"
               >
-                <i className="fa fa-edit" />
+                <i className="fa fa-edit"/>
               </Button>{" "}
               {/* use this button to remove the data row */}
               <Button
@@ -123,18 +123,18 @@ class Curate extends Component {
                       // here you should add some custom code so you can delete the data
                       // from this component and from your server as well
                       data.splice(i, 1);
-                      console.log(data);
+                      // console.log(data);
                       return true;
                     }
                     return false;
                   });
-                  this.setState({ data: data });
+                  this.setState({data: data});
                 }}
                 className="btn-icon btn-round"
                 color="danger"
                 size="sm"
               >
-                <i className="fa fa-times" />
+                <i className="fa fa-times"/>
               </Button>{" "}
             </div>
           )
@@ -144,16 +144,34 @@ class Curate extends Component {
   }
 
   componentDidMount() {
-    console.log("Curate: componentDidMount");
+    // console.log("Curate: componentDidMount");
     const {cleanse_url} = this.state;
     if (cleanse_url !== null) {
       this.setState({cleanse_url: null});
     }
   }
 
+  // https://medium.com/p/4de5e517354a/responses/show
+  renderRedirect = () => {
+    const {cleanse_url} = this.state;
+    if (cleanse_url) {
+      const cookies = new Cookies();
+      let d = new Date();
+      const minutes = 10;
+      d.setTime(d.getTime() + (minutes*60*1000));
+      cookies.set("cleanse_url", cleanse_url, {path: "/", expires: d});
+      // https://stackoverflow.com/questions/52064303/reactjs-pass-props-with-redirect-component
+      return (<Redirect push to={{
+        pathname: "/admin/cleanse",
+        state: {url: cleanse_url}
+      }}/>);
+    }
+  }
+
   render() {
     return (
       <>
+        {this.renderRedirect()}
         <PanelHeader
           content={
             <div className="header text-center">
@@ -171,10 +189,10 @@ class Curate extends Component {
                 <CardHeader>
                   <form>
                     <InputGroup className="no-border">
-                      <Input placeholder="Search..." />
+                      <Input placeholder="Search..."/>
                       <InputGroupAddon addonType="append">
                         <InputGroupText>
-                          <i className="now-ui-icons ui-1_zoom-bold" />
+                          <i className="now-ui-icons ui-1_zoom-bold"/>
                         </InputGroupText>
                       </InputGroupAddon>
                     </InputGroup>

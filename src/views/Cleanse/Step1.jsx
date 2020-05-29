@@ -1,12 +1,15 @@
 import React from "react";
 // reactstrap components
 import {Col, Input, InputGroup, InputGroupAddon, InputGroupText, Row} from "reactstrap";
+import Cookies from "universal-cookie";
 
 // core components
+
 
 class Step1 extends React.Component {
   constructor(props) {
     super(props);
+    // console.log("Step1 props=" + JSON.stringify(props));
     this.state = {
       url: null,
       urlState: null,
@@ -16,21 +19,19 @@ class Step1 extends React.Component {
   }
 
   //
-  // componentDidMount() {
-  //   console.log("Cleanse: componentDidMount");
-  //   const {url} = this.state;
-  //   if (url !== null) {
-  //     this.setState({url: null, urlState: null, urlFocus: null});
-  //   }
-  // }
-  //
-  // componentDidUpdate() {
-  //   console.log("Cleanse: componentDidUpdate");
-  //   const {url} = this.state;
-  //   if (url !== null) {
-  //     this.setState({url: null, urlState: null, urlFocus: null});
-  //   }
-  // }
+  componentDidMount() {
+    // console.log("Step1: componentDidMount");
+    const cookies = new Cookies();
+    const cleanse_url = cookies.get("cleanse_url");
+    if (cleanse_url !== undefined) {
+      this.setState({
+        url: cleanse_url,
+        urlState: " has-success",
+        urlFocus: true
+      });
+      cookies.remove("cleanse_url");
+    }
+  }
 
   urlChange(e) {
     this.setState({

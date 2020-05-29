@@ -13,7 +13,7 @@ export const convertTimestampToDateFormat = (timestamp) => {
 
   // NOTE: Do NOT USE getUTC* API here since you want the date, month and year to roll forward or backward when
   // local timezone taken into account!
-  console.log(utcDate.toUTCString());
+  // console.log(utcDate.toUTCString());
   return "{0}-{1}-{2}".formatUnicorn(
     utcDate.getFullYear(),
     utcDate.getMonth() + 1,

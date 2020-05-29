@@ -35,7 +35,8 @@
     "react-table": "6.11.5",
     "react-tagsinput": "3.19.0",
     "reactstrap": "8.4.1",
-    "@thumbtack/thumbprint-react": "^12.5.0"
+    "@thumbtack/thumbprint-react": "^12.5.0",
+    "universal-cookie": "4.0.3"
   },
   "scripts": {
     "start": "react-scripts start",

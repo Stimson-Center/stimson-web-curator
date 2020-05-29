@@ -60,7 +60,7 @@ const ProppedRoute = ({ render: C, props: childProps, ...rest }) => (
 // https://aws-amplify.github.io/docs/js/authentication
 class AuthComponent extends React.Component {
   handleStateChange = (state) => {
-    console.log(state);
+    // console.log(state);
     if (state === 'signedIn') {
       this.props.onUserSignIn();
     }
