@@ -160,7 +160,7 @@ class Sidebar extends React.Component {
   // https://medium.com/p/4de5e517354a/responses/show
   renderRedirect = () => {
     const { userProfile } = this.state;
-    console.log("userProfile=" + userProfile);
+    // console.log("userProfile=" + userProfile);
     if (userProfile) {
       return (<Redirect push to="/admin/user-page" />);
     }

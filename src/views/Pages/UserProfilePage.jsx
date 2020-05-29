@@ -62,7 +62,7 @@ class UserProfile extends React.Component {
 
   render() {
     const {username, email, mobile, firstName, lastName, address, city, country, postalCode} = this.state;
-    console.log(username);
+    // console.log(username);
     return (
       <>
         <PanelHeader size="sm" />
