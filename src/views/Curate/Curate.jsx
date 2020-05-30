@@ -38,13 +38,13 @@ import {Redirect} from "react-router-dom";
 import Cookies from "universal-cookie";
 
 const dataTable = [
-  ["61", "FOREIGN ILLEGAL, UNREPORTED, AND UNREGULATED FISHING IN SOMALI WATERS PERPETUATES CONFLICT", "https://securefisheries.org/foreign-iuu-fishing-somali-waters-conflict"],
-  ["63", "HOW RAMPANT ILLEGAL FISHING IS DESTABILIZING SOMALIA", "https://securefisheries.org/news/illegal-fishing-destabilizing-somalia"],
-  ["66", "NEWS & EVENTS", "https://securefisheries.org/news"],
-  ["22", "NOAA Fisheries report identifies IUU in Ecuador, Mexico, South Korea", "https://www.seafoodsource.com/news/environment-sustainability/noaa-fisheries-report-identifies-iuu-in-ecuador-mexico-south-korea"],
-  ["33", "Illegal, Unreported, and Unregulated Fishing", "https://www.state.gov/key-topics-office-of-marine-conservation/illegal-unreported-and-unregulated-fishing"],
-  ["61", "Illegal fishing - Fisheries - European Commission", "https://ec.europa.eu/fisheries/cfp/illegal_fishing_en"],
-  ["59", "EIGHT REASONS YOU CARE ABOUT IUU FISHING – YOU JUST DON’T KNOW IT YET", "https://securefisheries.org/news/reasons-care-iuu-fishing"]
+  ["1", "FOREIGN ILLEGAL, UNREPORTED, AND UNREGULATED FISHING IN SOMALI WATERS PERPETUATES CONFLICT", "https://securefisheries.org/foreign-iuu-fishing-somali-waters-conflict"],
+  ["2", "HOW RAMPANT ILLEGAL FISHING IS DESTABILIZING SOMALIA", "https://securefisheries.org/news/illegal-fishing-destabilizing-somalia"],
+  ["3", "NEWS & EVENTS", "https://securefisheries.org/news"],
+  ["4", "NOAA Fisheries report identifies IUU in Ecuador, Mexico, South Korea", "https://www.seafoodsource.com/news/environment-sustainability/noaa-fisheries-report-identifies-iuu-in-ecuador-mexico-south-korea"],
+  ["5", "Illegal, Unreported, and Unregulated Fishing", "https://www.state.gov/key-topics-office-of-marine-conservation/illegal-unreported-and-unregulated-fishing"],
+  ["6", "Illegal fishing - Fisheries - European Commission", "https://ec.europa.eu/fisheries/cfp/illegal_fishing_en"],
+  ["7", "EIGHT REASONS YOU CARE ABOUT IUU FISHING – YOU JUST DON’T KNOW IT YET", "https://securefisheries.org/news/reasons-care-iuu-fishing"]
 ];
 
 // https://github.com/tannerlinsley/react-table/issues/94
@@ -194,7 +194,15 @@ class Curate extends Component {
                       <Input placeholder="Search..."/>
                       <InputGroupAddon addonType="append">
                         <InputGroupText>
-                          <i className="now-ui-icons ui-1_zoom-bold"/>
+                          <Button
+                            onClick={() => {
+                            }}
+                            className="btn-icon btn-round"
+                            color="info"
+                            size="sm"
+                          >
+                            <i className="now-ui-icons ui-1_zoom-bold"/>
+                          </Button>{" "}
                         </InputGroupText>
                       </InputGroupAddon>
                     </InputGroup>
@@ -214,8 +222,7 @@ class Curate extends Component {
                       },
                       {
                         Header: "Title",
-                        accessor: "title",
-                        width: 600
+                        accessor: "title"
                       },
                       {
                         Header: "Actions",
