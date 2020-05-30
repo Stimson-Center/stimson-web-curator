@@ -13,14 +13,28 @@ import time
 import json
 import logging
 import datetime
+import requests
+import os
+
 
 from flask import Flask, request, render_template
-#from flask.ext.cors import CORS, cross_origin
 from flask_cors import CORS, cross_origin
 
+from bs4 import BeautifulSoup
+# https://preslav.me/2019/01/09/dotenv-files-python/
+from dotenv import load_dotenv
+from googleapiclient.discovery import build  # Import the library
 
 from scraper import Article
 from scraper.configuration import Configuration
+
+
+__title__ = 'stimson-web-curator'
+__author__ = 'Alan S. Cooper'
+__license__ = 'MIT'
+__copyright__ = 'Copyright 2020, The Stimson Center'
+__maintainer__ = "The Stimson Center"
+__maintainer_email = "cooper@pobox.com"
 
 exporting_threads = {}
 app = Flask(__name__)
@@ -104,6 +118,32 @@ def get_article_progress(thread_id):
         })
     # exporting_threads.pop(thread_id, None)
     return result, 200, {'Content-Type': 'application/json'}
+
+
+
+@app.route('/search', methods=['GET', 'OPTIONS'])
+@cross_origin(origin='localhost', headers=['Content-Type','Authorization','Access-Control-Allow-Origin'])
+def google_search():
+    # print("Args=" + json.dumps(request.args))
+    # print("Values=" + json.dumps(request.values))
+    # print("Form=" + json.dumps(request.form))
+    query = request.args.get('query')
+
+    # Get environment variables
+    load_dotenv()
+    api_key = os.getenv('GOOGLE_SECRET_API_KEY')
+    cse_id = os.getenv('GOOGLE_SECRET_CUSTOM_SEARCH_ID')
+    # https://www.pingshiuanchua.com/blog/post/scraping-search-results-from-google-search
+    # https://towardsdatascience.com/current-google-search-packages-using-python-3-7-a-simple-tutorial-3606e459e0d4
+    query_service = build("customsearch", "v1", developerKey=api_key, cache_discovery=False)
+    kwargs = {"num": 10, "siteSearch": "scholar.google.com", "siteSearchFilter": "e" }
+    # https://developers.google.com/custom-search/v1/cse/list
+    query_results = query_service.cse().list(q=query, cx=cse_id, **kwargs).execute()
+    my_google_urls = []
+    for result in query_results['items']:
+        my_google_urls.append(result['link'])
+
+    return json.dumps(my_google_urls), 200, {'Content-Type': 'application/json'}
 
 
 @app.route("/")
