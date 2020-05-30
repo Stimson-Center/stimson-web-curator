@@ -63,6 +63,8 @@ class Curate extends Component {
     super(props);
     this.state = {
       cleanse_url: null,
+      query: null,
+      queryFocus: true,
       data: dataTable.map((prop, key) => {
         return {
           id: key,
@@ -153,6 +155,13 @@ class Curate extends Component {
     }
   }
 
+  handleSearch() {
+    const { query } = this.state;
+    if (query) {
+
+    }
+  }
+
   // https://medium.com/p/4de5e517354a/responses/show
   renderRedirect = () => {
     const {cleanse_url} = this.state;
@@ -191,12 +200,20 @@ class Curate extends Component {
                 <CardHeader>
                   <form>
                     <InputGroup className="no-border">
-                      <Input placeholder="Search..."/>
+                      <Input
+                        placeholder="Search..."
+                        defaultValue={this.state.url}
+                        type="url"
+                        placeholder="Search"
+                        name="search"
+                        onFocus={e => this.setState({queryFocus: true})}
+                        onBlur={e => this.setState({queryFocus: false})}
+                        onChange={e => this.setState({query: e.target.value})}
+                      />
                       <InputGroupAddon addonType="append">
                         <InputGroupText>
                           <Button
-                            onClick={() => {
-                            }}
+                            onClick={() => this.handleSearch()}
                             className="btn-icon btn-round"
                             color="info"
                             size="sm"
