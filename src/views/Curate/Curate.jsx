@@ -37,14 +37,14 @@ import PanelHeader from "../../components/PanelHeader/PanelHeader.jsx";
 import {Redirect} from "react-router-dom";
 import Cookies from "universal-cookie";
 
-const dataTable = [
-  ["1", "FOREIGN ILLEGAL, UNREPORTED, AND UNREGULATED FISHING IN SOMALI WATERS PERPETUATES CONFLICT", "https://securefisheries.org/foreign-iuu-fishing-somali-waters-conflict"],
-  ["2", "HOW RAMPANT ILLEGAL FISHING IS DESTABILIZING SOMALIA", "https://securefisheries.org/news/illegal-fishing-destabilizing-somalia"],
-  ["3", "NEWS & EVENTS", "https://securefisheries.org/news"],
-  ["4", "NOAA Fisheries report identifies IUU in Ecuador, Mexico, South Korea", "https://www.seafoodsource.com/news/environment-sustainability/noaa-fisheries-report-identifies-iuu-in-ecuador-mexico-south-korea"],
-  ["5", "Illegal, Unreported, and Unregulated Fishing", "https://www.state.gov/key-topics-office-of-marine-conservation/illegal-unreported-and-unregulated-fishing"],
-  ["6", "Illegal fishing - Fisheries - European Commission", "https://ec.europa.eu/fisheries/cfp/illegal_fishing_en"],
-  ["7", "EIGHT REASONS YOU CARE ABOUT IUU FISHING – YOU JUST DON’T KNOW IT YET", "https://securefisheries.org/news/reasons-care-iuu-fishing"]
+let dataTable = [
+  [1, "FOREIGN ILLEGAL, UNREPORTED, AND UNREGULATED FISHING IN SOMALI WATERS PERPETUATES CONFLICT", "https://securefisheries.org/foreign-iuu-fishing-somali-waters-conflict"],
+  [2, "HOW RAMPANT ILLEGAL FISHING IS DESTABILIZING SOMALIA", "https://securefisheries.org/news/illegal-fishing-destabilizing-somalia"],
+  [3, "NEWS & EVENTS", "https://securefisheries.org/news"],
+  [4, "NOAA Fisheries report identifies IUU in Ecuador, Mexico, South Korea", "https://www.seafoodsource.com/news/environment-sustainability/noaa-fisheries-report-identifies-iuu-in-ecuador-mexico-south-korea"],
+  [5, "Illegal, Unreported, and Unregulated Fishing", "https://www.state.gov/key-topics-office-of-marine-conservation/illegal-unreported-and-unregulated-fishing"],
+  [6, "Illegal fishing - Fisheries - European Commission", "https://ec.europa.eu/fisheries/cfp/illegal_fishing_en"],
+  [7, "EIGHT REASONS YOU CARE ABOUT IUU FISHING – YOU JUST DON’T KNOW IT YET", "https://securefisheries.org/news/reasons-care-iuu-fishing"]
 ];
 
 // https://github.com/tannerlinsley/react-table/issues/94
@@ -65,86 +65,9 @@ class Curate extends Component {
       cleanse_url: null,
       query: null,
       queryFocus: true,
-      data: dataTable.map((prop, key) => {
-        return {
-          id: key,
-          rank: prop[0],
-          title: prop[1],
-          url: prop[2],
-          actions: (
-            // we've added some custom button actions
-            <div className="actions-right">
-              {/* use this button to add a like kind of action */}
-              <Button
-                onClick={() => {
-                  let obj = this.state.data.find(o => o.id === key);
-                //   alert(
-                //     "You've clicked LIKE button on  \n{ \n" +
-                //     "Rank: " +
-                //     obj.rank +
-                //     "Title: " +
-                //     obj.title +
-                //     ", \nurl: " +
-                //     obj.url +
-                //     "\n}."
-                //   );
-                  window.open(obj.url, "_blank")
-                }}
-                className="btn-icon btn-round"
-                color="warning"
-                size="sm"
-              >
-                <FaBinoculars/>
-              </Button>{" "}
-              {/* use this button to add a edit kind of action */}
-              <Button
-                onClick={() => {
-                  let obj = this.state.data.find(o => o.id === key);
-                  this.setState({cleanse_url: obj.url});
-                  // alert(
-                  //   "You've clicked EDIT button on  \n{ \n" +
-                  //   "Rank: " +
-                  //   obj.rank +
-                  //   "Title: " +
-                  //   obj.title +
-                  //   ", \nurl: " +
-                  //   obj.url +
-                  //   "\n}."
-                  // );
-                }}
-                className="btn-icon btn-round"
-                color="success"
-                size="sm"
-              >
-                <i className="fa fa-heart"/>
-              </Button>{" "}
-              {/* use this button to remove the data row */}
-              <Button
-                onClick={() => {
-                  const data = this.state.data;
-                  data.find((o, i) => {
-                    if (o.id === key) {
-                      // here you should add some custom code so you can delete the data
-                      // from this component and from your server as well
-                      data.splice(i, 1);
-                      // console.log(data);
-                      return true;
-                    }
-                    return false;
-                  });
-                  this.setState({data: data});
-                }}
-                className="btn-icon btn-round"
-                color="danger"
-                size="sm"
-              >
-                <i className="fa fa-times"/>
-              </Button>{" "}
-            </div>
-          )
-        };
-      })
+      data: this.handleData(dataTable)
     };
+    this.handleData = this.handleData.bind(this);
   }
 
   componentDidMount() {
@@ -155,10 +78,89 @@ class Curate extends Component {
     }
   }
 
+  handleData(dataTable) {
+    let rows = dataTable.map((prop, key) => {
+      return {
+        id: key,
+        rank: prop[0],
+        title: prop[1],
+        url: prop[2],
+        actions: (
+          // we've added some custom button actions
+          <div className="actions-right">
+            {/* use this button to add a like kind of action */}
+            <Button
+              onClick={() => {
+                let obj = this.state.data.find(o => o.id === key);
+                window.open(obj.url, "_blank")
+              }}
+              className="btn-icon btn-round"
+              color="warning"
+              size="sm"
+            >
+              <FaBinoculars/>
+            </Button>{" "}
+            {/* use this button to add a edit kind of action */}
+            <Button
+              onClick={() => {
+                let obj = this.state.data.find(o => o.id === key);
+                this.setState({cleanse_url: obj.url});
+              }}
+              className="btn-icon btn-round"
+              color="success"
+              size="sm"
+            >
+              <i className="fa fa-heart"/>
+            </Button>{" "}
+            {/* use this button to remove the data row */}
+            <Button
+              onClick={() => {
+                const data = this.state.data;
+                data.find((o, i) => {
+                  if (o.id === key) {
+                    // here you should add some custom code so you can delete the data
+                    // from this component and from your server as well
+                    data.splice(i, 1);
+                    // console.log(data);
+                    return true;
+                  }
+                  return false;
+                });
+                this.setState({data: data});
+              }}
+              className="btn-icon btn-round"
+              color="danger"
+              size="sm"
+            >
+              <i className="fa fa-times"/>
+            </Button>{" "}
+          </div>
+        )
+      };
+    })
+    return rows;
+  }
   handleSearch() {
     const { query } = this.state;
     if (query) {
+      // set up the request parameters
+      const params = {
+        api_key: "demo",
+        location: "New York,New York,United States",
+        q: query
+      }
 
+      // make the http GET request to Scale SERP
+      axios.get('https://api.scaleserp.com/search', { params })
+        .then(response => {
+
+          // print the JSON response from Scale SERP
+          console.log(JSON.stringify(response.data, 0, 2));
+
+        }).catch(error => {
+        // catch and print the error
+        console.log(error);
+      });
     }
   }
 
