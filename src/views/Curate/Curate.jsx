@@ -36,6 +36,7 @@ import { FaBinoculars } from 'react-icons/fa'; // https://react-icons.github.io/
 import PanelHeader from "../../components/PanelHeader/PanelHeader.jsx";
 import {Redirect} from "react-router-dom";
 import Cookies from "universal-cookie";
+import axios from 'axios';
 
 let dataTable = [
   [1, "FOREIGN ILLEGAL, UNREPORTED, AND UNREGULATED FISHING IN SOMALI WATERS PERPETUATES CONFLICT", "https://securefisheries.org/foreign-iuu-fishing-somali-waters-conflict"],
@@ -79,6 +80,7 @@ class Curate extends Component {
   }
 
   handleData(dataTable) {
+    // noinspection UnnecessaryLocalVariableJS
     let rows = dataTable.map((prop, key) => {
       return {
         id: key,
@@ -153,10 +155,17 @@ class Curate extends Component {
       // make the http GET request to Scale SERP
       axios.get('https://api.scaleserp.com/search', { params })
         .then(response => {
-
-          // print the JSON response from Scale SERP
-          console.log(JSON.stringify(response.data, 0, 2));
-
+          let searchResults = [];
+          if (response.data.length) {
+            const organic_results = response.data.organic_results;
+            // print the JSON response from Scale SERP
+            // console.log(JSON.stringify(organic_results, 0, 2));
+            let i;
+            for (i = 0; i < organic_results.length; i++) {
+              searchResults.push(organic_results[i].position, organic_results[i].snippet, organic_results[i].link);
+            }
+            this.setState(this.handleData(searchResults));
+          }
         }).catch(error => {
         // catch and print the error
         console.log(error);
@@ -206,7 +215,6 @@ class Curate extends Component {
                         placeholder="Search..."
                         defaultValue={this.state.url}
                         type="url"
-                        placeholder="Search"
                         name="search"
                         onFocus={e => this.setState({queryFocus: true})}
                         onBlur={e => this.setState({queryFocus: false})}
