@@ -86,7 +86,7 @@ def get_article():
     thread_id = random.randint(0, 10000)
     exporting_threads[thread_id] = ExportingThread(url)
     exporting_threads[thread_id].start()
-    result = json.dumps({"thread_id": thread_id})
+    result = {"thread_id": thread_id}
     return result, 200, {'Content-Type': 'application/json'}
 
 
@@ -136,14 +136,14 @@ def google_search():
     # https://www.pingshiuanchua.com/blog/post/scraping-search-results-from-google-search
     # https://towardsdatascience.com/current-google-search-packages-using-python-3-7-a-simple-tutorial-3606e459e0d4
     query_service = build("customsearch", "v1", developerKey=api_key, cache_discovery=False)
-    kwargs = {"num": 10, "siteSearch": "scholar.google.com", "siteSearchFilter": "e" }
+    kwargs = {"num": 10, "siteSearch": "patents.google.com", "siteSearchFilter": "e" }
     # https://developers.google.com/custom-search/v1/cse/list
     query_results = query_service.cse().list(q=query, cx=cse_id, **kwargs).execute()
     my_google_urls = []
     for result in query_results['items']:
         my_google_urls.append(result['link'])
 
-    return json.dumps(my_google_urls), 200, {'Content-Type': 'application/json'}
+    return my_google_urls, 200, {'Content-Type': 'application/json'}
 
 
 @app.route("/")
