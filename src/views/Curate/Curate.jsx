@@ -40,12 +40,13 @@ import axios from 'axios';
 
 let dataTable = [
   [1, "FOREIGN ILLEGAL, UNREPORTED, AND UNREGULATED FISHING IN SOMALI WATERS PERPETUATES CONFLICT", "https://securefisheries.org/foreign-iuu-fishing-somali-waters-conflict"],
-  [2, "HOW RAMPANT ILLEGAL FISHING IS DESTABILIZING SOMALIA", "https://securefisheries.org/news/illegal-fishing-destabilizing-somalia"],
-  [3, "NEWS & EVENTS", "https://securefisheries.org/news"],
-  [4, "NOAA Fisheries report identifies IUU in Ecuador, Mexico, South Korea", "https://www.seafoodsource.com/news/environment-sustainability/noaa-fisheries-report-identifies-iuu-in-ecuador-mexico-south-korea"],
-  [5, "Illegal, Unreported, and Unregulated Fishing", "https://www.state.gov/key-topics-office-of-marine-conservation/illegal-unreported-and-unregulated-fishing"],
-  [6, "Illegal fishing - Fisheries - European Commission", "https://ec.europa.eu/fisheries/cfp/illegal_fishing_en"],
-  [7, "EIGHT REASONS YOU CARE ABOUT IUU FISHING – YOU JUST DON’T KNOW IT YET", "https://securefisheries.org/news/reasons-care-iuu-fishing"]
+  [2, "FOREIGN ILLEGAL, UNREPORTED, AND UNREGULATED FISHING IN SOMALI WATERS PERPETUATES CONFLICT Full", "https://www.frontiersin.org/articles/10.3389/fmars.2019.00704/full"],
+  [3, "HOW RAMPANT ILLEGAL FISHING IS DESTABILIZING SOMALIA", "https://securefisheries.org/news/illegal-fishing-destabilizing-somalia"],
+  [4, "NEWS & EVENTS", "https://securefisheries.org/news"],
+  [5, "NOAA Fisheries report identifies IUU in Ecuador, Mexico, South Korea", "https://www.seafoodsource.com/news/environment-sustainability/noaa-fisheries-report-identifies-iuu-in-ecuador-mexico-south-korea"],
+  [6, "Illegal, Unreported, and Unregulated Fishing", "https://www.state.gov/key-topics-office-of-marine-conservation/illegal-unreported-and-unregulated-fishing"],
+  [7, "Illegal fishing - Fisheries - European Commission", "https://ec.europa.eu/fisheries/cfp/illegal_fishing_en"],
+  [8, "EIGHT REASONS YOU CARE ABOUT IUU FISHING – YOU JUST DON’T KNOW IT YET", "https://securefisheries.org/news/reasons-care-iuu-fishing"]
 ];
 
 // https://github.com/tannerlinsley/react-table/issues/94
