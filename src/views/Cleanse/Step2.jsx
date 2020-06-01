@@ -48,11 +48,17 @@ class Step2 extends React.Component {
   }
 
   handleChange(event, stateName) {
-    // console.log(stateName + " " + event.target.value + " " + stateNameMinLength);
-    let {article} = this.state;
-    article[stateName] = event.target.value
+
+    const {article} = this.state;
+    let article_update = article;
+    if (Object.prototype.toString.call(event) === "[object String]") {
+      article_update[stateName] = event
+    }
+    else {
+      article_update[stateName] = event.target.value
+    }
     this.setState({
-      [stateName]: event.target.value,
+      article: article_update,
       updated: true
     });
   };
