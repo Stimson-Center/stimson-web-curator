@@ -4,6 +4,18 @@ stimson-web-curator
 
 Client GUI for Data Curation
 
+Table of Contents
+=================
+
+   * [stimson-web-curator](#stimson-web-curator)
+   * [Getting Started](#getting-started)
+      * [Get the source code hierarchy](#get-the-source-code-hierarchy)
+      * [Building](#building)
+      * [Development RESTful API Server](#development-restful-api-server)
+      * [Development GUI Server](#development-gui-server)
+      * [Running Tests](#running-tests)
+      * [Deploy](#deploy)
+      
 # Getting Started
 
 ```bash
