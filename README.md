@@ -6,26 +6,19 @@ Interactive curation of scraped web pages
 Table of Contents
 =================
 
-   * [stimson-web-scraper](#stimson-web-scraper)
+   * [stimson-web-curator](#stimson-web-curator)
    * [Table of Contents](#table-of-contents)
-      * [Getting Started on Mac OS](#getting-started-on-mac-os)
-      * [Install Desktop tools](#install-desktop-tools)
-         * [Download GitHub desktop](#download-github-desktop)
-         * [Optionally Download PyCharm Professional](#optionally-download-pycharm-professional)
+   * [Getting Started](#getting-started)
       * [Git on the Server Generating Your SSH Public Key](#git-on-the-server-generating-your-ssh-public-key)
       * [Install the selenium-webdriver](#install-the-selenium-webdriver)
-      * [get project source code](#get-project-source-code)
-      * [Getting started with Web Scraping](#getting-started-with-web-scraping)
-         * [Execute test suite to ensure environmental integrity](#execute-test-suite-to-ensure-environmental-integrity)
-         * [Execute as an Python3 executable](#execute-as-an-python3-executable)
-         * [Execute as an Python3 package](#execute-as-an-python3-package)
-            * [Get an article from a Website Page](#get-an-article-from-a-website-page)
-            * [Foreign Language Websites](#foreign-language-websites)
-            * [Extract text from Adobe PDF files in any ISO language](#extract-text-from-adobe-pdf-files-in-any-iso-language)
-            * [Get all of the URLs within a Website](#get-all-of-the-urls-within-a-website)
-            * [Get a Wikipedia Article including embedded tables](#get-a-wikipedia-article-including-embedded-tables)
-      * [Optionally Setting up a Docker environment](#optionally-setting-up-a-docker-environment)
-   * [Contributing](#contributing)
+      * [Get the source code hierarchy](#get-the-source-code-hierarchy)
+      * [Building](#building)
+   * [Make a Google Custom Search Engine](#make-a-google-custom-search-engine)
+   * [Make a Google Cloud Console "Project" to get API key](#make-a-google-cloud-console-project-to-get-api-key)
+      * [Development RESTful API Server](#development-restful-api-server)
+      * [Development GUI Server](#development-gui-server)
+      * [Running Tests](#running-tests)
+      * [Deploy](#deploy)
       
 # Getting Started
 
@@ -118,6 +111,40 @@ Example: /Users/<your home directory>/GitHub/myweddingstay/stimson-web-curator
   cd ~/stimson-web-curator
   npm install
   pip3 install -r requirements.txt
+```
+
+# Make a Google Custom Search Engine
+
+Go to https://www.google.com/cse/
+
+Create a custom search engine
+
+Get search engine ID
+
+You can test the custom search engine by directly visiting its "Public URL" which is found in "Setup" => "Details" => "Public URL"
+
+# Make a Google Cloud Console "Project" to get API key
+
+Go to https://console.developers.google.com/apis/dashboard
+
+Create a project or select
+
+Enable APIs and services
+
+Select Custom Search API and enable it
+
+Click "Create credentials"
+
+Get your credentials for Custom Search API
+
+Go to Credentials and get API key
+
+```bash
+    cd ~/stimson-web-curator
+    touch .env
+    echo SKIP_PREFLIGHT_CHECK=true >> .env
+    echo GOOGLE_SECRET_API_KEY="from google procedure above"
+    echo GOOGLE_SECRET_CUSTOM_SEARCH_ID="from google procedure above"
 ```
 
 - `npm run build` creates a production build by default.
