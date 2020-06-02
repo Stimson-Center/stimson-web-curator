@@ -133,7 +133,7 @@ def google_search():
     api_key = os.getenv('GOOGLE_SECRET_API_KEY')
     cse_id = os.getenv('GOOGLE_SECRET_CUSTOM_SEARCH_ID')
     # Get search request param and log it
-    search_string = request.args.get('searchString', 'Illegal Unregulated Unrestricted Fishing')
+    search_string = request.args.get('searchString', '')
     search_start = request.args.get('searchStart', '1')
     page_size = 10
     print('search string: ' + search_string)
