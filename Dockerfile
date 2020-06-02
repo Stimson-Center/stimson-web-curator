@@ -26,18 +26,34 @@ COPY requirements.txt .
 RUN ${PIP} --no-cache-dir install virtualenv
 RUN ${PIP} --no-cache-dir install -r requirements.txt
 
-COPY bashrc /etc/bash.bashrc
-RUN chmod a+rwx /etc/bash.bashrc
+#COPY bashrc /etc/bash.bashrc
+#RUN chmod a+rwx /etc/bash.bashrc
 
 #ENV TZ=UTC
 #RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 #RUN apt-get install -y tzdata
 
-EXPOSE 4444
+# Install Node.js
+RUN apt-get install --yes curl
+RUN curl --silent --location https://deb.nodesource.com/setup_14.x | sudo bash -
+RUN apt-get install --yes nodejs
+RUN apt-get install --yes build-essential
 
-WORKDIR /mnt
+# Bundle app source
+# Trouble with COPY http://stackoverflow.com/a/30405787/2926832
+COPY . /src
+
+# Install app dependencies
+RUN cd /src; npm install
+
+
+EXPOSE 4444, 3000, 5000
+
+WORKDIR /src
 USER seluser
 
-# Define default command.
-CMD ["bash"]
+
+#  Defines your runtime(define default command)
+# These commands unlike RUN (they are carried out in the construction of the container) are run when the container
+CMD ["sh", "-c", "./run.sh"]
 
