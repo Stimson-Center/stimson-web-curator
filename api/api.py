@@ -120,30 +120,61 @@ def get_article_progress(thread_id):
     return result, 200, {'Content-Type': 'application/json'}
 
 
-
+# https://github.com/gregdferrell/google-custom-search-json-demo
 @app.route('/search', methods=['GET', 'OPTIONS'])
 @cross_origin(origin='localhost', headers=['Content-Type','Authorization','Access-Control-Allow-Origin'])
 def google_search():
     # print("Args=" + json.dumps(request.args))
     # print("Values=" + json.dumps(request.values))
     # print("Form=" + json.dumps(request.form))
-    query = request.args.get('query')
 
     # Get environment variables
     load_dotenv()
     api_key = os.getenv('GOOGLE_SECRET_API_KEY')
     cse_id = os.getenv('GOOGLE_SECRET_CUSTOM_SEARCH_ID')
+    # Get search request param and log it
+    search_string = request.args.get('searchString', 'Illegal Unregulated Unrestricted Fishing')
+    search_start = request.args.get('searchStart', '1')
+    page_size = 10
+    print('search string: ' + search_string)
+    print('search start: ' + search_start)
+
+    if search_string == '':
+        api_response = {"search_string": '', "search_result_message": '', "num_results": 0, "page_size": page_size}
+        return api_response, 401, {'Content-Type': 'application/json'}
+
     # https://www.pingshiuanchua.com/blog/post/scraping-search-results-from-google-search
     # https://towardsdatascience.com/current-google-search-packages-using-python-3-7-a-simple-tutorial-3606e459e0d4
-    query_service = build("customsearch", "v1", developerKey=api_key, cache_discovery=False)
-    kwargs = {"num": 10, "siteSearch": "patents.google.com", "siteSearchFilter": "e" }
-    # https://developers.google.com/custom-search/v1/cse/list
-    query_results = query_service.cse().list(q=query, cx=cse_id, **kwargs).execute()
-    my_google_urls = []
-    for result in query_results['items']:
-        my_google_urls.append(result['link'])
+    # Construct URL and call API
+    url = 'https://www.googleapis.com/customsearch/v1?q={}&start={}&cx={}&key={}'.format(
+        search_string, search_start, cse_id, api_key)
+    response = requests.get(url)
 
-    return my_google_urls, 200, {'Content-Type': 'application/json'}
+    if response.status_code != 200:
+        search_result_message = 'Search returned an error: {} {}'.format(
+            response.status_code, response.reason)
+        api_response = {"search_string": search_string, "search_result_message": search_result_message, "num_results": 0, "page_size": page_size}
+        return api_response, response.status_code, {'Content-Type': 'application/json'}
+
+    # Render search results
+    data = response.json()
+    num_results = int(data.get('searchInformation').get('totalResults'))
+    search_time = data.get('searchInformation').get('formattedSearchTime')
+    results = data.get('items')
+    search_result_message = 'No results found ({} seconds)'.format(
+        search_time) if num_results == 0 else 'About {} results ({} seconds)'.format(
+        num_results, search_time)
+
+    api_response = {
+        "search_string": search_string,
+        "search_result_message": search_result_message,
+        "num_results": num_results,
+        "search_start": search_start,
+        "search_time": search_time,
+        "results": results,
+        "page_size": page_size
+    }
+    return api_response, 200, {'Content-Type': 'application/json'}
 
 
 @app.route("/")
