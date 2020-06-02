@@ -147,6 +147,16 @@ Go to Credentials and get API key
     echo GOOGLE_SECRET_CUSTOM_SEARCH_ID="from google procedure above"
 ```
 
+Links:
+
+[Google Developers Console - Projects (API Key)](https://console.developers.google.com/project)
+
+[Best practices for securely using API keys](https://developers.google.com/console/help/new/#usingkeys)
+
+[Google Custom Search Engine Setup (search Engine ID)](https://www.google.com/cse/all)
+
+[Google CustomSearch API v1](http://developers.google.com/apis-explorer/#p/customsearch/v1)
+
 - `npm run build` creates a production build by default.
 
    To create a development build, set the `NODE_ENV` environment variable to `development` while running this command.
