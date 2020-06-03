@@ -32,11 +32,13 @@ import {
   Row
 } from "reactstrap";
 import { FaBinoculars } from 'react-icons/fa'; // https://react-icons.github.io/react-icons/icons?name=fa
-// core components
-import PanelHeader from "../../components/PanelHeader/PanelHeader.jsx";
 import {Redirect} from "react-router-dom";
 import Cookies from "universal-cookie";
 import axios from 'axios';
+// core components
+import PanelHeader from "../../components/PanelHeader/PanelHeader.jsx"
+import {googleCustomSearchUrl} from "../../Utils";
+
 
 let dataTable = [
   [1, "FOREIGN ILLEGAL, UNREPORTED, AND UNREGULATED FISHING IN SOMALI WATERS PERPETUATES CONFLICT", "https://securefisheries.org/foreign-iuu-fishing-somali-waters-conflict"],
@@ -147,26 +149,23 @@ class Curate extends Component {
     const { query } = this.state;
     if (query) {
       // set up the request parameters
-      const params = {
-        api_key: "demo",
-        location: "New York,New York,United States",
-        q: query
-      }
-
+      const url = googleCustomSearchUrl(query, 1);
       // make the http GET request to Scale SERP
-      axios.get('https://api.scaleserp.com/search', { params })
+      axios.get(url)
         .then(response => {
           let searchResults = [];
-          if (response.data.length) {
-            const organic_results = response.data.organic_results;
+          // if (response.data.length) {
+            const results = response.data.results;
             // print the JSON response from Scale SERP
             // console.log(JSON.stringify(organic_results, 0, 2));
             let i;
-            for (i = 0; i < organic_results.length; i++) {
-              searchResults.push(organic_results[i].position, organic_results[i].snippet, organic_results[i].link);
+            for (i = 0; i < results.length; i++) {
+              searchResults.push(i+1, results[i].snippet, results[i].link);
             }
-            this.setState(this.handleData(searchResults));
-          }
+            let newDataTable = [];
+            newDataTable.push(searchResults);
+            this.setState({data: this.handleData(newDataTable)});
+          // }
         }).catch(error => {
         // catch and print the error
         console.log(error);
