@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import {googleCustomSearchUrl} from "../../Utils";
 
-it('GoogleCustomSearch without crashing', async () => {
+it('GoogleCustomSearch', async () => {
   const url = googleCustomSearchUrl("Illegal Unregulated Unrestricted Fishing", 1);
   console.log(JSON.stringify(url, null, 2));
   expect(url).toEqual("http://localhost:5000/search?searchString=Illegal%20Unregulated%20Unrestricted%20Fishing&searchStart=1");

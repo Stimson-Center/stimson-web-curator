@@ -31,7 +31,7 @@ import {
   InputGroupText,
   Row
 } from "reactstrap";
-import { FaBinoculars } from 'react-icons/fa'; // https://react-icons.github.io/react-icons/icons?name=fa
+import {FaBinoculars} from 'react-icons/fa'; // https://react-icons.github.io/react-icons/icons?name=fa
 import {Redirect} from "react-router-dom";
 import Cookies from "universal-cookie";
 import axios from 'axios';
@@ -39,17 +39,6 @@ import axios from 'axios';
 import PanelHeader from "../../components/PanelHeader/PanelHeader.jsx"
 import {googleCustomSearchUrl} from "../../Utils";
 
-
-let dataTable = [
-  [1, "FOREIGN ILLEGAL, UNREPORTED, AND UNREGULATED FISHING IN SOMALI WATERS PERPETUATES CONFLICT", "https://securefisheries.org/foreign-iuu-fishing-somali-waters-conflict"],
-  [2, "FOREIGN ILLEGAL, UNREPORTED, AND UNREGULATED FISHING IN SOMALI WATERS PERPETUATES CONFLICT Full", "https://www.frontiersin.org/articles/10.3389/fmars.2019.00704/full"],
-  [3, "HOW RAMPANT ILLEGAL FISHING IS DESTABILIZING SOMALIA", "https://securefisheries.org/news/illegal-fishing-destabilizing-somalia"],
-  [4, "NEWS & EVENTS", "https://securefisheries.org/news"],
-  [5, "NOAA Fisheries report identifies IUU in Ecuador, Mexico, South Korea", "https://www.seafoodsource.com/news/environment-sustainability/noaa-fisheries-report-identifies-iuu-in-ecuador-mexico-south-korea"],
-  [6, "Illegal, Unreported, and Unregulated Fishing", "https://www.state.gov/key-topics-office-of-marine-conservation/illegal-unreported-and-unregulated-fishing"],
-  [7, "Illegal fishing - Fisheries - European Commission", "https://ec.europa.eu/fisheries/cfp/illegal_fishing_en"],
-  [8, "EIGHT REASONS YOU CARE ABOUT IUU FISHING – YOU JUST DON’T KNOW IT YET", "https://securefisheries.org/news/reasons-care-iuu-fishing"]
-];
 
 // https://github.com/tannerlinsley/react-table/issues/94
 const getColumnWidth = (rows, accessor, headerText) => {
@@ -69,7 +58,7 @@ class Curate extends Component {
       cleanse_url: null,
       query: null,
       queryFocus: true,
-      data: this.handleData(dataTable)
+      data: this.handleData([ [] ])
     };
     this.handleData = this.handleData.bind(this);
   }
@@ -145,8 +134,9 @@ class Curate extends Component {
     })
     return rows;
   }
+
   handleSearch() {
-    const { query } = this.state;
+    const {query} = this.state;
     if (query) {
       // set up the request parameters
       const url = googleCustomSearchUrl(query, 1);
@@ -155,16 +145,17 @@ class Curate extends Component {
         .then(response => {
           let searchResults = [];
           // if (response.data.length) {
-            const results = response.data.results;
-            // print the JSON response from Scale SERP
-            // console.log(JSON.stringify(organic_results, 0, 2));
-            let i;
-            for (i = 0; i < results.length; i++) {
-              searchResults.push(i+1, results[i].snippet, results[i].link);
+          const results = response.data.results;
+          let newDataTable = [];
+          let i;
+          let rowNumber = 1;
+          for (i = 0; i < results.length; i++) {
+            if (results[i].snippet && results[i].link){
+              newDataTable.push([rowNumber++, results[i].snippet, results[i].link]);
             }
-            let newDataTable = [];
-            newDataTable.push(searchResults);
-            this.setState({data: this.handleData(newDataTable)});
+          }
+          // console.log("newDataTable=" + JSON.stringify(newDataTable, null, 2));
+          this.setState({data: this.handleData(newDataTable)});
           // }
         }).catch(error => {
         // catch and print the error
@@ -180,7 +171,7 @@ class Curate extends Component {
       const cookies = new Cookies();
       let d = new Date();
       const minutes = 10;
-      d.setTime(d.getTime() + (minutes*60*1000));
+      d.setTime(d.getTime() + (minutes * 60 * 1000));
       cookies.set("cleanse_url", cleanse_url, {path: "/", expires: d});
       // https://stackoverflow.com/questions/52064303/reactjs-pass-props-with-redirect-component
       return (<Redirect push to={{
