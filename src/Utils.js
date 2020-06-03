@@ -20,3 +20,8 @@ export const convertTimestampToDateFormat = (timestamp) => {
     utcDate.getDate()
   );
 };
+
+export const googleCustomSearchUrl = (searchString, searchStart) => {
+  const url = `http://localhost:5000/search?searchString=${searchString}&searchStart=${searchStart}`;
+  return encodeURI(url);
+}
