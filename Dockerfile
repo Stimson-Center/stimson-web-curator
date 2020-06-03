@@ -7,6 +7,11 @@ USER root
 # Needed for string substitution
 SHELL ["/bin/bash", "-c"]
 
+RUN apt-get -y update
+RUN apt-get -y install build-essential libpoppler-cpp-dev pkg-config python-dev libpoppler-dev
+# sudo apt-get -y install libpoppler58=0.41.0-0ubuntu1 libpoppler-dev libpoppler-cpp-dev
+
+
 ARG USE_PYTHON_3_NOT_2=True
 ARG _PY_SUFFIX=${USE_PYTHON_3_NOT_2:+3}
 ARG PYTHON=python${_PY_SUFFIX}
@@ -47,7 +52,8 @@ COPY . /src
 RUN cd /src; npm install
 
 
-EXPOSE 4444, 3000, 5000
+# EXPOSE 4444, 3000, 5000
+EXPOSE 3000
 
 WORKDIR /src
 USER seluser
