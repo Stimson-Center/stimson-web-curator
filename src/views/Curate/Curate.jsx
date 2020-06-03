@@ -139,28 +139,33 @@ class Curate extends Component {
     const {query} = this.state;
     if (query) {
       // set up the request parameters
-      const url = googleCustomSearchUrl(query, 1);
-      // make the http GET request to Scale SERP
-      axios.get(url)
-        .then(response => {
-          let searchResults = [];
-          // if (response.data.length) {
-          const results = response.data.results;
-          let newDataTable = [];
-          let i;
-          let rowNumber = 1;
-          for (i = 0; i < results.length; i++) {
-            if (results[i].snippet && results[i].link){
-              newDataTable.push([rowNumber++, results[i].snippet, results[i].link]);
+      let newDataTable = [];
+      let rowNumber = 1;
+      let searchStart = 1;
+      for (let searchCount = 1; searchCount <= 10; searchCount++) {
+        const url = googleCustomSearchUrl(query, searchStart);
+        // make the http GET request to Scale SERP
+        axios.get(url)
+          .then(response => {
+            let searchResults = [];
+            // if (response.data.length) {
+            const results = response.data.results;
+            for (let i = 0; i < results.length; i++) {
+              if (results[i].snippet && results[i].link) {
+                newDataTable.push([rowNumber++, results[i].snippet, results[i].link]);
+              }
             }
-          }
-          // console.log("newDataTable=" + JSON.stringify(newDataTable, null, 2));
-          this.setState({data: this.handleData(newDataTable)});
-          // }
-        }).catch(error => {
-        // catch and print the error
-        console.log(error);
-      });
+            if (searchCount === 10) {
+              // console.log("newDataTable=" + JSON.stringify(newDataTable, null, 2));
+              this.setState({data: this.handleData(newDataTable)});
+            }
+            // }
+          }).catch(error => {
+          // catch and print the error
+          console.log(error);
+        });
+        searchStart += 10;
+      }
     }
   }
 
