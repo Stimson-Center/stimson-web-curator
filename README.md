@@ -19,7 +19,8 @@ Table of Contents
       * [Development GUI Server](#development-gui-server)
       * [Running Tests](#running-tests)
       * [Deploy](#deploy)
-      
+   * [Docker](#docker)
+ 
 # Getting Started
 
 ```bash
@@ -185,4 +186,14 @@ Links:
 
 ```bash
     ./deploy.sh
+```
+
+# Docker
+
+See DOCKER.md for more more details
+
+```bash
+	docker build -t stimson-web-curator .  
+  	docker run -p 3000:3000 -v $(PWD):/src -it stimson-web-curator
+	open http://localhost:3000
 ```

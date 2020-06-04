@@ -53,7 +53,7 @@ RUN cd /src; npm install
 
 
 # EXPOSE 4444, 3000, 5000
-EXPOSE 3000
+EXPOSE 3000 5000
 
 WORKDIR /src
 USER seluser
