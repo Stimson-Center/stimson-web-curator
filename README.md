@@ -194,6 +194,6 @@ See DOCKER.md for more more details
 
 ```bash
 	docker build -t stimson-web-curator .  
-  	docker run -p 3000:3000 -v $(PWD):/src -it stimson-web-curator
+  	docker run -p 3000:3000 -p 5000:5000 -v $(PWD):/src -it stimson-web-curator
 	open http://localhost:3000
 ```
