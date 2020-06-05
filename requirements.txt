@@ -3,4 +3,5 @@ flask-cors
 python-dotenv
 nltk
 requests
+google-api-python-client>=1.9.1
 stimson-web-scraper>=0.0.9
