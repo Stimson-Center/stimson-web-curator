@@ -14,7 +14,6 @@
 ## Specifications
 
   - Version: 
-  - NodeJS Version: 
   - Python Version: 
   - Operating System: 
 
