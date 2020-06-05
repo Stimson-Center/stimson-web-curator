@@ -43,3 +43,4 @@ amplify/.config/local-env-info.json
 **/__pycache__
 
 .bash_history
+.cache
