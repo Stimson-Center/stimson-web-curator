@@ -193,7 +193,14 @@ Links:
 See DOCKER.md for more more details
 
 ```bash
-	docker build -t stimson-web-curator .  
-  	docker run --user seluser -p 3000:3000 -p 5000:5000 -v $(PWD):/home/seluser -it stimson-web-curator
-	open http://localhost:3000
+    docker build -t stimson-web-curator .  
+    docker run --user seluser -p 3000:3000 -p 5000:5000 -v $(PWD):/home/seluser -it stimson-web-curator
+    open http://localhost:3000
 ```
+
+To debug docker container
+
+```bash
+    docker run  -it -v `pwd`:/home/seluser --entrypoint=/bin/bash stimson-web-curator
+```
+
