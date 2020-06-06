@@ -1,10 +1,13 @@
 import React from "react";
+import axios from "axios";
+
 // react plugin used to create DropdownMenu for selecting items
 // reactstrap components
 import {Col, FormGroup, Input, Label, Row, Progress} from "reactstrap";
 import {isEmpty} from "../../Utils";
 import {Article} from "../../components/Article/Article";
 import {TextArea} from "@thumbtack/thumbprint-react";
+import {domain} from "../../variables/general";
 
 // core components
 
@@ -92,6 +95,20 @@ class Step2 extends React.Component {
         </>
       );
     } else  if (article.progress === 100) {
+      if (article.thread_id > 0) {
+        axios({
+          method: 'delete',
+          baseUrl: domain,
+          url: '/article/' + article.thread_id,
+          headers: {
+            "Authorization": "",
+            'Content-Type': 'application/json;charset=UTF-8'
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        });
+      }
       return (
         <>
           <h5 className="info-text"> Review / Modify Results</h5>
