@@ -44,3 +44,4 @@ amplify/.config/local-env-info.json
 
 .bash_history
 .cache
+.config/configstore/update-notifier-npm.json
