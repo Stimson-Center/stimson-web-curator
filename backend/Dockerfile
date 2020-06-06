@@ -25,8 +25,8 @@ RUN ${PIP} --no-cache-dir install --upgrade pip setuptools
 # Some TF tools expect a "python" binary
 RUN ln -s $(which ${PYTHON}) /usr/local/bin/python
 
-#COPY bashrc /etc/bash.bashrc
-#RUN chmod a+rwx /etc/bash.bashrc
+COPY bashrc /etc/bash.bashrc
+RUN chmod a+rwx /etc/bash.bashrc
 
 ENV TZ=UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone

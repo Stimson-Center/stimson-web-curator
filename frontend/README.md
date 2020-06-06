@@ -89,6 +89,7 @@ See DOCKER.md for more more details
 
 ```bash
     cd ~/stimson-web-curator/backend
+    docker system prune --force
     docker build -t stimson-web-curator-gui .  
     docker run --user ubuntu -p 3000:3000 -it stimson-web-curator-gui
     open http://localhost:5000
