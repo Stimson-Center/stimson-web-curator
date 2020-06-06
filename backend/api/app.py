@@ -5,13 +5,11 @@
 # https://github.com/flask-restful/flask-restful/blob/master/examples/todo.py
 
 import datetime
-import json
 import logging
 import os
 import random
 import threading
 
-import nltk
 import requests
 # https://preslav.me/2019/01/09/dotenv-files-python/
 from dotenv import load_dotenv
@@ -61,7 +59,8 @@ def authorize_token():
 
 
 class GetToken(Resource):
-    def post(self):
+    @staticmethod
+    def post():
         token = '12345678'
         return token  # token sent to client to return in subsequent
         # requests in Authorization header
@@ -94,14 +93,16 @@ class ExportingThread(threading.Thread):
 
 
 class HelloWorld(Resource):
-    def get(self):
+    @staticmethod
+    def get():
         return {'hello': 'world'}
 
 
 # https://stackoverflow.com/questions/24251898/flask-app-update-progress-bar-while-function-runs
 # https://stackoverflow.com/questions/13279399/how-to-obtain-values-of-request-variables-using-python-and-flask
 class ArticlePool(Resource):
-    def get(self):
+    @staticmethod
+    def get():
         global exporting_threads
         # print("Args=" + json.dumps(request.args))
         # print("Values=" + json.dumps(request.values))
@@ -113,10 +114,17 @@ class ArticlePool(Resource):
         result = {"thread_id": thread_id}
         return result, 200, {'Content-Type': 'application/json'}
 
+    @staticmethod
+    def delete(thread_id):
+        global exporting_threads
+        exporting_threads.pop(thread_id)
+        return {}, 200, {'Content-Type': 'application/json'}
+
 
 # https://stackoverflow.com/questions/24251898/flask-app-update-progress-bar-while-function-runs
 class ArticleProgress(Resource):
-    def get(self, thread_id):
+    @staticmethod
+    def get(thread_id):
         global exporting_threads
         # print("Args=" + json.dumps(request.args))
         # print("Values=" + json.dumps(request.values))
@@ -148,7 +156,8 @@ class ArticleProgress(Resource):
 
 
 class Search(Resource):
-    def get(self):
+    @staticmethod
+    def get():
         # print("Args=" + json.dumps(request.args))
         # print("Values=" + json.dumps(request.values))
         # print("Form=" + json.dumps(request.form))
