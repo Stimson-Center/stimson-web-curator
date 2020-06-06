@@ -118,6 +118,9 @@ class ArticlePool(Resource):
 class ArticleProgress(Resource):
     def get(self, thread_id):
         global exporting_threads
+        # print("Args=" + json.dumps(request.args))
+        # print("Values=" + json.dumps(request.values))
+        # print("Form=" + json.dumps(request.form))
         article = exporting_threads[thread_id].article
         if isinstance(article.publish_date, datetime.date):
             publish_date = article.publish_date.strftime("%Y-%m-%d")
@@ -140,6 +143,7 @@ class ArticleProgress(Resource):
             "tables": article.tables
         })
         # exporting_threads.pop(thread_id, None)
+        # print(json.dumps(result))
         return result, 200, {'Content-Type': 'application/json'}
 
 
@@ -207,17 +211,7 @@ api.add_resource(Search, '/search')
 if __name__ == '__main__':
     from waitress import serve
 
-    REQUIRED_CORPORA = [
-        'brown',  # Required for FastNPExtractor
-        'punkt',  # Required for WordTokenizer
-        'maxent_treebank_pos_tagger',  # Required for NLTKTagger
-        'movie_reviews',  # Required for NaiveBayesAnalyzer
-        'wordnet',  # Required for lemmatization and Wordnet
-        'stopwords'
-    ]
-    for each in REQUIRED_CORPORA:
-        print(('Downloading "{0}"'.format(each)))
-        nltk.download(each)
-    print("Finished.")
-    # app.run(debug=True, host='0.0.0.0', port=5000, threaded=True)
-    serve(app, host="0.0.0.0", port=port, threads=100)
+    if os.getenv('FLASK_ENV') == 'development':
+        app.run(debug=True, host='0.0.0.0', port=port, threaded=True)
+    else:
+        serve(app, host="0.0.0.0", port=port, threads=100)
