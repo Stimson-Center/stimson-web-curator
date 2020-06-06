@@ -1,7 +1,9 @@
 flask
 flask-cors
+flask_restful
+google-api-python-client>=1.9.1
 python-dotenv
 nltk
 requests
-google-api-python-client>=1.9.1
 stimson-web-scraper>=0.0.9
+waitress>=1.4.4
