@@ -128,7 +128,7 @@ class ArticleProgress(Resource):
             publish_date = article.publish_date
         else:
             publish_date = "2020-05-28"
-        result = json.dumps({
+        result = {
             "authors": article.authors,
             "images:": list(article.images),
             "keywords": article.keywords,
@@ -141,7 +141,7 @@ class ArticleProgress(Resource):
             "topimage": article.top_image,
             "url": article.url,
             "tables": article.tables
-        })
+        }
         # exporting_threads.pop(thread_id, None)
         # print(json.dumps(result))
         return result, 200, {'Content-Type': 'application/json'}
