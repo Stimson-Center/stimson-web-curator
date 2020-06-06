@@ -45,3 +45,8 @@ amplify/.config/local-env-info.json
 .bash_history
 .cache
 .config/configstore/update-notifier-npm.json
+
+**/.local/
+**/nltk_data/
+**/.config/
+**/.bash_profile

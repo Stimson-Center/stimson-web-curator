@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # app.py - a minimal flask api using flask_restful
 # https://medium.com/@doedotdev/docker-flask-a-simple-tutorial-bbcb2f4110b5
 # https://github.com/flask-restful/flask-restful/blob/master/examples/todo.py

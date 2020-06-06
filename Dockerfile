@@ -31,6 +31,7 @@ RUN ln -s $(which ${PYTHON}) /usr/local/bin/python
 
 COPY bashrc /etc/bash.bashrc
 RUN chmod a+rwx /etc/bash.bashrc
+RUN echo "export PATH=${PATH}:/home/seluser/.local/bin" > /home/seluser/.bash_profile
 
 ENV TZ=UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -67,9 +68,6 @@ EXPOSE 3000 5000
 
 #  Defines your runtime(define default command)
 # These commands unlike RUN (they are carried out in the construction of the container) are run when the container
-CMD ["sh", "-c", "npm", "start"]
-
-ENTRYPOINT ["python"]
-WORKDIR /usr/app/backend
-CMD ["api/app.py"]
+WORKDIR /usr/app
+CMD ["sh", "-c", "/usr/app/start.sh"]
 

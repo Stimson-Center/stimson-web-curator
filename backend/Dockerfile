@@ -27,6 +27,7 @@ RUN ln -s $(which ${PYTHON}) /usr/local/bin/python
 
 COPY bashrc /etc/bash.bashrc
 RUN chmod a+rwx /etc/bash.bashrc
+RUN echo "export PATH=${PATH}:/home/seluser/.local/bin" > /home/seluser/.bash_profile
 
 ENV TZ=UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
