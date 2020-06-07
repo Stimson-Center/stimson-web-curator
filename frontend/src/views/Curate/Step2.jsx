@@ -7,8 +7,8 @@ import {FaBinoculars} from 'react-icons/fa'; // https://react-icons.github.io/re
 import {Redirect} from "react-router-dom";
 import Cookies from "universal-cookie";
 import axios from 'axios';
+import {isEmpty} from "../../Utils";
 // core components
-import {googleCustomSearchUrl} from "../../Utils";
 
 
 // https://github.com/tannerlinsley/react-table/issues/94
@@ -27,7 +27,7 @@ class Step2 extends Component {
     super(props);
     this.state = {
       cleanse_url: null,
-      search: {
+      query: {
         allOfTheseWords: null,
         exactWordOrPhrase: null,
         anyOfTheseWords: null,
@@ -120,26 +120,27 @@ class Step2 extends Component {
   }
 
   handleSearch() {
-    const {search} = this.state;
+    const {query} = this.state;
     const {wizardData} = this.props;
     if (wizardData !== undefined &&
       wizardData !== null &&
       wizardData.Search !== undefined &&
-      wizardData.Search.allOfTheseWords !== search.allOfTheseWords) {
+      wizardData.Search.allOfTheseWords !== query.allOfTheseWords) {
       // any new query terms will force a render and re-execute this function
       // set up the request parameters
       let newDataTable = [];
       let rowNumber = 1;
       let searchStart = 1;
       // console.log('Curate Step2: wizardData=' + JSON.stringify(wizardData, null, 2));
+      let query = wizardData.Search;
       for (let searchCount = 1; searchCount <= 10; searchCount++) {
-        const url = googleCustomSearchUrl(wizardData.Search, searchStart);
+        query.searchStart = searchStart;
         // make the http GET request to Scale SERP
-        axios.get(url)
+        axios.post("http://localhost:5000/search", query)
           .then(response => {
-            let searchResults = [];
             // if (response.data.length) {
             const results = response.data.results;
+            if (results != null && !isEmpty(results))
             for (let i = 0; i < results.length; i++) {
               if (results[i].snippet && results[i].link) {
                 newDataTable.push([rowNumber++, results[i].snippet, results[i].link]);
@@ -147,7 +148,7 @@ class Step2 extends Component {
             }
             if (searchCount === 10) {
               // console.log("newDataTable=" + JSON.stringify(newDataTable, null, 2));
-              this.setState({search: wizardData.Search, data: this.handleData(newDataTable)});
+              this.setState({query: query, data: this.handleData(newDataTable)});
             }
             // }
           }).catch(error => {

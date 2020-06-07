@@ -29,8 +29,8 @@ class Step1 extends Component {
       noneOfTheseWordsOrPhrases: null,
       numbersRangingFrom: null,
       numbersRangingTo: null,
-      language: null,
-      region: null,
+      language: "any language",
+      region: "any region",
       siteOrDomain: null,
       termsAppearing: null,
       fileType: null
