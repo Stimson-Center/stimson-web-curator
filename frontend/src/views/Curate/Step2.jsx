@@ -128,14 +128,9 @@ class Step2 extends Component {
     const {wizardData} = this.props;
     if (wizardData !== undefined &&
       wizardData !== null &&
-      wizardData.Search !== undefined) {
-      if (wizardData.Search.query !== query) {
-        // any new query terms will force a render and re-execute this function
-        this.setState({query: wizardData.Search.query});
-        return;
-      }
-    }
-    if (query) {
+      wizardData.Search !== undefined &&
+      wizardData.Search.query !== query) {
+      // any new query terms will force a render and re-execute this function
       // set up the request parameters
       let newDataTable = [];
       let rowNumber = 1;
@@ -155,7 +150,7 @@ class Step2 extends Component {
             }
             if (searchCount === 10) {
               // console.log("newDataTable=" + JSON.stringify(newDataTable, null, 2));
-              this.setState({data: this.handleData(newDataTable)});
+              this.setState({query: wizardData.Search.query, data: this.handleData(newDataTable)});
             }
             // }
           }).catch(error => {
