@@ -44,6 +44,7 @@ class Step2 extends Component {
     super(props);
     this.state = {
       cleanse_url: null,
+      allOfTheseWords: null,
       data: this.handleData([[]])
     };
     this.handleData = this.handleData.bind(this);
@@ -124,19 +125,20 @@ class Step2 extends Component {
   }
 
   handleSearch() {
-    const {query} = this.state;
+    const {allOfTheseWords} = this.state;
     const {wizardData} = this.props;
     if (wizardData !== undefined &&
       wizardData !== null &&
       wizardData.Search !== undefined &&
-      wizardData.Search.query !== query) {
+      wizardData.Search.allOfTheseWords !== allOfTheseWords) {
       // any new query terms will force a render and re-execute this function
       // set up the request parameters
       let newDataTable = [];
       let rowNumber = 1;
       let searchStart = 1;
+      console.log('Curate Step2: wizardData=' + JSON.stringify(wizardData, null, 2));
       for (let searchCount = 1; searchCount <= 10; searchCount++) {
-        const url = googleCustomSearchUrl(query, searchStart);
+        const url = googleCustomSearchUrl(wizardData.Search.allOfTheseWords, searchStart);
         // make the http GET request to Scale SERP
         axios.get(url)
           .then(response => {
@@ -150,7 +152,7 @@ class Step2 extends Component {
             }
             if (searchCount === 10) {
               // console.log("newDataTable=" + JSON.stringify(newDataTable, null, 2));
-              this.setState({query: wizardData.Search.query, data: this.handleData(newDataTable)});
+              this.setState({allOfTheseWords: wizardData.Search.allOfTheseWords, data: this.handleData(newDataTable)});
             }
             // }
           }).catch(error => {

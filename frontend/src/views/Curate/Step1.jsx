@@ -19,67 +19,210 @@ import React, {Component} from "react";
 // react component for creating dynamic tables
 // reactstrap components
 import {
-  Button,
   Card,
-  CardHeader,
+  CardBody,
   Col,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Form,
+  FormGroup,
   Input,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Row
+  Label,
+  Row,
+  UncontrolledDropdown
 } from "reactstrap";
 // https://react-icons.github.io/react-icons/icons?name=fa
 // core components
-import PanelHeader from "../../components/PanelHeader/PanelHeader.jsx"
 
 class Step1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
       cleanse_url: null,
-      query: null,
       queryFocus: true,
+      allOfTheseWords: null,
+      exactWordOrPhrase: null,
+      anyOfTheseWords: null,
+      noneOfTheseWordsOrPhrases: null,
+      numbersRangingFrom: null,
+      numbersRangingTo: null,
+      language: null,
+      region: null,
+      siteOrDomain: null,
+      termsAppearing: null,
+      fileType: null
     };
   }
 
   componentDidMount() {
     // console.log("Curate Step1: componentDidMount");
-    const {query} = this.state;
-    if (query !== null) {
-      this.setState({query: null, queryFocus: true});
+    const {allOfTheseWords} = this.state;
+    if (allOfTheseWords !== null) {
+      this.setState({allOfTheseWords: null, queryFocus: true});
     }
   }
 
   isValidated() {
-    const { query } = this.state;
-    return (query !== null && query.length > 2);
+    const {allOfTheseWords} = this.state;
+    return (allOfTheseWords !== null && allOfTheseWords.length > 2);
   }
 
   render() {
     // noinspection JSUnusedLocalSymbols
-    const {query} = this.state;
+    const {allOfTheseWords} = this.state;
     return (
       <>
         <div className="content">
           <Row>
             <Col xs={12} md={12}>
               <Card>
-                <CardHeader>
-                  {/*<form>*/}
-                    <InputGroup className="no-border">
-                      <Input
-                        placeholder="Enter Your Search Keywords..."
-                        defaultValue={query}
-                        type="text"
-                        name="search"
-                        onFocus={e => this.setState({queryFocus: true})}
-                        onBlur={e => this.setState({queryFocus: false})}
-                        onChange={e => this.setState({query: e.target.value})}
-                      />
-                    </InputGroup>
-                  {/*</form>*/}
-                </CardHeader>
+                <CardBody>
+                  <Form action="/" className="form-horizontal" method="get">
+                    <Row>
+                      <Label sm="4">All of these words:</Label>
+                      <Col sm="8">
+                        <FormGroup>
+                          <Input
+                            placeholder="tricolor rat terrier"
+                            // defaultValue="Type the important words ex:  Illegal Unregulated Unrestricted Fishing"
+                            type="text"
+                            name="all"
+                            onFocus={e => this.setState({queryFocus: true})}
+                            onBlur={e => this.setState({queryFocus: false})}
+                            onChange={e => this.setState({allOfTheseWords: e.target.value})}
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Label sm="4">Exact word or phrase:</Label>
+                      <Col sm="8">
+                        <FormGroup>
+                          <Input
+                            placeholder='"rat terrier"'
+                            type="text"
+                            name="phrase"
+                            onFocus={e => this.setState({queryFocus: true})}
+                            onBlur={e => this.setState({queryFocus: false})}
+                            onChange={e => this.setState({exactWordOrPhrase: e.target.value})}
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Label sm="4">Any of these words::</Label>
+                      <Col sm="8">
+                        <FormGroup>
+                          <Input
+                            placeholder='miniature OR standard'
+                            type="text"
+                            name="phrase"
+                            onFocus={e => this.setState({queryFocus: true})}
+                            onBlur={e => this.setState({queryFocus: false})}
+                            onChange={e => this.setState({anyOfTheseWords: e.target.value})}
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Label sm="4">None of these words or phrases:</Label>
+                      <Col sm="8">
+                        <FormGroup>
+                          <Input
+                            placeholder='-rodent, -"Jack Russell"'
+                            type="text"
+                            name="phrase"
+                            onFocus={e => this.setState({queryFocus: true})}
+                            onBlur={e => this.setState({queryFocus: false})}
+                            onChange={e => this.setState({siteOrDomain: e.target.value})}
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Label sm="4">Site or Domain:</Label>
+                      <Col sm="8">
+                        <FormGroup>
+                          <Input
+                            placeholder='wikipedia.org or domain(s) like .edu, .org or .gov'
+                            type="text"
+                            name="phrase"
+                            onFocus={e => this.setState({queryFocus: true})}
+                            onBlur={e => this.setState({queryFocus: false})}
+                            onChange={e => this.setState({noneOfTheseWordsOrPhrases: e.target.value})}
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Label sm="2">Numbers ranging:</Label>
+                      <Col sm="5">
+                        <FormGroup>
+                          <Input
+                            placeholder='10..35 lb, $300..$500, 2010..2011'
+                            type="text"
+                            name="phrase"
+                            onFocus={e => this.setState({queryFocus: true})}
+                            onBlur={e => this.setState({queryFocus: false})}
+                            onChange={e => this.setState({numbersRangingFrom: e.target.value})}
+                          />
+                        </FormGroup>
+                      </Col>
+                      <Col sm="5">
+                        <FormGroup>
+                          <Input
+                            placeholder='10..35 lb, $300..$500, 2010..2011'
+                            type="text"
+                            name="phrase"
+                            onFocus={e => this.setState({queryFocus: true})}
+                            onBlur={e => this.setState({queryFocus: false})}
+                            onChange={e => this.setState({numbersRangingTo: e.target.value})}
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Label sm="2">Language:</Label>
+                      <Col xs={12} md={4} sm={2} lg={4}>
+                        <UncontrolledDropdown>
+                          <DropdownToggle
+                            color="info"
+                            className="btn-round btn-block"
+                            caret
+                          >
+                            Dropdown
+                          </DropdownToggle>
+                          <DropdownMenu>
+                            <DropdownItem>any language</DropdownItem>
+                            <DropdownItem>English</DropdownItem>
+                            <DropdownItem>Thai</DropdownItem>
+                            <DropdownItem>Chinese</DropdownItem>
+                          </DropdownMenu>
+                        </UncontrolledDropdown>
+                      </Col>
+                      <Label sm="2">Region:</Label>
+                      <Col xs={12} md={4} sm={2} lg={4}>
+                        <UncontrolledDropdown>
+                          <DropdownToggle
+                            color="info"
+                            className="btn-round btn-block"
+                            caret
+                          >
+                            Dropdown
+                          </DropdownToggle>
+                          <DropdownMenu>
+                            <DropdownItem>any region</DropdownItem>
+                            <DropdownItem>United States</DropdownItem>
+                            <DropdownItem>Thailand</DropdownItem>
+                            <DropdownItem>China</DropdownItem>
+                          </DropdownMenu>
+                        </UncontrolledDropdown>
+                      </Col>
+                    </Row>
+
+                  </Form>
+                </CardBody>
               </Card>
             </Col>
           </Row>
