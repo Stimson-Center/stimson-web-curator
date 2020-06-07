@@ -39,8 +39,6 @@ class Step1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cleanse_url: null,
-      queryFocus: true,
       allOfTheseWords: null,
       exactWordOrPhrase: null,
       anyOfTheseWords: null,
@@ -88,8 +86,6 @@ class Step1 extends Component {
                             // defaultValue="Type the important words ex:  Illegal Unregulated Unrestricted Fishing"
                             type="text"
                             name="all"
-                            onFocus={e => this.setState({queryFocus: true})}
-                            onBlur={e => this.setState({queryFocus: false})}
                             onChange={e => this.setState({allOfTheseWords: e.target.value})}
                           />
                         </FormGroup>
@@ -103,8 +99,6 @@ class Step1 extends Component {
                             placeholder='"rat terrier"'
                             type="text"
                             name="phrase"
-                            onFocus={e => this.setState({queryFocus: true})}
-                            onBlur={e => this.setState({queryFocus: false})}
                             onChange={e => this.setState({exactWordOrPhrase: e.target.value})}
                           />
                         </FormGroup>
@@ -118,8 +112,6 @@ class Step1 extends Component {
                             placeholder='miniature OR standard'
                             type="text"
                             name="phrase"
-                            onFocus={e => this.setState({queryFocus: true})}
-                            onBlur={e => this.setState({queryFocus: false})}
                             onChange={e => this.setState({anyOfTheseWords: e.target.value})}
                           />
                         </FormGroup>
@@ -133,8 +125,6 @@ class Step1 extends Component {
                             placeholder='-rodent, -"Jack Russell"'
                             type="text"
                             name="phrase"
-                            onFocus={e => this.setState({queryFocus: true})}
-                            onBlur={e => this.setState({queryFocus: false})}
                             onChange={e => this.setState({siteOrDomain: e.target.value})}
                           />
                         </FormGroup>
@@ -148,8 +138,6 @@ class Step1 extends Component {
                             placeholder='wikipedia.org or domain(s) like .edu, .org or .gov'
                             type="text"
                             name="phrase"
-                            onFocus={e => this.setState({queryFocus: true})}
-                            onBlur={e => this.setState({queryFocus: false})}
                             onChange={e => this.setState({noneOfTheseWordsOrPhrases: e.target.value})}
                           />
                         </FormGroup>
@@ -163,8 +151,6 @@ class Step1 extends Component {
                             placeholder='10..35 lb, $300..$500, 2010..2011'
                             type="text"
                             name="phrase"
-                            onFocus={e => this.setState({queryFocus: true})}
-                            onBlur={e => this.setState({queryFocus: false})}
                             onChange={e => this.setState({numbersRangingFrom: e.target.value})}
                           />
                         </FormGroup>
@@ -175,8 +161,6 @@ class Step1 extends Component {
                             placeholder='10..35 lb, $300..$500, 2010..2011'
                             type="text"
                             name="phrase"
-                            onFocus={e => this.setState({queryFocus: true})}
-                            onBlur={e => this.setState({queryFocus: false})}
                             onChange={e => this.setState({numbersRangingTo: e.target.value})}
                           />
                         </FormGroup>
@@ -220,7 +204,6 @@ class Step1 extends Component {
                         </UncontrolledDropdown>
                       </Col>
                     </Row>
-
                   </Form>
                 </CardBody>
               </Card>

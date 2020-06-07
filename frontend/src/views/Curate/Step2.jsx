@@ -44,7 +44,19 @@ class Step2 extends Component {
     super(props);
     this.state = {
       cleanse_url: null,
-      allOfTheseWords: null,
+      search: {
+        allOfTheseWords: null,
+        exactWordOrPhrase: null,
+        anyOfTheseWords: null,
+        noneOfTheseWordsOrPhrases: null,
+        numbersRangingFrom: null,
+        numbersRangingTo: null,
+        language: null,
+        region: null,
+        siteOrDomain: null,
+        termsAppearing: null,
+        fileType: null
+      },
       data: this.handleData([[]])
     };
     this.handleData = this.handleData.bind(this);
@@ -125,20 +137,20 @@ class Step2 extends Component {
   }
 
   handleSearch() {
-    const {allOfTheseWords} = this.state;
+    const {search} = this.state;
     const {wizardData} = this.props;
     if (wizardData !== undefined &&
       wizardData !== null &&
       wizardData.Search !== undefined &&
-      wizardData.Search.allOfTheseWords !== allOfTheseWords) {
+      wizardData.Search.allOfTheseWords !== search.allOfTheseWords) {
       // any new query terms will force a render and re-execute this function
       // set up the request parameters
       let newDataTable = [];
       let rowNumber = 1;
       let searchStart = 1;
-      console.log('Curate Step2: wizardData=' + JSON.stringify(wizardData, null, 2));
+      // console.log('Curate Step2: wizardData=' + JSON.stringify(wizardData, null, 2));
       for (let searchCount = 1; searchCount <= 10; searchCount++) {
-        const url = googleCustomSearchUrl(wizardData.Search.allOfTheseWords, searchStart);
+        const url = googleCustomSearchUrl(wizardData.Search, searchStart);
         // make the http GET request to Scale SERP
         axios.get(url)
           .then(response => {
@@ -152,7 +164,7 @@ class Step2 extends Component {
             }
             if (searchCount === 10) {
               // console.log("newDataTable=" + JSON.stringify(newDataTable, null, 2));
-              this.setState({allOfTheseWords: wizardData.Search.allOfTheseWords, data: this.handleData(newDataTable)});
+              this.setState({search: wizardData.Search, data: this.handleData(newDataTable)});
             }
             // }
           }).catch(error => {
