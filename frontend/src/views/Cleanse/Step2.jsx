@@ -1,9 +1,8 @@
 import React from "react";
 import axios from "axios";
-
 // react plugin used to create DropdownMenu for selecting items
 // reactstrap components
-import {Col, FormGroup, Input, Label, Row, Progress} from "reactstrap";
+import {Col, FormGroup, Input, Label, Progress, Row} from "reactstrap";
 import {isEmpty} from "../../Utils";
 import {Article} from "../../components/Article/Article";
 import {TextArea} from "@thumbtack/thumbprint-react";
@@ -56,8 +55,7 @@ class Step2 extends React.Component {
     let article_update = article;
     if (Object.prototype.toString.call(event) === "[object String]") {
       article_update[stateName] = event
-    }
-    else {
+    } else {
       article_update[stateName] = event.target.value
     }
     this.setState({
@@ -94,7 +92,7 @@ class Step2 extends React.Component {
           />
         </>
       );
-    } else  if (article.progress === 100) {
+    } else if (article.progress === 100) {
       if (article.thread_id > 0) {
         axios({
           method: 'delete',
@@ -105,9 +103,9 @@ class Step2 extends React.Component {
             'Content-Type': 'application/json;charset=UTF-8'
           }
         })
-        .catch(err => {
-          console.log(err)
-        });
+          .catch(err => {
+            console.log(err)
+          });
       }
       return (
         <>
@@ -155,7 +153,7 @@ class Step2 extends React.Component {
             </Col>
           </Row>
           <Row className="justify-content-center">
-          <Col xs={12} sm={10}>
+            <Col xs={12} sm={10}>
               <FormGroup>
                 <Label>Summary</Label>
                 <TextArea
@@ -168,7 +166,7 @@ class Step2 extends React.Component {
             </Col>
           </Row>
           <Row className="justify-content-center">
-          <Col xs={12} sm={10}>
+            <Col xs={12} sm={10}>
               <FormGroup>
                 <Label>Text</Label>
                 <TextArea

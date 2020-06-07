@@ -22,7 +22,7 @@ class Cleanse extends Component {
       const cookies = new Cookies();
       let d = new Date();
       const minutes = 10;
-      d.setTime(d.getTime() + (minutes*60*1000));
+      d.setTime(d.getTime() + (minutes * 60 * 1000));
       cookies.set("cleanse_url", this.props.cleanse_url, {path: "/", expires: d});
     }
     return (
