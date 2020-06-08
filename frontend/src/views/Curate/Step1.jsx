@@ -67,14 +67,16 @@ class Step1 extends Component {
     Object.keys(languages).forEach(function(key) {
       languageNames.push(languages[key]);
     });
+    // https://stackoverflow.com/questions/44364502/how-to-set-selected-item-in-reactstrap-dropdown
     return languageNames.map((languageName, languageIndex) => (
-      <DropdownItem key={languageName} onSelect={e => this.setState({language: e})}>{languageName}</DropdownItem>
+      <DropdownItem key={languageName} onClick={e => this.setState({language: e.currentTarget.textContent})}>{languageName}</DropdownItem>
     ))
   }
 
   render() {
     // noinspection JSUnusedLocalSymbols
     const {language, region} = this.state;
+    console.log("language=" + language);
     return (
       <>
         <div className="content">
@@ -184,7 +186,7 @@ class Step1 extends Component {
                             {language}
                           </DropdownToggle>
                           <DropdownMenu>
-                            <DropdownItem onSelect={e => this.setState({language: e})}>Any</DropdownItem>
+                            <DropdownItem onClick={e => this.setState({language: e.currentTarget.textContent})}>Any</DropdownItem>
                             {this.generateLanguageMenuItems()}
                           </DropdownMenu>
                         </UncontrolledDropdown>
