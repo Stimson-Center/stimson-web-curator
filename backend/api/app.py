@@ -9,18 +9,17 @@ import logging
 import os
 import random
 import threading
-from googleapiclient.discovery import build
 from urllib import parse
 
-
-import requests
 # https://preslav.me/2019/01/09/dotenv-files-python/
 from dotenv import load_dotenv
 from flask import Flask, request
 from flask_cors import CORS
 from flask_restful import Resource, Api
+from googleapiclient.discovery import build
 # noinspection PyPackageRequirements
 from scraper import Article
+from scraper import get_available_languages
 # noinspection PyPackageRequirements
 from scraper.configuration import Configuration
 
@@ -199,10 +198,17 @@ class Search(Resource):
         return results, 200, {'Content-Type': 'application/json'}
 
 
+class Languages(Resource):
+    @staticmethod
+    def get():
+        return get_available_languages(), 200, {'Content-Type': 'application/json'}
+
+
 api.add_resource(HelloWorld, '/')
 api.add_resource(ArticlePool, '/article')
 api.add_resource(ArticleProgress, '/article/<int:thread_id>')
 api.add_resource(Search, '/search')
+api.add_resource(Languages, '/languages')
 
 if __name__ == '__main__':
     from waitress import serve
