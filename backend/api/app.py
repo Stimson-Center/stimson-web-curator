@@ -191,6 +191,8 @@ class Search(Resource):
         for i in range(1, 11):
             kwargs['start'] = search_start
             result = service.cse().list(q=search_term, cx=cse_id, **kwargs).execute()
+            if "items" not in result:
+                break
             results.extend(result['items'])
             search_start += len(result['items'])
         return results, 200, {'Content-Type': 'application/json'}
