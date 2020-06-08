@@ -16,6 +16,8 @@ import {
   Row,
   UncontrolledDropdown
 } from "reactstrap";
+import axios from "axios";
+import {isEmpty} from "../../Utils";
 // https://react-icons.github.io/react-icons/icons?name=fa
 // core components
 
@@ -33,16 +35,24 @@ class Step1 extends Component {
       region: "any region",
       siteOrDomain: null,
       termsAppearing: null,
-      fileType: null
+      fileType: null,
+      languages: []
     };
   }
 
   componentDidMount() {
     // console.log("Curate Step1: componentDidMount");
-    const {allOfTheseWords} = this.state;
-    if (allOfTheseWords !== null) {
-      this.setState({allOfTheseWords: null, queryFocus: true});
-    }
+    axios.get("http://localhost:5000/languages")
+      .then(response => {
+        // console.log('Curate Step2: response.data=' + JSON.stringify(response.data, null, 2));
+        const results = response.data;
+        if (results != null && !isEmpty(results)) {
+          this.setState({languages: results});
+        }
+      }).catch(error => {
+      // catch and print the error
+      console.log(error);
+    });
   }
 
   isValidated() {
@@ -50,9 +60,20 @@ class Step1 extends Component {
     return (allOfTheseWords !== null && allOfTheseWords.length > 2);
   }
 
+  generateLanguageMenuItems() {
+    const {languages} = this.state;
+    let languageNames = [];
+    Object.keys(languages).forEach(function(key) {
+      languageNames.push(languages[key]);
+    });
+    return languageNames.map((languageName, languageIndex) => (
+      <DropdownItem key={languageName} onSelect={e => this.setState({language: e})}>{languageName}</DropdownItem>
+    ))
+  }
+
   render() {
     // noinspection JSUnusedLocalSymbols
-    const {allOfTheseWords} = this.state;
+    const {allOfTheseWords, languages} = this.state;
     return (
       <>
         <div className="content">
@@ -162,10 +183,8 @@ class Step1 extends Component {
                             Dropdown
                           </DropdownToggle>
                           <DropdownMenu>
-                            <DropdownItem>any language</DropdownItem>
-                            <DropdownItem>English</DropdownItem>
-                            <DropdownItem>Thai</DropdownItem>
-                            <DropdownItem>Chinese</DropdownItem>
+                            <DropdownItem onSelect={e => this.setState({language: e})}>any language</DropdownItem>
+                            {this.generateLanguageMenuItems()}
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </Col>
