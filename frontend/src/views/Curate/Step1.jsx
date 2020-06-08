@@ -63,6 +63,7 @@ class Step1 extends Component {
   generateLanguageMenuItems() {
     const {languages} = this.state;
     let languageNames = [];
+    // https://stackoverflow.com/questions/34913675/how-to-iterate-keys-values-in-javascript
     Object.keys(languages).forEach(function(key) {
       languageNames.push(languages[key]);
     });
@@ -73,7 +74,6 @@ class Step1 extends Component {
 
   render() {
     // noinspection JSUnusedLocalSymbols
-    const {allOfTheseWords, languages} = this.state;
     return (
       <>
         <div className="content">
