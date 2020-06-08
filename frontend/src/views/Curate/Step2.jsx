@@ -133,7 +133,6 @@ class Step2 extends Component {
       let searchStart = 1;
       let newQuery = wizardData.Search;
       newQuery['searchStart'] = searchStart;
-      newQuery.allOfTheseWords = encodeURI(newQuery.allOfTheseWords)
       // console.log('Curate Step2: query=' + JSON.stringify(query, null, 2));
       axios.post("http://localhost:5000/search", newQuery)
         .then(response => {

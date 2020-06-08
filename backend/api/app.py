@@ -9,7 +9,6 @@ import logging
 import os
 import random
 import threading
-from urllib import parse
 
 # https://preslav.me/2019/01/09/dotenv-files-python/
 from dotenv import load_dotenv
@@ -187,7 +186,7 @@ class Search(Resource):
         service = build("customsearch", "v1", developerKey=api_key)
         results = list()
         kwargs = dict()
-        search_term = parse.unquote(form['allOfTheseWords'])
+        search_term = form['allOfTheseWords']
         for i in range(1, 11):
             kwargs['start'] = search_start
             result = service.cse().list(q=search_term, cx=cse_id, **kwargs).execute()
