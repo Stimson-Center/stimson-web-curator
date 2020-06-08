@@ -9,7 +9,8 @@ import logging
 import os
 import random
 import threading
-import urllib3
+from googleapiclient.discovery import build
+
 
 import requests
 # https://preslav.me/2019/01/09/dotenv-files-python/
@@ -171,70 +172,28 @@ class ArticleProgress(Resource):
 #       termsAppearing: null,
 #       fileType: null
 #  }
+# https://developers.google.com/custom-search/docs/element
+# https://stackoverflow.com/questions/37083058/programmatically-searching-google-in-python-using-custom-search
 class Search(Resource):
     @staticmethod
     def post():
-        # print("Args=" + json.dumps(request.args))
-        # print("Values=" + json.dumps(request.values))
-        # print("Form=" + json.dumps(request.form))
-
         # Get environment variables
         load_dotenv()
-        x = request
         api_key = os.getenv('GOOGLE_SECRET_API_KEY')
         cse_id = os.getenv('GOOGLE_SECRET_CUSTOM_SEARCH_ID')
         form = request.get_json()
 
         search_start = form['searchStart'] if 'searchStart' in form else 1
-        print('allOfTheseWords: ' + form['allOfTheseWords'])
-        print('search_start: ' + str(search_start))
-        page_size = 10
-
-        if form['allOfTheseWords'] == '':
-            api_response = {"query": form, "search_result_message": '', "num_results": 0, "page_size": page_size}
-            return api_response, 401, {'Content-Type': 'application/json'}
-
-        # https://www.pingshiuanchua.com/blog/post/scraping-search-results-from-google-search
-        # https://towardsdatascience.com/current-google-search-packages-using-python-3-7-a-simple-tutorial-3606e459e0d4
-        # Construct URL and call API
-        i = search_start
-        results = []
-        search_time = 0
-        num_results = 0
-        search_result_message = ""
-        while i < search_start + 100:
-            url = 'https://www.googleapis.com/customsearch/v1?q={}&start={}&cx={}&key={}'.format(
-                form['allOfTheseWords'], i, cse_id, api_key)
-            response = requests.get(url)
-            if response.status_code != 200:
-                search_result_message = 'Search returned an error: {} {}'.format(
-                    response.status_code, response.reason)
-                api_response = {"query": form, "search_result_message": search_result_message,
-                                "num_results": 0, "page_size": page_size}
-                return api_response, response.status_code, {'Content-Type': 'application/json'}
-            # Render search results
-            data = response.json()
-            num_results += int(data.get('searchInformation').get('totalResults'))
-            search_time = data.get('searchInformation').get('formattedSearchTime')
-            items = data['items']
-            results.extend(items)
-            i += len(items)
-            if i == search_start:
-                search_result_message = 'No results found ({} seconds)'.format(
-                    search_time) if num_results == 0 else 'About {} results ({} seconds)'.format(
-                    num_results, search_time)
-                break
-
-        api_response = {
-            "query": form,
-            "search_result_message": search_result_message,
-            "num_results": num_results,
-            "search_start": i,
-            "search_time": search_time,
-            "results": results,
-            "page_size": page_size
-        }
-        return api_response, 200, {'Content-Type': 'application/json'}
+        service = build("customsearch", "v1", developerKey=api_key)
+        results = list()
+        kwargs = dict()
+        search_term = form['allOfTheseWords']
+        for i in range(1, 11):
+            kwargs['start'] = search_start
+            result = service.cse().list(q=search_term, cx=cse_id, **kwargs).execute()
+            results.extend(result['items'])
+            search_start += len(result['items'])
+        return results, 200, {'Content-Type': 'application/json'}
 
 
 api.add_resource(HelloWorld, '/')

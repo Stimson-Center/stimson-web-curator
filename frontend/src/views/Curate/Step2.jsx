@@ -137,13 +137,15 @@ class Step2 extends Component {
       // console.log('Curate Step2: query=' + JSON.stringify(query, null, 2));
       axios.post("http://localhost:5000/search", newQuery)
         .then(response => {
-          const results = response.data.results;
-          if (results != null && !isEmpty(results))
+          console.log('Curate Step2: response.data=' + JSON.stringify(response.data, null, 2));
+          const results = response.data;
+          if (results != null && !isEmpty(results)) {
             for (let i = 0; i < results.length; i++) {
               if (results[i].snippet && results[i].link) {
                 newDataTable.push([rowNumber++, results[i].snippet, results[i].link]);
               }
             }
+          }
           // console.log("newDataTable=" + JSON.stringify(newDataTable, null, 2));
           this.setState({query: newQuery, data: this.handleData(newDataTable)});
         }).catch(error => {

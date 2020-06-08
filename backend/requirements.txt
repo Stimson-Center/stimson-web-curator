@@ -4,6 +4,7 @@ flask_restful
 google-api-python-client>=1.9.1
 python-dotenv
 nltk
+oauth2client
 requests
 stimson-web-scraper>=0.0.9
 waitress>=1.4.4
