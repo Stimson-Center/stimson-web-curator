@@ -33,7 +33,7 @@ class Curate extends Component {
               steps={[
                 {
                   stepName: "Search",
-                  stepIcon: "now-ui-icons arrows-1_cloud-download-93",
+                  stepIcon: "fa fa-binoculars",
                   component: Step1
                   // component: <Step1
                   //   props={this.props}
@@ -41,7 +41,7 @@ class Curate extends Component {
                 },
                 {
                   stepName: "Curate",
-                  stepIcon: "now-ui-icons education_paper",
+                  stepIcon: "now-ui-icons design_scissors",
                   component: Step2
                 }
               ]}

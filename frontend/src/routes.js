@@ -16,6 +16,7 @@
 */
 
 // https://demos.creative-tim.com/now-ui-dashboard-pro/examples/components/icons.html
+// https://fontawesome.com/v4.7.0/icons/
 
 import Cleanse from "./views/Cleanse/Cleanse";
 import Curate from "./views/Curate/Curate";
