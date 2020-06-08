@@ -68,7 +68,7 @@ let routes = [
   {
     path: "/cleanse",
     name: "Cleanse",
-    icon: "now-ui-icons ui-2_settings-90",
+    icon: "now-ui-icons gestures_tap-01",
     component: Cleanse,
     layout: "/admin"
   },
