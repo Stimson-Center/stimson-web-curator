@@ -31,8 +31,8 @@ class Step1 extends Component {
       noneOfTheseWordsOrPhrases: null,
       numbersRangingFrom: null,
       numbersRangingTo: null,
-      language: "any language",
-      region: "any region",
+      language: "any",
+      region: "any",
       siteOrDomain: null,
       termsAppearing: null,
       fileType: null,
@@ -74,6 +74,7 @@ class Step1 extends Component {
 
   render() {
     // noinspection JSUnusedLocalSymbols
+    const {language, region} = this.state;
     return (
       <>
         <div className="content">
@@ -180,10 +181,10 @@ class Step1 extends Component {
                             className="btn-round btn-block"
                             caret
                           >
-                            Dropdown
+                            {language}
                           </DropdownToggle>
                           <DropdownMenu>
-                            <DropdownItem onSelect={e => this.setState({language: e})}>any language</DropdownItem>
+                            <DropdownItem onSelect={e => this.setState({language: e})}>Any</DropdownItem>
                             {this.generateLanguageMenuItems()}
                           </DropdownMenu>
                         </UncontrolledDropdown>
@@ -196,7 +197,7 @@ class Step1 extends Component {
                             className="btn-round btn-block"
                             caret
                           >
-                            Dropdown
+                            {region}
                           </DropdownToggle>
                           <DropdownMenu>
                             <DropdownItem>any region</DropdownItem>
