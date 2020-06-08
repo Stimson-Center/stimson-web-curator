@@ -76,7 +76,7 @@ class Step1 extends Component {
   render() {
     // noinspection JSUnusedLocalSymbols
     const {language, region} = this.state;
-    console.log("language=" + language);
+    // console.log("language=" + language);
     return (
       <>
         <div className="content">
