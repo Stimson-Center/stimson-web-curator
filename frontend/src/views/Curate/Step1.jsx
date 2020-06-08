@@ -20,7 +20,6 @@ import axios from "axios";
 import {isEmpty} from "../../Utils";
 // https://react-icons.github.io/react-icons/icons?name=fa
 // core components
-import {Countries} from "../../variables/google";
 
 class Step1 extends Component {
   constructor(props) {
@@ -37,7 +36,8 @@ class Step1 extends Component {
       siteOrDomain: null,
       termsAppearing: null,
       fileType: null,
-      languages: []
+      languages: {},
+      countries: {}
     };
     this.generateLanguageMenuItems = this.generateLanguageMenuItems.bind(this);
     this.generateCountryMenuItems = this.generateCountryMenuItems.bind(this);
@@ -51,6 +51,17 @@ class Step1 extends Component {
         const results = response.data;
         if (results != null && !isEmpty(results)) {
           this.setState({languages: results});
+        }
+      }).catch(error => {
+      // catch and print the error
+      console.log(error);
+    });
+    axios.get("http://localhost:5000/countries")
+      .then(response => {
+        // console.log('Curate Step2: response.data=' + JSON.stringify(response.data, null, 2));
+        const results = response.data;
+        if (results != null && !isEmpty(results)) {
+          this.setState({countries: results});
         }
       }).catch(error => {
       // catch and print the error
@@ -79,9 +90,10 @@ class Step1 extends Component {
 
 
   generateCountryMenuItems() {
+    const {countries} = this.state;
     let countryNames = [];
     // https://stackoverflow.com/questions/34913675/how-to-iterate-keys-values-in-javascript
-    Object.keys(Countries).forEach(function(key) {
+    Object.keys(countries).forEach(function(key) {
       // console.log("Countries[key]=" + key);
       countryNames.push(key);
     });
