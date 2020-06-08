@@ -119,7 +119,7 @@ class Step2 extends Component {
     return rows;
   }
 
-  handleSearch() {
+  handleSearch = () => {
     const {query} = this.state;
     const {wizardData} = this.props;
     if (wizardData !== undefined &&
@@ -131,32 +131,26 @@ class Step2 extends Component {
       let newDataTable = [];
       let rowNumber = 1;
       let searchStart = 1;
-      // console.log('Curate Step2: wizardData=' + JSON.stringify(wizardData, null, 2));
-      let query = wizardData.Search;
-      for (let searchCount = 1; searchCount <= 10; searchCount++) {
-        query.searchStart = searchStart;
-        // make the http GET request to Scale SERP
-        axios.post("http://localhost:5000/search", query)
-          .then(response => {
-            // if (response.data.length) {
-            const results = response.data.results;
-            if (results != null && !isEmpty(results))
+      let newQuery = wizardData.Search;
+      newQuery['searchStart'] = searchStart;
+      newQuery.allOfTheseWords = encodeURI(newQuery.allOfTheseWords)
+      // console.log('Curate Step2: query=' + JSON.stringify(query, null, 2));
+      axios.post("http://localhost:5000/search", newQuery)
+        .then(response => {
+          const results = response.data.results;
+          if (results != null && !isEmpty(results))
             for (let i = 0; i < results.length; i++) {
               if (results[i].snippet && results[i].link) {
                 newDataTable.push([rowNumber++, results[i].snippet, results[i].link]);
               }
             }
-            if (searchCount === 10) {
-              // console.log("newDataTable=" + JSON.stringify(newDataTable, null, 2));
-              this.setState({query: query, data: this.handleData(newDataTable)});
-            }
-            // }
-          }).catch(error => {
-          // catch and print the error
-          console.log(error);
-        });
-        searchStart += 10;
-      }
+          // console.log("newDataTable=" + JSON.stringify(newDataTable, null, 2));
+          this.setState({query: newQuery, data: this.handleData(newDataTable)});
+        }).catch(error => {
+        // catch and print the error
+        console.log(error);
+      });
+
     }
   }
 

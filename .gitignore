@@ -50,3 +50,5 @@ amplify/.config/local-env-info.json
 **/nltk_data/
 **/.config/
 **/.bash_profile
+**/nohup.out
+
