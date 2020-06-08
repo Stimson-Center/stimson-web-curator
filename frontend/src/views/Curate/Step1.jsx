@@ -20,6 +20,7 @@ import axios from "axios";
 import {isEmpty} from "../../Utils";
 // https://react-icons.github.io/react-icons/icons?name=fa
 // core components
+import {Countries} from "../../variables/google";
 
 class Step1 extends Component {
   constructor(props) {
@@ -32,12 +33,14 @@ class Step1 extends Component {
       numbersRangingFrom: null,
       numbersRangingTo: null,
       language: "any",
-      region: "any",
+      countryName: "any",
       siteOrDomain: null,
       termsAppearing: null,
       fileType: null,
       languages: []
     };
+    this.generateLanguageMenuItems = this.generateLanguageMenuItems.bind(this);
+    this.generateCountryMenuItems = this.generateCountryMenuItems.bind(this);
   }
 
   componentDidMount() {
@@ -68,14 +71,29 @@ class Step1 extends Component {
       languageNames.push(languages[key]);
     });
     // https://stackoverflow.com/questions/44364502/how-to-set-selected-item-in-reactstrap-dropdown
+    // noinspection JSUnusedLocalSymbols
     return languageNames.map((languageName, languageIndex) => (
       <DropdownItem key={languageName} onClick={e => this.setState({language: e.currentTarget.textContent})}>{languageName}</DropdownItem>
     ))
   }
 
+
+  generateCountryMenuItems() {
+    let countryNames = [];
+    // https://stackoverflow.com/questions/34913675/how-to-iterate-keys-values-in-javascript
+    Object.keys(Countries).forEach(function(key) {
+      // console.log("Countries[key]=" + key);
+      countryNames.push(key);
+    });
+    // https://stackoverflow.com/questions/44364502/how-to-set-selected-item-in-reactstrap-dropdown
+    return countryNames.map((countryName, countryNameIndex) => (
+      <DropdownItem key={countryName} onClick={e => this.setState({countryName: e.currentTarget.textContent})}>{countryName}</DropdownItem>
+    ))
+  }
+
   render() {
     // noinspection JSUnusedLocalSymbols
-    const {language, region} = this.state;
+    const {language, countryName} = this.state;
     // console.log("language=" + language);
     return (
       <>
@@ -191,7 +209,7 @@ class Step1 extends Component {
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </Col>
-                      <Label sm="2">Region:</Label>
+                      <Label sm="2">Country:</Label>
                       <Col xs={12} md={4} sm={2} lg={4}>
                         <UncontrolledDropdown>
                           <DropdownToggle
@@ -199,13 +217,13 @@ class Step1 extends Component {
                             className="btn-round btn-block"
                             caret
                           >
-                            {region}
+                            {countryName}
                           </DropdownToggle>
                           <DropdownMenu>
-                            <DropdownItem>any region</DropdownItem>
-                            <DropdownItem>United States</DropdownItem>
-                            <DropdownItem>Thailand</DropdownItem>
-                            <DropdownItem>China</DropdownItem>
+                            <DropdownMenu>
+                              <DropdownItem onClick={e => this.setState({countryName: e.currentTarget.textContent})}>Any</DropdownItem>
+                              {this.generateCountryMenuItems()}
+                            </DropdownMenu>
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </Col>
