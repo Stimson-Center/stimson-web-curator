@@ -484,7 +484,7 @@ class Share(Resource):
         # noinspection PyUnusedLocal
         with open(filepath, "w", encoding='utf-8') as f:
             f.write(json.dumps(form, indent=4, sort_keys=True))
-        return {"file": filepath}, 200, {'Content-Type': 'application/json'}
+        return {"filepath": filepath}, 200, {'Content-Type': 'application/json'}
 
 
 api.add_resource(HelloWorld, '/')

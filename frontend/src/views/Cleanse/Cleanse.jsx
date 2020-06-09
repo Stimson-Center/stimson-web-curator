@@ -57,7 +57,6 @@ class Cleanse extends Component {
               description=""
               headerTextCenter
               color="blue"
-              finishButtonClick={this.handleFinishButton}
               finishButtonClasses="btn-wd"
               nextButtonClasses="btn-wd"
               previousButtonClasses="btn-wd"
