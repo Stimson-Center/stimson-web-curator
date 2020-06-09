@@ -142,6 +142,8 @@ Go to Credentials and get API key
 
 ```bash
     cd ~/stimson-web-curator
+    mkdir ~/.cloudshell
+    touch ~/.cloudshell/no-python-warning
     touch .env
     echo SKIP_PREFLIGHT_CHECK=true >> .env
     echo GOOGLE_SECRET_API_KEY="from google procedure above"

@@ -68,6 +68,8 @@ Go to Credentials and get API key
 
 ```bash
     cd ~/stimson-web-curator/backend
+    mkdir ~/.cloudshell
+    touch ~/.cloudshell/no-python-warning
     touch .env
     echo GOOGLE_SECRET_API_KEY="from google procedure above"
     echo GOOGLE_SECRET_CUSTOM_SEARCH_ID="from google procedure above"
