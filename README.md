@@ -199,9 +199,15 @@ See DOCKER.md for more more details
     open http://localhost:3000
 ```
 
+Note: the API server is running on port 5000, to optionall prove that it is working:
+
+```bash
+    open http://localhost:5000    
+```
+
 To debug docker container
 
 ```bash
-    docker run  -it -v `pwd`:/home/seluser --entrypoint=/bin/bash stimson-web-curator
+    docker run  -it -v `pwd`:/usr/app --entrypoint=/bin/bash stimson-web-curator
 ```
 
