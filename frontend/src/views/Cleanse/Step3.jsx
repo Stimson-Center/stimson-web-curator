@@ -1,101 +1,78 @@
 import React from "react";
-import classnames from "classnames";
 // reactstrap components
-import {Col, Row} from "reactstrap";
+import {Button, CardBody, Col, Row} from "reactstrap";
+import SweetAlert from "react-bootstrap-sweetalert";
+import CardFooter from "reactstrap/lib/CardFooter";
 
 class Step3 extends React.Component {
-  state = {
-    activeChoices: []
-  };
-  choiceChange = number => {
-    let newState = this.state.activeChoices;
-    if (newState.includes(number)) {
-      newState = newState.filter(prop => prop !== number);
-    } else {
-      newState = newState.concat([number]);
+  constructor(props) {
+    super(props);
+    this.state = {
+      show: false
+    };
+    this.hideAlert = this.hideAlert.bind(this);
+    console.log("Step3 props=" + JSON.stringify(props));
+    this.handlePublishArticle = this.handlePublishArticle.bind(this);
+  }
+
+  // to stop the warning of calling setState of unmounted component
+  componentWillUnmount() {
+    let id = window.setTimeout(null, 0);
+    while (id--) {
+      window.clearTimeout(id);
     }
+  }
+
+  basicAlert() {
+    const {show} = this.state;
+    if (show) {
+      return (
+        <SweetAlert
+          success
+          style={{display: "block", marginTop: "50px"}}
+          title="Article Saved!"
+          onConfirm={() => this.hideAlert()}
+          onCancel={() => this.hideAlert()}
+          confirmBtnBsStyle="info"
+        />
+      );
+    }
+  }
+
+  hideAlert() {
     this.setState({
-      activeChoices: newState
+      alert: null,
+      show: false
     });
-  };
+  }
+
+  handlePublishArticle() {
+    console.log("Step3 handlePublishArticle");
+    this.setState({show: true});
+    this.basicAlert()
+  }
 
   render() {
+    const {alert} = this.state;
+    console.log("Step3 render=" + JSON.stringify(this.state));
     return (
       <>
-        <h5 className="info-text"> What are you doing? (checkboxes) </h5>
         <Row className="justify-content-center">
           <Col xs={12} lg={10}>
-            <Row>
-              <Col sm="4">
-                <div
-                  className={classnames("choice", {
-                    active: this.state.activeChoices.includes(1)
-                  })}
-                  data-toggle="wizard-checkbox"
-                  onClick={() => this.choiceChange(1)}
+            <CardBody>
+              <div className="btns-mr-5">
+                <Button
+                  color="primary"
+                  className="btn-round"
+                  onClick={() => this.handlePublishArticle()}
                 >
-                  <input
-                    defaultValue="Design"
-                    name="jobb"
-                    type="checkbox"
-                    onChange={() => this.choiceChange(1)}
-                    checked={classnames({
-                      active: this.state.activeChoices.includes(1)
-                    })}
-                  />
-                  <div className="icon">
-                    <i className="now-ui-icons design-2_ruler-pencil"/>
-                  </div>
-                  <h6>Design</h6>
-                </div>
-              </Col>
-              <Col sm="4">
-                <div
-                  className={classnames("choice", {
-                    active: this.state.activeChoices.includes(2)
-                  })}
-                  data-toggle="wizard-checkbox"
-                  onClick={() => this.choiceChange(2)}
-                >
-                  <input
-                    defaultValue="Code"
-                    name="jobb"
-                    type="checkbox"
-                    onChange={() => this.choiceChange(2)}
-                    checked={classnames({
-                      active: this.state.activeChoices.includes(2)
-                    })}
-                  />
-                  <div className="icon">
-                    <i className="now-ui-icons business_bulb-63"/>
-                  </div>
-                  <h6>Code</h6>
-                </div>
-              </Col>
-              <Col sm="4">
-                <div
-                  className={classnames("choice", {
-                    active: this.state.activeChoices.includes(3)
-                  })}
-                  data-toggle="wizard-checkbox"
-                  onClick={() => this.choiceChange(3)}
-                >
-                  <input
-                    defaultValue="Develop"
-                    name="jobb"
-                    type="checkbox"
-                    onChange={() => this.choiceChange(3)}
-                    checked={classnames({
-                      active: this.state.activeChoices.includes(3)
-                    })}
-                  />
-                  <div className="icon">
-                    <i className="now-ui-icons tech_tv"/>
-                  </div>
-                  <h6>Develop</h6>
-                </div>
-              </Col>
-            </Row>
+                  Save Article to home directory <i className="now-ui-icons ui-2_favourite-28"/>
+                </Button>
+              </div>
+            </CardBody>
+            <CardFooter>
+              {this.basicAlert()}
+            </CardFooter>
           </Col>
         </Row>
       </>

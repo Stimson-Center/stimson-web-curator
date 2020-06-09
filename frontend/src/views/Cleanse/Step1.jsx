@@ -33,6 +33,26 @@ class Step1 extends React.Component {
     }
   }
 
+  // to stop the warning of calling setState of unmounted component
+  componentWillUnmount() {
+    let id = window.setTimeout(null, 0);
+    while (id--) {
+      window.clearTimeout(id);
+    }
+  }
+
+  isValidated() {
+    if (
+      this.state.urlState !== " has-success"
+    ) {
+      this.setState({
+        urlState: " has-danger"
+      });
+      return false;
+    }
+    return true;
+  }
+
   urlChange(e) {
     this.setState({
       url: e.target.value
@@ -47,18 +67,6 @@ class Step1 extends React.Component {
         urlState: " has-danger"
       });
     }
-  }
-
-  isValidated() {
-    if (
-      this.state.urlState !== " has-success"
-    ) {
-      this.setState({
-        urlState: " has-danger"
-      });
-      return false;
-    }
-    return true;
   }
 
   render() {

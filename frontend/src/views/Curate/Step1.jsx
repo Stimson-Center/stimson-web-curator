@@ -69,6 +69,14 @@ class Step1 extends Component {
     });
   }
 
+  // to stop the warning of calling setState of unmounted component
+  componentWillUnmount() {
+    let id = window.setTimeout(null, 0);
+    while (id--) {
+      window.clearTimeout(id);
+    }
+  }
+
   isValidated() {
     const {allOfTheseWords} = this.state;
     return (allOfTheseWords !== null && allOfTheseWords.length > 2);

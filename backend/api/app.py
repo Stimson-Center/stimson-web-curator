@@ -474,11 +474,13 @@ class Share(Resource):
         home = os.getenv('HOME')
         form = request.get_json()
         form.pop('progress', None)
-        publish_date = form['publish_date'][0:10]
+        form.pop('thread_id', None)
+        publish_date = form['publish_date'][0:10] if form['publish_date'] else ''
         title = valid_filename(form['title'])
-        filename = f"{publish_date} {title}.json"
-        # Save json to file
-        filepath = os.path.join(home, filename)
+        filename = f"{publish_date} {title}"
+        # Save json to file, filename length <=255
+        # https://stackoverflow.com/questions/265769/maximum-filename-length-in-ntfs-windows-xp-and-windows-vista#:~:text=14%20Answers&text=Individual%20components%20of%20a%20filename,files%2C%20248%20for%20folders).
+        filepath = os.path.join(home, filename[0:230] + ".json")
         # noinspection PyUnusedLocal
         with open(filepath, "w", encoding='utf-8') as f:
             f.write(json.dumps(form, indent=4, sort_keys=True))

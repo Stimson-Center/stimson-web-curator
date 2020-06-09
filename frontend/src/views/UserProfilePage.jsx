@@ -29,9 +29,9 @@ import {
 } from "reactstrap";
 
 // core components
-import PanelHeader from "../../components/PanelHeader/PanelHeader.jsx";
+import PanelHeader from "../components/PanelHeader/PanelHeader.jsx";
 // core components
-import PictureUpload from "../../components/CustomUpload/PictureUpload.jsx";
+import PictureUpload from "../components/CustomUpload/PictureUpload.jsx";
 
 class UserProfile extends React.Component {
   state = {
@@ -195,7 +195,7 @@ class UserProfile extends React.Component {
             <Col md="4">
               <Card className="card-user">
                 <div className="image">
-                  <img alt="..." src={require("../../assets/img/bg5.jpg")} />
+                  <img alt="..." src={require("../assets/img/bg5.jpg")} />
                 </div>
                 <CardBody>
                   <div className="author">

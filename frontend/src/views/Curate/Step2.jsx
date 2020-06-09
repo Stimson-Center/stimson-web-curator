@@ -55,6 +55,14 @@ class Step2 extends Component {
     }
   }
 
+  // to stop the warning of calling setState of unmounted component
+  componentWillUnmount() {
+    let id = window.setTimeout(null, 0);
+    while (id--) {
+      window.clearTimeout(id);
+    }
+  }
+
   handleData(dataTable) {
     // noinspection UnnecessaryLocalVariableJS
     let rows = dataTable.map((prop, key) => {

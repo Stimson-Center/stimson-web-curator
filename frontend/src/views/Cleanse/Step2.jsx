@@ -33,6 +33,14 @@ class Step2 extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  // to stop the warning of calling setState of unmounted component
+  componentWillUnmount() {
+    let id = window.setTimeout(null, 0);
+    while (id--) {
+      window.clearTimeout(id);
+    }
+  }
+
   isValidated() {
     const {article, threadId} = this.state;
     // console.log("Step2: isValidated progress=" + article.progress);
