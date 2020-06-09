@@ -5,10 +5,12 @@
 # https://github.com/flask-restful/flask-restful/blob/master/examples/todo.py
 
 import datetime
+import json
 import logging
 import os
 import random
 import threading
+import string
 
 # https://preslav.me/2019/01/09/dotenv-files-python/
 from dotenv import load_dotenv
@@ -456,12 +458,40 @@ class Countries(Resource):
         return _countries, 200, {'Content-Type': 'application/json'}
 
 
+def valid_filename(filename):
+    valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
+    return ''.join(c for c in filename if c in valid_chars)
+
+
+class Share(Resource):
+    @staticmethod
+    def post():
+        # https://codelabs.developers.google.com/codelabs/gsuite-apis-intro/#0
+        # Get environment variables
+        load_dotenv()
+        api_key = os.getenv('GOOGLE_SECRET_API_KEY')
+        cse_id = os.getenv('GOOGLE_SECRET_CUSTOM_SEARCH_ID')
+        home = os.getenv('HOME')
+        form = request.get_json()
+        form.pop('progress', None)
+        publish_date = form['publish_date'][0:10]
+        title = valid_filename(form['title'])
+        filename = f"{publish_date} {title}.json"
+        # Save json to file
+        filepath = os.path.join(home, filename)
+        # noinspection PyUnusedLocal
+        with open(filepath, "w", encoding='utf-8') as f:
+            f.write(json.dumps(form, indent=4, sort_keys=True))
+        return {"file": filepath}, 200, {'Content-Type': 'application/json'}
+
+
 api.add_resource(HelloWorld, '/')
 api.add_resource(ArticlePool, '/article')
 api.add_resource(ArticleProgress, '/article/<int:thread_id>')
-api.add_resource(Search, '/search')
-api.add_resource(Languages, '/languages')
 api.add_resource(Countries, '/countries')
+api.add_resource(Languages, '/languages')
+api.add_resource(Search, '/search')
+api.add_resource(Share, '/share')
 
 if __name__ == '__main__':
     from waitress import serve
