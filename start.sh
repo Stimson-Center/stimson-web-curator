@@ -1,6 +1,6 @@
 #!/bin/sh
 
-nohup sh -c ./backend/api/app.py &
+nohup sh -c ./backend/app.py &
 cd ./frontend
 npm run start
 
