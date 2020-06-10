@@ -71,8 +71,10 @@ Go to Credentials and get API key
     mkdir ~/.cloudshell
     touch ~/.cloudshell/no-python-warning
     touch .env
-    echo GOOGLE_SECRET_API_KEY="from google procedure above"
-    echo GOOGLE_SECRET_CUSTOM_SEARCH_ID="from google procedure above"
+    echo FLASK_APP=app.py >> .env
+    echo FLASK_ENV=development >> .env
+    echo GOOGLE_SECRET_API_KEY="from google procedure above"  >> .env
+    echo GOOGLE_SECRET_CUSTOM_SEARCH_ID="from google procedure above"  >> .env
 ```
 
 Links:

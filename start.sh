@@ -1,6 +1,5 @@
 #!/bin/sh
 
-nohup sh -c ./backend/app.py &
-cd ./frontend
-npm run start
+( cd ./backend && python3 app.py &)
+( cd ./frontend && npm run start )
 

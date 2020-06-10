@@ -69,6 +69,8 @@ Go to Credentials and get API key
 ```bash
     cd ~/stimson-web-curator/backend
     touch .env
+    echo FLASK_APP=app.py >> .env
+    echo FLASK_ENV=development >> .env
     echo GOOGLE_SECRET_API_KEY="from google procedure above"
     echo GOOGLE_SECRET_CUSTOM_SEARCH_ID="from google procedure above"
 ```

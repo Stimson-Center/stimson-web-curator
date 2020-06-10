@@ -103,8 +103,6 @@ For example:
     git clone https://github.com/Stimson-Center/stimson-web-curator.git
 ```
 
-Edit amplify/.config/local-env-info.json and replace the full path to the root of your project
-Example: /Users/<your home directory>/GitHub/myweddingstay/stimson-web-curator
 
 ## Building
 
@@ -141,13 +139,20 @@ Get your credentials for Custom Search API
 Go to Credentials and get API key
 
 ```bash
-    cd ~/stimson-web-curator
     mkdir ~/.cloudshell
     touch ~/.cloudshell/no-python-warning
+
+    cd ~/stimson-web-curator/backend
+    touch .env
+    echo FLASK_APP=app.py >> .env
+    echo FLASK_ENV=development >> .env
+    echo GOOGLE_SECRET_API_KEY="from google procedure above"  >> .env
+    echo GOOGLE_SECRET_CUSTOM_SEARCH_ID="from google procedure above"  >> .env
+
+    cd ~/stimson-web-curator/frontenv
     touch .env
     echo SKIP_PREFLIGHT_CHECK=true >> .env
-    echo GOOGLE_SECRET_API_KEY="from google procedure above"
-    echo GOOGLE_SECRET_CUSTOM_SEARCH_ID="from google procedure above"
+ 
 ```
 
 Links:

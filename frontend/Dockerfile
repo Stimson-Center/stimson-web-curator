@@ -24,11 +24,11 @@ RUN chown -R ubuntu:root /home/ubuntu
 RUN mkdir -p /usr/app
 RUN chown -R ubuntu:root /usr/app
 USER ubuntu
-WORKDIR /usr/app
 
 # Bundle app source
 # Trouble with COPY http://stackoverflow.com/a/30405787/2926832
 COPY . /usr/app
+WORKDIR /usr/app
 
 # Install app dependencies
 RUN npm install
@@ -37,4 +37,6 @@ EXPOSE 3000
 
 #  Defines your runtime(define default command)
 # These commands unlike RUN (they are carried out in the construction of the container) are run when the container
-CMD ["sh", "-c", "npm start"]
+# CMD ["sh", "-c", "npm start"]
+CMD ["sh", "-c", "./start.sh"]
+

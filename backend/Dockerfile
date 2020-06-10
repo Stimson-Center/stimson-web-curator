@@ -54,7 +54,9 @@ ENTRYPOINT ["python"]
 
 #  Defines your runtime(define default command)
 # These commands unlike RUN (they are carried out in the construction of the container) are run when the container
-# CMD ["sh", "-c", "./start.sh"]
-CMD ["app.py"]
+# CMD ["app.py"]
+# CMD ["sh", "-c", "flask run"]
+CMD ["sh", "-c", "./start.sh"]
+
 
 
