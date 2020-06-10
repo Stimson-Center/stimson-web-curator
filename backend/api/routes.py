@@ -198,6 +198,9 @@ class Search(Resource):
         if form['country'] != 'any' and form['country'].startswith("country") and len(form['country']) == 9:
             # https://developers.google.com/custom-search/docs/element
             kwargs['cr'] = form['country']
+        if "sort_by" in form and form['sort_by'] == 'date':
+            kwargs['enableOrderBy'] = True
+            kwargs['sort_by'] = form['sort_by']
         search_term = form['allOfTheseWords']
         for i in range(1, 11):
             kwargs['start'] = search_start

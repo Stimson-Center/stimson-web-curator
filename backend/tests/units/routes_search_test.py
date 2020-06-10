@@ -28,7 +28,8 @@ def test_search_defaults(client):
         "country": "any",
         "searchStart": 1,
         "siteOrDomain": None,
-        "termsAppearing": None
+        "termsAppearing": None,
+        "sort_by": ""
     }
 
     response = client.post("/search", json=event)
@@ -52,11 +53,12 @@ def test_search_thai(client):
         "country": "countryTH",
         "searchStart": 1,
         "siteOrDomain": None,
-        "termsAppearing": None
+        "termsAppearing": None,
+        "sort_by": ""
     }
 
     response = client.post("/search", json=event)
     data = common(response)
-    assert len(data) > 10
+    assert len(data) > 10 # returned 71 results on 2020/06/10!
 
 
