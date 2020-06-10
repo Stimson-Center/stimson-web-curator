@@ -14,7 +14,7 @@ import string
 
 # https://preslav.me/2019/01/09/dotenv-files-python/
 from dotenv import load_dotenv
-from flask import Flask, request
+from flask import request
 from flask_cors import CORS
 from flask_restful import Resource, Api
 from googleapiclient.discovery import build
@@ -191,6 +191,13 @@ class Search(Resource):
         service = build("customsearch", "v1", developerKey=api_key)
         results = list()
         kwargs = dict()
+        if form['language'] != 'any' and len(form['language']) == 2:
+            # https://developers.google.com/custom-search/docs/element
+            kwargs['gl'] = form['language']
+            kwargs['lr'] = f"lang_{form['language']}"
+        if form['country'] != 'any' and form['country'].startswith("country") and len(form['country']) == 9:
+            # https://developers.google.com/custom-search/docs/element
+            kwargs['cr'] = form['country']
         search_term = form['allOfTheseWords']
         for i in range(1, 11):
             kwargs['start'] = search_start
