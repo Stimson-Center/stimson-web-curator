@@ -191,16 +191,15 @@ class Search(Resource):
         service = build("customsearch", "v1", developerKey=api_key)
         results = list()
         kwargs = dict()
-        kwargs['enableImageSearch'] = False
-        kwargs['webSearchSafesearch'] = "active"
-        if form['language'] != 'any' and len(form['language']) == 2:
+        if form['language'] != 'any' and len(form['language']) >= 2:
             # https://developers.google.com/custom-search/docs/element
             kwargs['gl'] = form['language']
-            kwargs['lr'] = f"lang_{form['language']}"
+            kwargs['lr'] = f"lang_{form['language'][0:2]}"
         if form['country'] != 'any' and form['country'].startswith("country") and len(form['country']) == 9:
             # https://developers.google.com/custom-search/docs/element
             kwargs['cr'] = form['country']
         if "sort_by" in form and form['sort_by'] == 'date':
+            # sort_by ""  by default is sorted by "relevance"
             kwargs['enableOrderBy'] = True
             kwargs['sort_by'] = form['sort_by']
         if "anyOfTheseWords" in form and form['anyOfTheseWords']:
