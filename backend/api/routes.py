@@ -236,6 +236,13 @@ class Countries(Resource):
         return countries, 200, {'Content-Type': 'application/json'}
 
 
+
+class FileTypes(Resource):
+    @staticmethod
+    def get():
+        return file_types, 200, {'Content-Type': 'application/json'}
+
+
 def valid_filename(filename):
     valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
     return ''.join(c for c in filename if c in valid_chars)
@@ -269,6 +276,7 @@ api.add_resource(HelloWorld, '/')
 api.add_resource(ArticlePool, '/article')
 api.add_resource(ArticleProgress, '/article/<int:thread_id>')
 api.add_resource(Countries, '/countries')
+api.add_resource(FileTypes, '/filetypes')
 api.add_resource(Languages, '/languages')
 api.add_resource(Search, '/search')
 api.add_resource(Share, '/share')
