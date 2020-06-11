@@ -16,7 +16,7 @@ def common(response):
 # https://pypi.org/project/pytest-flask/
 @pytest.mark.options(debug=True)
 def test_search_defaults(client):
-    event = {
+    payload = {
         "allOfTheseWords": "IUU",
         "anyOfTheseWords": None,
         "exactWordOrPhrase": None,
@@ -32,7 +32,7 @@ def test_search_defaults(client):
         "sortBy": ""
     }
 
-    response = client.post("/search", json=event)
+    response = client.post("/search", json=payload)
     data = common(response)
     assert len(data) == 100
 
@@ -41,7 +41,7 @@ def test_search_defaults(client):
 # https://pypi.org/project/pytest-flask/
 @pytest.mark.options(debug=True)
 def test_search_thai(client):
-    event = {
+    payload = {
         "allOfTheseWords": "IUU",
         "anyOfTheseWords": None,
         "exactWordOrPhrase": None,
@@ -57,7 +57,7 @@ def test_search_thai(client):
         "sortBy": ""
     }
 
-    response = client.post("/search", json=event)
+    response = client.post("/search", json=payload)
     data = common(response)
     assert len(data) > 10 # returned 71 results on 2020/06/10!
 
