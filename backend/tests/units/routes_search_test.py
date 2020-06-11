@@ -5,7 +5,7 @@ import json
 import pytest
 
 
-def common(response):
+def validate(response):
     assert 200 == response.status_code
     assert '200 OK' == response.status
     assert 'utf-8' == response.charset
@@ -33,7 +33,7 @@ def test_search_defaults(client):
     }
 
     response = client.post("/search", json=payload)
-    data = common(response)
+    data = validate(response)
     assert len(data) == 100
 
 
@@ -58,7 +58,7 @@ def test_search_thai(client):
     }
 
     response = client.post("/search", json=payload)
-    data = common(response)
+    data = validate(response)
     assert len(data) > 10 # returned 71 results on 2020/06/10!
 
 
