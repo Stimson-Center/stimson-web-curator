@@ -21,14 +21,8 @@ const convertTimestampToDateFormat = (timestamp) => {
   );
 };
 
-const googleCustomSearchUrl = (query, searchStart) => {
-  const url = `http://localhost:5000/search?searchString=${query.allOfTheseWords}&searchStart=${searchStart}`;
-  return encodeURI(url);
-}
-
 export {
   sleep,
   isEmpty,
-  convertTimestampToDateFormat,
-  googleCustomSearchUrl
+  convertTimestampToDateFormat
 };
