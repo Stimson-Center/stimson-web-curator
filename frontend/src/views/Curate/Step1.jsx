@@ -16,8 +16,8 @@ import {
   Row,
   UncontrolledDropdown
 } from "reactstrap";
-import axios from "axios";
-import {isEmpty} from "../../Utils";
+import {countries, fileTypes, languages} from "../../variables/google";
+
 // https://react-icons.github.io/react-icons/icons?name=fa
 // core components
 
@@ -33,40 +33,14 @@ class Step1 extends Component {
       numbersRangingTo: null,
       language: "any",
       countryName: "any",
+      fileType: "any",
+      sortBy: "relevance", // blank means sort by relevance
       siteOrDomain: null,
       termsAppearing: null,
-      fileType: null,
-      languages: {},
-      countries: {}
+      languages: {}
     };
     this.generateLanguageMenuItems = this.generateLanguageMenuItems.bind(this);
     this.generateCountryMenuItems = this.generateCountryMenuItems.bind(this);
-  }
-
-  componentDidMount() {
-    // console.log("Curate Step1: componentDidMount");
-    axios.get("http://localhost:5000/languages")
-      .then(response => {
-        // console.log('Curate Step2: response.data=' + JSON.stringify(response.data, null, 2));
-        const results = response.data;
-        if (results != null && !isEmpty(results)) {
-          this.setState({languages: results});
-        }
-      }).catch(error => {
-      // catch and print the error
-      console.log(error);
-    });
-    axios.get("http://localhost:5000/countries")
-      .then(response => {
-        // console.log('Curate Step2: response.data=' + JSON.stringify(response.data, null, 2));
-        const results = response.data;
-        if (results != null && !isEmpty(results)) {
-          this.setState({countries: results});
-        }
-      }).catch(error => {
-      // catch and print the error
-      console.log(error);
-    });
   }
 
   // to stop the warning of calling setState of unmounted component
@@ -83,38 +57,52 @@ class Step1 extends Component {
   }
 
   generateLanguageMenuItems() {
-    const {languages} = this.state;
     let languageNames = [];
     // https://stackoverflow.com/questions/34913675/how-to-iterate-keys-values-in-javascript
-    Object.keys(languages).forEach(function(key) {
-      languageNames.push(languages[key]);
+    Object.keys(languages).forEach(function (key) {
+      languageNames.push(key);
     });
     // https://stackoverflow.com/questions/44364502/how-to-set-selected-item-in-reactstrap-dropdown
     // noinspection JSUnusedLocalSymbols
     return languageNames.map((languageName, languageIndex) => (
-      <DropdownItem key={languageName} onClick={e => this.setState({language: e.currentTarget.textContent})}>{languageName}</DropdownItem>
+      <DropdownItem key={languageName}
+                    onClick={e => this.setState({language: e.currentTarget.textContent})}>{languageName}</DropdownItem>
     ))
   }
 
 
   generateCountryMenuItems() {
-    const {countries} = this.state;
     let countryNames = [];
     // https://stackoverflow.com/questions/34913675/how-to-iterate-keys-values-in-javascript
-    Object.keys(countries).forEach(function(key) {
+    Object.keys(countries).forEach(function (key) {
       // console.log("Countries[key]=" + key);
       countryNames.push(key);
     });
     // https://stackoverflow.com/questions/44364502/how-to-set-selected-item-in-reactstrap-dropdown
     return countryNames.map((countryName, countryNameIndex) => (
-      <DropdownItem key={countryName} onClick={e => this.setState({countryName: e.currentTarget.textContent})}>{countryName}</DropdownItem>
+      <DropdownItem key={countryName}
+                    onClick={e => this.setState({countryName: e.currentTarget.textContent})}>{countryName}</DropdownItem>
+    ))
+  }
+
+
+  generateFileTypeMenuItems() {
+    let fileTypes1 = [];
+    // https://stackoverflow.com/questions/34913675/how-to-iterate-keys-values-in-javascript
+    Object.keys(fileTypes).forEach(function (key) {
+      // console.log("Countries[key]=" + key);
+      fileTypes1.push(key);
+    });
+    // https://stackoverflow.com/questions/44364502/how-to-set-selected-item-in-reactstrap-dropdown
+    return fileTypes1.map((fileType, fileTypeIndex) => (
+      <DropdownItem key={fileType}
+                    onClick={e => this.setState({fileType: e.currentTarget.textContent})}>{fileType}</DropdownItem>
     ))
   }
 
   render() {
     // noinspection JSUnusedLocalSymbols
-    const {language, countryName} = this.state;
-    // console.log("language=" + language);
+    const {language, countryName, fileType, sortBy} = this.state;
     return (
       <>
         <div className="content">
@@ -224,7 +212,8 @@ class Step1 extends Component {
                             {language}
                           </DropdownToggle>
                           <DropdownMenu>
-                            <DropdownItem onClick={e => this.setState({language: e.currentTarget.textContent})}>Any</DropdownItem>
+                            <DropdownItem
+                              onClick={e => this.setState({language: e.currentTarget.textContent})}>Any</DropdownItem>
                             {this.generateLanguageMenuItems()}
                           </DropdownMenu>
                         </UncontrolledDropdown>
@@ -241,11 +230,64 @@ class Step1 extends Component {
                           </DropdownToggle>
                           <DropdownMenu>
                             <DropdownMenu>
-                              <DropdownItem onClick={e => this.setState({countryName: e.currentTarget.textContent})}>Any</DropdownItem>
+                              <DropdownItem
+                                onClick={e => this.setState({countryName: e.currentTarget.textContent})}
+                              >Any</DropdownItem>
                               {this.generateCountryMenuItems()}
                             </DropdownMenu>
                           </DropdownMenu>
                         </UncontrolledDropdown>
+                      </Col>
+                      <Label sm="2">File Type:</Label>
+                      <Col xs={12} md={4} sm={2} lg={4}>
+                        <UncontrolledDropdown>
+                          <DropdownToggle
+                            color="info"
+                            className="btn-round btn-block"
+                            caret
+                          >
+                            {fileType}
+                          </DropdownToggle>
+                          <DropdownMenu>
+                            <DropdownMenu>
+                              <DropdownItem
+                                onClick={e => this.setState({fileType: e.currentTarget.textContent})}
+                              >Any</DropdownItem>
+                              {this.generateFileTypeMenuItems()}
+                            </DropdownMenu>
+                          </DropdownMenu>
+                        </UncontrolledDropdown>
+                      </Col>
+
+                      <Label sm="2">Sort By:</Label>
+                      <Col xs={12} md={4} sm={2} lg={4}>
+                        <FormGroup check className="form-check-radio">
+                          <Label check>
+                            <Input
+                              defaultChecked
+                              defaultValue="relevance"
+                              id="relevance"
+                              name="relevance"
+                              type="radio"
+                              checked={sortBy === "relevance"}
+                              onChange={() => this.setState({sortBy: "relevance"})}
+                            />
+                            <span className="form-check-sign"/>
+                            Relevance
+                          </Label>
+                          <Label check>
+                            <Input
+                              defaultValue="date"
+                              id="date"
+                              name="date"
+                              type="radio"
+                              checked={sortBy === "date"}
+                              onChange={() => this.setState({sortBy: "date"})}
+                            />
+                            <span className="form-check-sign"/>
+                            Date
+                          </Label>
+                        </FormGroup>
                       </Col>
                     </Row>
                   </Form>

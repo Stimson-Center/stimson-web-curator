@@ -245,3 +245,18 @@ _countries = {
     "Zambia": "countryZM",
     "Zimbabwe": "countryZW"
 }
+
+file_types = {
+    "Adobe Portable Document Format": ".pdf",
+    "Google Earth": ".kml, .kmz",
+    "GPS eXchange Format": ".gpx",
+    "HTML": ".htm, .html",
+    "Microsoft Excel": ".xls, .xlsx",
+    "Microsoft PowerPoint": ".ppt, .pptx",
+    "Microsoft Word": ".doc, .docx",
+    "OpenOffice presentation": ".odp",
+    "OpenOffice spreadsheet": ".ods",
+    "OpenOffice text": ".odt",
+    "Rich Text Format": ".rtf",
+    "Text": ".txt, .text"
+}
