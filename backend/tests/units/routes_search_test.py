@@ -29,7 +29,7 @@ def test_search_defaults(client):
         "searchStart": 1,
         "siteOrDomain": None,
         "termsAppearing": None,
-        "sort_by": ""
+        "sortBy": ""
     }
 
     response = client.post("/search", json=event)
@@ -46,15 +46,15 @@ def test_search_thai(client):
         "anyOfTheseWords": None,
         "exactWordOrPhrase": None,
         "fileType": None,
-        "language": "th",
+        "language": "Thai",
         "noneOfTheseWordsOrPhrases": None,
         "numbersRangingFrom": None,
         "numbersRangingTo": None,
-        "country": "countryTH",
+        "country": "Thailand",
         "searchStart": 1,
         "siteOrDomain": None,
         "termsAppearing": None,
-        "sort_by": ""
+        "sortBy": ""
     }
 
     response = client.post("/search", json=event)

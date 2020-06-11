@@ -36,8 +36,7 @@ class Step1 extends Component {
       fileType: "any",
       sortBy: "relevance", // blank means sort by relevance
       siteOrDomain: null,
-      termsAppearing: null,
-      languages: {}
+      termsAppearing: null
     };
     this.generateLanguageMenuItems = this.generateLanguageMenuItems.bind(this);
     this.generateCountryMenuItems = this.generateCountryMenuItems.bind(this);

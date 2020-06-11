@@ -1,14 +1,14 @@
 
 // https://flaviocopes.com/javascript-sleep/
-export const sleep = (milliseconds) => {
+const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
 }
 
-export const isEmpty = (obj) => {
+const isEmpty = (obj) => {
   return obj === null || obj === undefined || Object.keys(obj).length === 0;
 }
 
-export const convertTimestampToDateFormat = (timestamp) => {
+const convertTimestampToDateFormat = (timestamp) => {
   const utcDate = new Date(timestamp);
 
   // NOTE: Do NOT USE getUTC* API here since you want the date, month and year to roll forward or backward when
@@ -21,8 +21,14 @@ export const convertTimestampToDateFormat = (timestamp) => {
   );
 };
 
-export const googleCustomSearchUrl = (query, searchStart) => {
-
+const googleCustomSearchUrl = (query, searchStart) => {
   const url = `http://localhost:5000/search?searchString=${query.allOfTheseWords}&searchStart=${searchStart}`;
   return encodeURI(url);
 }
+
+export {
+  sleep,
+  isEmpty,
+  convertTimestampToDateFormat,
+  googleCustomSearchUrl
+};

@@ -24,7 +24,7 @@ from scraper import get_available_languages
 # noinspection PyPackageRequirements
 from scraper.configuration import Configuration
 from api import create_app
-from .constants import _countries
+from .constants import countries, languages, file_types
 
 __title__ = 'stimson-web-curator'
 __author__ = 'Alan S. Cooper'
@@ -164,17 +164,18 @@ class ArticleProgress(Resource):
 
 
 #  {
-#       allOfTheseWords: null,
+#       allOfTheseWords: null,                  # queryParameterName
 #       exactWordOrPhrase: null,
-#       anyOfTheseWords: null,
+#       anyOfTheseWords: null,                  # webSearchQueryAddition
 #       noneOfTheseWordsOrPhrases: null,
 #       numbersRangingFrom: null,
 #       numbersRangingTo: null,
-#       language: null,
-#       region: null,
-#       siteOrDomain: null,
+#       language: null,                         # gl, lr
+#       country: null,                          # cr
+#       siteOrDomain: null,                     # as_sitesearch
 #       termsAppearing: null,
-#       fileType: null
+#       fileType: null                          # as_filetype
+#       sort_by: null                           sort_by
 #  }
 # https://developers.google.com/custom-search/docs/element
 # https://stackoverflow.com/questions/37083058/programmatically-searching-google-in-python-using-custom-search
@@ -191,21 +192,27 @@ class Search(Resource):
         service = build("customsearch", "v1", developerKey=api_key)
         results = list()
         kwargs = dict()
-        if form['language'] != 'any' and len(form['language']) >= 2:
+        if form['language'] and form['language'] != 'any':
             # https://developers.google.com/custom-search/docs/element
-            kwargs['gl'] = form['language']
-            kwargs['lr'] = f"lang_{form['language'][0:2]}"
-        if form['country'] != 'any' and form['country'].startswith("country") and len(form['country']) == 9:
+            language_code = languages[form['language']]
+            kwargs['gl'] = language_code
+            kwargs['lr'] = f"lang_{language_code[0:2]}"
+        if form['country'] and form['country'] != 'any':
             # https://developers.google.com/custom-search/docs/element
-            kwargs['cr'] = form['country']
-        if "sort_by" in form and form['sort_by'] == 'date':
-            # sort_by ""  by default is sorted by "relevance"
+            country_code = countries[form['country']]
+            kwargs['cr'] = country_code
+        if form['sortBy'] and form['sortBy'] == 'date':
+            # In Google, sort_by ""  by default is sorted by "relevance"
             kwargs['enableOrderBy'] = True
-            kwargs['sort_by'] = form['sort_by']
+            kwargs['sort_by'] = form['sortBy']
         if "anyOfTheseWords" in form and form['anyOfTheseWords']:
             kwargs['webSearchQueryAddition'] = form['anyOfTheseWords']
-        if "fileType" in form and form['fileType']:
-            kwargs['as_filetype'] = form['fileType']
+        if form["fileType"] and form['fileType']:
+            file_type_code = file_types[form['fileType']]
+            kwargs['as_filetype'] = file_type_code
+        if "siteOrDomain" in form and form['siteOrDomain']:
+            kwargs['as_sitesearch'] = form['siteOrDomain']
+
         search_term = form['allOfTheseWords']
         for i in range(1, 11):
             kwargs['start'] = search_start
@@ -220,13 +227,13 @@ class Search(Resource):
 class Languages(Resource):
     @staticmethod
     def get():
-        return get_available_languages(), 200, {'Content-Type': 'application/json'}
+        return languages, 200, {'Content-Type': 'application/json'}
 
 
 class Countries(Resource):
     @staticmethod
     def get():
-        return _countries, 200, {'Content-Type': 'application/json'}
+        return countries, 200, {'Content-Type': 'application/json'}
 
 
 def valid_filename(filename):

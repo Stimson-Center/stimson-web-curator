@@ -13,5 +13,5 @@ def test_languages(client):
     assert '200 OK' == response.status
     assert 'utf-8' == response.charset
     data = json.loads(response.data)
-    assert len(data) == 65
-    assert data['en'] == 'English'
+    assert len(data) == 83
+    assert data['English'] == 'en'
