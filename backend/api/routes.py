@@ -175,7 +175,7 @@ class ArticleProgress(Resource):
 #       siteOrDomain: null,                     # as_sitesearch
 #       termsAppearing: null,
 #       fileType: null                          # as_filetype
-#       sort_by: null                           sort_by
+#       sortBy: null                            # sort_by
 #  }
 # https://developers.google.com/custom-search/docs/element
 # https://stackoverflow.com/questions/37083058/programmatically-searching-google-in-python-using-custom-search
@@ -203,10 +203,11 @@ class Search(Resource):
             kwargs['cr'] = country_code
         if form['sortBy'] and form['sortBy'] == 'date':
             # In Google, sort_by ""  by default is sorted by "relevance"
-            kwargs['enableOrderBy'] = True
-            kwargs['sort_by'] = form['sortBy']
+            # kwargs['sort_by'] = form['sortBy']
+            print('sort_by not working');
         if "anyOfTheseWords" in form and form['anyOfTheseWords']:
-            kwargs['webSearchQueryAddition'] = form['anyOfTheseWords']
+            #kwargs['webSearchQueryAddition'] = form['anyOfTheseWords']
+            print('webSearchQueryAddition not working');
         if form["fileType"] and form['fileType']:
             file_type_code = file_types[form['fileType']]
             kwargs['as_filetype'] = file_type_code

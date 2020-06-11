@@ -4,19 +4,19 @@ import {flaskBackendUrl} from "../../variables/google";
 
 it('GoogleCustomSearch', async () => {
   const payload = {
-    "allOfTheseWords": "IUU",
-    "anyOfTheseWords": null,
-    "exactWordOrPhrase": null,
-    "fileType": null,
-    "language": "Thai",
-    "noneOfTheseWordsOrPhrases": null,
+    "allOfTheseWords": 'tricolor rat terrier',
+    "exactWordOrPhrase": '"rat terrier"',
+    "anyOfTheseWords": 'minature OR standard',
+    "noneOfTheseWordsOrPhrases": '-rodent, -"Jack Russell',
+    "siteOrDomain": null,
     "numbersRangingFrom": null,
     "numbersRangingTo": null,
-    "country": "Thailand",
-    "searchStart": 1,
-    "siteOrDomain": null,
+    "language": "English",
+    "country": "United Kingdom",
+    "fileType": null,
+    "sortBy": "date",
     "termsAppearing": null,
-    "sortBy": ""
+    "searchStart": 1
   };
   const url = flaskBackendUrl.concat('/search');
   expect(url).toEqual("http://localhost:5000/search");
