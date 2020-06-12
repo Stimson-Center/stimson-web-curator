@@ -17,6 +17,7 @@ import {
   UncontrolledDropdown
 } from "reactstrap";
 import {countries, fileTypes, languages} from "../../variables/google";
+import {getSearchYears} from "../../Utils";
 
 // https://react-icons.github.io/react-icons/icons?name=fa
 // core components
@@ -32,8 +33,8 @@ class Step1 extends Component {
       exactWordOrPhrase: null,
       language: "any",
       noneOfTheseWordsOrPhrases: null,
-      numbersRangingFrom: null,
-      numbersRangingTo: null,
+      numbersRangingFrom: "any",
+      numbersRangingTo: "any",
       siteOrDomain: null,
       sortBy: "relevance" // blank means sort by relevance
     };
@@ -99,9 +100,23 @@ class Step1 extends Component {
     ))
   }
 
+  generateSearchYearsFromMenuItems() {
+    return getSearchYears().map((fileType, fileTypeIndex) => (
+      <DropdownItem key={fileType}
+                    onClick={e => this.setState({numbersRangingFrom: e.currentTarget.textContent})}>{fileType}</DropdownItem>
+    ))
+  }
+
+  generateSearchYearsToMenuItems() {
+    return getSearchYears().map((fileType, fileTypeIndex) => (
+      <DropdownItem key={fileType}
+                    onClick={e => this.setState({numbersRangingTo: e.currentTarget.textContent})}>{fileType}</DropdownItem>
+    ))
+  }
+
   render() {
     // noinspection JSUnusedLocalSymbols
-    const {language, country, fileType, sortBy} = this.state;
+    const {language, country, fileType, sortBy, numbersRangingFrom, numbersRangingTo} = this.state;
     return (
       <>
         <div className="content">
@@ -177,27 +192,39 @@ class Step1 extends Component {
                       </Col>
                     </Row>
                     <Row>
-                      <Label sm="2">From:</Label>
-                      <Col sm="3">
-                        <FormGroup>
-                          <Input
-                            placeholder='10 lb, $300, 2019'
-                            type="text"
-                            name="phrase"
-                            onChange={e => this.setState({numbersRangingFrom: e.target.value})}
-                          />
-                        </FormGroup>
+                      <Label sm="2">From Year:</Label>
+                      <Col xs={12} md={4} sm={2} lg={4}>
+                        <UncontrolledDropdown>
+                          <DropdownToggle
+                            color="info"
+                            className="btn-round btn-block"
+                            caret
+                          >
+                            {numbersRangingFrom}
+                          </DropdownToggle>
+                          <DropdownMenu>
+                            <DropdownItem
+                              onClick={e => this.setState({numbersRangingFrom: e.currentTarget.textContent})}>Any</DropdownItem>
+                            {this.generateSearchYearsFromMenuItems()}
+                          </DropdownMenu>
+                        </UncontrolledDropdown>
                       </Col>
-                      <Label sm="2">To:</Label>
-                      <Col sm="3">
-                        <FormGroup>
-                          <Input
-                            placeholder='35 lb, $500, 2020'
-                            type="text"
-                            name="phrase"
-                            onChange={e => this.setState({numbersRangingTo: e.target.value})}
-                          />
-                        </FormGroup>
+                      <Label sm="2">To Year:</Label>
+                      <Col xs={12} md={4} sm={2} lg={4}>
+                          <UncontrolledDropdown>
+                            <DropdownToggle
+                              color="info"
+                              className="btn-round btn-block"
+                              caret
+                            >
+                              {numbersRangingTo}
+                            </DropdownToggle>
+                            <DropdownMenu>
+                              <DropdownItem
+                                onClick={e => this.setState({numbersRangingTo: e.currentTarget.textContent})}>Any</DropdownItem>
+                              {this.generateSearchYearsToMenuItems()}
+                            </DropdownMenu>
+                          </UncontrolledDropdown>
                       </Col>
                     </Row>
                     <Row>

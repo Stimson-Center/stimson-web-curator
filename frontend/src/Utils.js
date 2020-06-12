@@ -21,8 +21,18 @@ const convertTimestampToDateFormat = (timestamp) => {
   );
 };
 
+const getSearchYears = () => {
+  const currentYear = new Date().getFullYear();
+  let years = [];
+  for (let year = currentYear; year >= 1995; year--) {
+    years.push(year.toString())
+  }
+  return years;
+}
+
 export {
   sleep,
   isEmpty,
-  convertTimestampToDateFormat
+  convertTimestampToDateFormat,
+  getSearchYears
 };
