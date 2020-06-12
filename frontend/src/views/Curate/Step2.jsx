@@ -29,16 +29,16 @@ class Step2 extends Component {
       cleanse_url: null,
       query: {
         allOfTheseWords: null,
-        exactWordOrPhrase: null,
-        anyOfTheseWords: null,
-        noneOfTheseWordsOrPhrases: null,
-        numbersRangingFrom: null,
-        numbersRangingTo: null,
+        exactTerms: null,
+        orTerms: null,
+        excludeTerms: null,
+        lowRange: null,
+        highRange: null,
         language: "any",
         country: "any",
-        siteOrDomain: null,
+        siteSearch: null,
         fileType: "any",
-        sortBy: ""
+        sort: ""
       },
       data: this.handleData([[]])
     };
@@ -138,9 +138,9 @@ class Step2 extends Component {
       // set up the request parameters
       let newDataTable = [];
       let rowNumber = 1;
-      let searchStart = 1;
+      let start = 1;
       let newQuery = wizardData.Search;
-      newQuery['searchStart'] = searchStart;
+      newQuery['start'] = start;
       // console.log('Curate Step2: query=' + JSON.stringify(newQuery, null, 2));
       axios.post("http://localhost:5000/search", newQuery)
         .then(response => {

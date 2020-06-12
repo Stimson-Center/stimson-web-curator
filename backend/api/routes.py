@@ -257,16 +257,16 @@ class Share(Resource):
 # =====================================================================================================================
 #  {
 #       allOfTheseWords: null,
-#       anyOfTheseWords: null,
+#       orTerms: null,
 #       country: "any",
 #       fileType: "any",
-#       exactWordOrPhrase: null,
+#       exactTerms: null,
 #       language: "any",
-#       noneOfTheseWordsOrPhrases: null,
-#       numbersRangingFrom: null,
-#       numbersRangingTo: null,
-#       siteOrDomain: null,
-#       sortBy: "relevance" // blank
+#       excludeTerms: null,
+#       lowRange: null,
+#       highRange: null,
+#       siteSearch: null,
+#       sort: "relevance" // blank
 #       means
 #       sort # by relevance
 #  }
@@ -285,14 +285,14 @@ class Search(Resource):
         kwargs['safe'] = 'high'  # Enables highest level of safe search filtering
         search_term = form['allOfTheseWords']
         kwargs['q'] = search_term
-        if "anyOfTheseWords" in form and form['anyOfTheseWords']:
-            kwargs['orTerms'] = form['anyOfTheseWords']
+        if "orTerms" in form and form['orTerms']:
+            kwargs['orTerms'] = form['orTerms']
         if form['country'] and form['country'] != 'any':
             # https://developers.google.com/custom-search/docs/element
             country_code = countries[form['country']]
             kwargs['cr'] = country_code
-        if "exactWordOrPhrase" in form and form['exactWordOrPhrase']:
-            kwargs['exactTerms'] = form['exactWordOrPhrase']
+        if "exactTerms" in form and form['exactTerms']:
+            kwargs['exactTerms'] = form['exactTerms']
         if form["fileType"] and form['fileType'] != 'any':
             file_type_code = file_types[form['fileType']]
             kwargs['fileType'] = file_type_code
@@ -301,28 +301,27 @@ class Search(Resource):
             language_code = languages[form['language']]
             kwargs['gl'] = language_code
             kwargs['lr'] = f"lang_{language_code}"
-        if "noneOfTheseWordsOrPhrases" in form and form['noneOfTheseWordsOrPhrases']:
-            kwargs['excludeTerms'] = form['noneOfTheseWordsOrPhrases']
-        if "numbersRangingFrom" in form \
-                and form['numbersRangingFrom'] \
-                and "numbersRangingTo" in form \
-                and form['numbersRangingTo']:
-            kwargs['lowRange'] = form['numbersRangingFrom']
-            kwargs['highRange'] = form['numbersRangingTo']
-        if "siteOrDomain" in form and form['siteOrDomain']:
-            kwargs['siteSearch'] = form['siteOrDomain']
-        if form['sortBy'] and form['sortBy'] == 'date':
+        if "excludeTerms" in form and form['excludeTerms']:
+            kwargs['excludeTerms'] = form['excludeTerms']
+        if "lowRange" in form \
+                and form['lowRange'] \
+                and "highRange" in form \
+                and form['highRange']:
+            kwargs['lowRange'] = form['lowRange']
+            kwargs['highRange'] = form['highRange']
+        if "siteSearch" in form and form['siteSearch']:
+            kwargs['siteSearch'] = form['siteSearch']
+        if form['sort'] and form['sort'] == 'date':
             # In Google, sort_by ""  by default is sorted by "relevance"
-            kwargs['sort'] = form['sortBy']
+            kwargs['sort'] = form['sort']
 
         print(json.dumps(kwargs))
         service = build("customsearch", "v1", developerKey=api_key)
         response = list()
-        search_start = form['searchStart'] if 'searchStart' in form else 1
+        search_start = form['start'] if 'start' in form else 1
         page_limit = 10
         for page in range(0, page_limit):
             result = service.cse().list(
-                q=search_term,
                 cx=cse_id,
                 start=search_start,
                 **kwargs

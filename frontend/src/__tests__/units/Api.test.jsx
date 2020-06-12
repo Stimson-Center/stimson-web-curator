@@ -5,17 +5,17 @@ import {flaskBackendUrl} from "../../variables/google";
 it('GoogleCustomSearch', async () => {
   const payload = {
     "allOfTheseWords": 'tricolor rat terrier',
-    "exactWordOrPhrase": '"rat terrier"',
-    "anyOfTheseWords": 'miniature standard',
-    "noneOfTheseWordsOrPhrases": 'rodent "Jack Russell"',
-    "siteOrDomain": null,
-    "numbersRangingFrom": "any",
-    "numbersRangingTo": "any",
+    "exactTerms": '"rat terrier"',
+    "orTerms": 'miniature standard',
+    "excludeTerms": 'rodent "Jack Russell"',
+    "siteSearch": null,
+    "lowRange": "any",
+    "highRange": "any",
     "language": "English",
     "country": "United Kingdom",
     "fileType": null,
-    "sortBy": "date",
-    "searchStart": 1
+    "sort": "date",
+    "start": 1
   };
   const url = flaskBackendUrl.concat('/search');
   expect(url).toEqual("http://localhost:5000/search");

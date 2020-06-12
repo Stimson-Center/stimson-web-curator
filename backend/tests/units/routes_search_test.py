@@ -18,17 +18,17 @@ def validate(response):
 def test_search_defaults(client):
     payload = {
         "allOfTheseWords": 'tricolor rat terrier',
-        "exactWordOrPhrase": '"rat terrier"',
-        "anyOfTheseWords": 'miniature standard',
-        "noneOfTheseWordsOrPhrases": 'rodent "Jack Russell"',
-        "siteOrDomain": None,
-        "numbersRangingFrom": "any",
-        "numbersRangingTo": "any",
+        "exactTerms": '"rat terrier"',
+        "orTerms": 'miniature standard',
+        "excludeTerms": 'rodent "Jack Russell"',
+        "siteSearch": None,
+        "lowRange": "any",
+        "highRange": "any",
         "language": "English",
         "country": "United Kingdom",
         "fileType": None,
-        "sortBy": "date",
-        "searchStart": 1
+        "sort": "date",
+        "start": 1
     }
 
     response = client.post("/search", json=payload)
@@ -42,17 +42,17 @@ def test_search_defaults(client):
 def test_search_thai(client):
     payload = {
         "allOfTheseWords": "IUU",
-        "anyOfTheseWords": None,
+        "orTerms": None,
         "country": "Thailand",
-        "exactWordOrPhrase": None,
+        "exactTerms": None,
         "fileType": None,
         "language": "Thai",
-        "noneOfTheseWordsOrPhrases": None,
-        "numbersRangingFrom": None,
-        "numbersRangingTo": None,
-        "searchStart": 1,
-        "siteOrDomain": None,
-        "sortBy": ""
+        "excludeTerms": None,
+        "lowRange": None,
+        "highRange": None,
+        "start": 1,
+        "siteSearch": None,
+        "sort": ""
     }
 
     response = client.post("/search", json=payload)

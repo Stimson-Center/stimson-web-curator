@@ -27,16 +27,16 @@ class Step1 extends Component {
     super(props);
     this.state = {
       allOfTheseWords: null,
-      anyOfTheseWords: null,
+      orTerms: null,
       country: "any",
       fileType: "any",
-      exactWordOrPhrase: null,
+      exactTerms: null,
       language: "any",
-      noneOfTheseWordsOrPhrases: null,
-      numbersRangingFrom: "any",
-      numbersRangingTo: "any",
-      siteOrDomain: null,
-      sortBy: "relevance" // blank means sort by relevance
+      excludeTerms: null,
+      lowRange: "any",
+      highRange: "any",
+      siteSearch: null,
+      sort: "relevance" // blank means sort by relevance
     };
     this.generateLanguageMenuItems = this.generateLanguageMenuItems.bind(this);
     this.generateCountryMenuItems = this.generateCountryMenuItems.bind(this);
@@ -103,20 +103,20 @@ class Step1 extends Component {
   generateSearchYearsFromMenuItems() {
     return getSearchYears().map((fileType, fileTypeIndex) => (
       <DropdownItem key={fileType}
-                    onClick={e => this.setState({numbersRangingFrom: e.currentTarget.textContent})}>{fileType}</DropdownItem>
+                    onClick={e => this.setState({lowRange: e.currentTarget.textContent})}>{fileType}</DropdownItem>
     ))
   }
 
   generateSearchYearsToMenuItems() {
     return getSearchYears().map((fileType, fileTypeIndex) => (
       <DropdownItem key={fileType}
-                    onClick={e => this.setState({numbersRangingTo: e.currentTarget.textContent})}>{fileType}</DropdownItem>
+                    onClick={e => this.setState({highRange: e.currentTarget.textContent})}>{fileType}</DropdownItem>
     ))
   }
 
   render() {
     // noinspection JSUnusedLocalSymbols
-    const {language, country, fileType, sortBy, numbersRangingFrom, numbersRangingTo} = this.state;
+    const {language, country, fileType, sort, lowRange, highRange} = this.state;
     return (
       <>
         <div className="content">
@@ -147,7 +147,7 @@ class Step1 extends Component {
                             placeholder='"rat terrier"'
                             type="text"
                             name="phrase"
-                            onChange={e => this.setState({exactWordOrPhrase: e.target.value})}
+                            onChange={e => this.setState({exactTerms: e.target.value})}
                           />
                         </FormGroup>
                       </Col>
@@ -160,7 +160,7 @@ class Step1 extends Component {
                             placeholder='miniature standard'
                             type="text"
                             name="phrase"
-                            onChange={e => this.setState({anyOfTheseWords: e.target.value})}
+                            onChange={e => this.setState({orTerms: e.target.value})}
                           />
                         </FormGroup>
                       </Col>
@@ -173,7 +173,7 @@ class Step1 extends Component {
                             placeholder='rodent "Jack Russell"'
                             type="text"
                             name="phrase"
-                            onChange={e => this.setState({noneOfTheseWordsOrPhrases: e.target.value})}
+                            onChange={e => this.setState({excludeTerms: e.target.value})}
                           />
                         </FormGroup>
                       </Col>
@@ -186,7 +186,7 @@ class Step1 extends Component {
                             placeholder='wikipedia.org or domain(s) like .edu, .org or .gov'
                             type="text"
                             name="phrase"
-                            onChange={e => this.setState({siteOrDomain: e.target.value})}
+                            onChange={e => this.setState({siteSearch: e.target.value})}
                           />
                         </FormGroup>
                       </Col>
@@ -200,11 +200,11 @@ class Step1 extends Component {
                             className="btn-round btn-block"
                             caret
                           >
-                            {numbersRangingFrom}
+                            {lowRange}
                           </DropdownToggle>
                           <DropdownMenu>
                             <DropdownItem
-                              onClick={e => this.setState({numbersRangingFrom: e.currentTarget.textContent})}>Any</DropdownItem>
+                              onClick={e => this.setState({lowRange: e.currentTarget.textContent})}>Any</DropdownItem>
                             {this.generateSearchYearsFromMenuItems()}
                           </DropdownMenu>
                         </UncontrolledDropdown>
@@ -217,11 +217,11 @@ class Step1 extends Component {
                               className="btn-round btn-block"
                               caret
                             >
-                              {numbersRangingTo}
+                              {highRange}
                             </DropdownToggle>
                             <DropdownMenu>
                               <DropdownItem
-                                onClick={e => this.setState({numbersRangingTo: e.currentTarget.textContent})}>Any</DropdownItem>
+                                onClick={e => this.setState({highRange: e.currentTarget.textContent})}>Any</DropdownItem>
                               {this.generateSearchYearsToMenuItems()}
                             </DropdownMenu>
                           </UncontrolledDropdown>
@@ -295,8 +295,8 @@ class Step1 extends Component {
                               id="relevance"
                               name="relevance"
                               type="radio"
-                              checked={sortBy === "relevance"}
-                              onChange={() => this.setState({sortBy: "relevance"})}
+                              checked={sort === "relevance"}
+                              onChange={() => this.setState({sort: "relevance"})}
                             />
                             <span className="form-check-sign"/>
                             Relevance
@@ -307,8 +307,8 @@ class Step1 extends Component {
                               id="date"
                               name="date"
                               type="radio"
-                              checked={sortBy === "date"}
-                              onChange={() => this.setState({sortBy: "date"})}
+                              checked={sort === "date"}
+                              onChange={() => this.setState({sort: "date"})}
                             />
                             <span className="form-check-sign"/>
                             Date
