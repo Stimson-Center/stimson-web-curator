@@ -1,7 +1,7 @@
 // https://www.google.com/advanced_search
 import React, {Component} from "react";
 // react component for creating dynamic tables
-// reactstrap components
+// reactstrap comsiteSearchponents
 import {
   Card,
   CardBody,
@@ -173,7 +173,7 @@ class Step1 extends Component {
                             placeholder='rodent "Jack Russell"'
                             type="text"
                             name="phrase"
-                            onChange={e => this.setState({siteOrDomain: e.target.value})}
+                            onChange={e => this.setState({noneOfTheseWordsOrPhrases: e.target.value})}
                           />
                         </FormGroup>
                       </Col>
@@ -186,7 +186,7 @@ class Step1 extends Component {
                             placeholder='wikipedia.org or domain(s) like .edu, .org or .gov'
                             type="text"
                             name="phrase"
-                            onChange={e => this.setState({noneOfTheseWordsOrPhrases: e.target.value})}
+                            onChange={e => this.setState({siteOrDomain: e.target.value})}
                           />
                         </FormGroup>
                       </Col>

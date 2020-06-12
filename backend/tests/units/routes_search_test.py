@@ -17,23 +17,23 @@ def validate(response):
 @pytest.mark.options(debug=True)
 def test_search_defaults(client):
     payload = {
-        "allOfTheseWords": "IUU",
-        "anyOfTheseWords": None,
-        "country": "any",
-        "exactWordOrPhrase": None,
-        "fileType": None,
-        "language": "any",
-        "noneOfTheseWordsOrPhrases": None,
-        "numbersRangingFrom": None,
-        "numbersRangingTo": None,
-        "searchStart": 1,
+        "allOfTheseWords": 'tricolor rat terrier',
+        "exactWordOrPhrase": '"rat terrier"',
+        "anyOfTheseWords": 'miniature standard',
+        "noneOfTheseWordsOrPhrases": 'rodent "Jack Russell"',
         "siteOrDomain": None,
-        "sortBy": ""
+        "numbersRangingFrom": "any",
+        "numbersRangingTo": "any",
+        "language": "English",
+        "country": "United Kingdom",
+        "fileType": None,
+        "sortBy": "date",
+        "searchStart": 1
     }
 
     response = client.post("/search", json=payload)
     data = validate(response)
-    assert len(data) == 100
+    assert len(data) > 10
 
 
 
