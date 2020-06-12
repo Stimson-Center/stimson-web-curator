@@ -48,7 +48,7 @@ class Step2 extends Component {
   }
 
   componentDidMount() {
-    console.log("Curate Step2: componentDidMount");
+    // console.log("Curate Step2: componentDidMount");
     const {cleanse_url} = this.state;
     if (cleanse_url !== null) {
       this.setState({cleanse_url: null});
