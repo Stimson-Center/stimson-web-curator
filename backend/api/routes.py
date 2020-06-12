@@ -253,7 +253,7 @@ class Search(Resource):
             kwargs['exactTerms'] = form['exactWordOrPhrase']
         if "anyOfTheseWords" in form and form['anyOfTheseWords']:
             kwargs['orTerms'] = form['anyOfTheseWords']
-        if form["fileType"] and form['fileType']:
+        if form["fileType"] and form['fileType'] != 'any':
             file_type_code = file_types[form['fileType']]
             kwargs['fileType'] = file_type_code
         if "siteOrDomain" in form and form['siteOrDomain']:
