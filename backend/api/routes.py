@@ -211,6 +211,7 @@ class Share(Resource):
 
 
 # =====================================================================================================================
+# https://developers.google.com/custom-search/v1/reference/rest/v1/cse/list
 # https://github.com/caiogranero/google-custom-search-api-python
 # I.O.U. caiogranero $10.00 since the Google documentation is not correct and your's is correct!
 # Args:
@@ -283,6 +284,7 @@ class Search(Resource):
         kwargs['filter'] = 1  # Turns on duplicate content filter
         kwargs['safe'] = 'high'  # Enables highest level of safe search filtering
         search_term = form['allOfTheseWords']
+        kwargs['q'] = search_term
         if "anyOfTheseWords" in form and form['anyOfTheseWords']:
             kwargs['orTerms'] = form['anyOfTheseWords']
         if form['country'] and form['country'] != 'any':
@@ -301,12 +303,19 @@ class Search(Resource):
             kwargs['lr'] = f"lang_{language_code}"
         if "noneOfTheseWordsOrPhrases" in form and form['noneOfTheseWordsOrPhrases']:
             kwargs['excludeTerms'] = form['noneOfTheseWordsOrPhrases']
+        if "numbersRangingFrom" in form \
+                and form['numbersRangingFrom'] \
+                and "numbersRangingTo" in form \
+                and form['numbersRangingTo']:
+            kwargs['lowRange'] = form['numbersRangingFrom']
+            kwargs['highRange'] = form['numbersRangingTo']
         if "siteOrDomain" in form and form['siteOrDomain']:
             kwargs['siteSearch'] = form['siteOrDomain']
         if form['sortBy'] and form['sortBy'] == 'date':
             # In Google, sort_by ""  by default is sorted by "relevance"
             kwargs['sort'] = form['sortBy']
 
+        print(json.dumps(kwargs))
         service = build("customsearch", "v1", developerKey=api_key)
         response = list()
         search_start = form['searchStart'] if 'searchStart' in form else 1
