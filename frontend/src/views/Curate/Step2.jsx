@@ -34,11 +34,11 @@ class Step2 extends Component {
         noneOfTheseWordsOrPhrases: null,
         numbersRangingFrom: null,
         numbersRangingTo: null,
-        language: null,
-        region: null,
+        language: "any",
+        country: "any",
         siteOrDomain: null,
-        termsAppearing: null,
-        fileType: null
+        fileType: "any",
+        sortBy: ""
       },
       data: this.handleData([[]])
     };
@@ -133,7 +133,7 @@ class Step2 extends Component {
     if (wizardData !== undefined &&
       wizardData !== null &&
       wizardData.Search !== undefined &&
-      wizardData.Search.allOfTheseWords !== query.allOfTheseWords) {
+      wizardData.Search !== query) {
       // any new query terms will force a render and re-execute this function
       // set up the request parameters
       let newDataTable = [];
@@ -141,15 +141,15 @@ class Step2 extends Component {
       let searchStart = 1;
       let newQuery = wizardData.Search;
       newQuery['searchStart'] = searchStart;
-      // console.log('Curate Step2: query=' + JSON.stringify(query, null, 2));
+      // console.log('Curate Step2: query=' + JSON.stringify(newQuery, null, 2));
       axios.post("http://localhost:5000/search", newQuery)
         .then(response => {
-          // console.log('Curate Step2: response.data=' + JSON.stringify(response.data, null, 2));
-          const results = response.data;
-          if (results != null && !isEmpty(results)) {
-            for (let i = 0; i < results.length; i++) {
-              if (results[i].snippet && results[i].link) {
-                newDataTable.push([rowNumber++, results[i].snippet, results[i].link]);
+          const data = response.data;
+          // console.log('Curate Step2: response.data=' + JSON.stringify(data, null, 2));
+          if (!isEmpty(data)) {
+            for (let i = 0; i < data.length; i++) {
+              if (data[i].snippet && data[i].link) {
+                newDataTable.push([rowNumber++, data[i].snippet, data[i].link]);
               }
             }
           }

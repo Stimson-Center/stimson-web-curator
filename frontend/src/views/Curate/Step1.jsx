@@ -32,7 +32,7 @@ class Step1 extends Component {
       numbersRangingFrom: null,
       numbersRangingTo: null,
       language: "any",
-      countryName: "any",
+      country: "any",
       fileType: "any",
       sortBy: "relevance", // blank means sort by relevance
       siteOrDomain: null,
@@ -71,16 +71,16 @@ class Step1 extends Component {
 
 
   generateCountryMenuItems() {
-    let countryNames = [];
+    let countries1 = [];
     // https://stackoverflow.com/questions/34913675/how-to-iterate-keys-values-in-javascript
     Object.keys(countries).forEach(function (key) {
       // console.log("Countries[key]=" + key);
-      countryNames.push(key);
+      countries1.push(key);
     });
     // https://stackoverflow.com/questions/44364502/how-to-set-selected-item-in-reactstrap-dropdown
-    return countryNames.map((countryName, countryNameIndex) => (
-      <DropdownItem key={countryName}
-                    onClick={e => this.setState({countryName: e.currentTarget.textContent})}>{countryName}</DropdownItem>
+    return countries1.map((country, countryIndex) => (
+      <DropdownItem key={country}
+                    onClick={e => this.setState({country: e.currentTarget.textContent})}>{country}</DropdownItem>
     ))
   }
 
@@ -101,7 +101,7 @@ class Step1 extends Component {
 
   render() {
     // noinspection JSUnusedLocalSymbols
-    const {language, countryName, fileType, sortBy} = this.state;
+    const {language, country, fileType, sortBy} = this.state;
     return (
       <>
         <div className="content">
@@ -138,11 +138,11 @@ class Step1 extends Component {
                       </Col>
                     </Row>
                     <Row>
-                      <Label sm="4">Any of these words::</Label>
+                      <Label sm="4">Any of these words:</Label>
                       <Col sm="8">
                         <FormGroup>
                           <Input
-                            placeholder='miniature OR standard'
+                            placeholder='miniature standard'
                             type="text"
                             name="phrase"
                             onChange={e => this.setState({anyOfTheseWords: e.target.value})}
@@ -155,7 +155,7 @@ class Step1 extends Component {
                       <Col sm="8">
                         <FormGroup>
                           <Input
-                            placeholder='-rodent, -"Jack Russell"'
+                            placeholder='rodent "Jack Russell"'
                             type="text"
                             name="phrase"
                             onChange={e => this.setState({siteOrDomain: e.target.value})}
@@ -177,21 +177,22 @@ class Step1 extends Component {
                       </Col>
                     </Row>
                     <Row>
-                      <Label sm="2">Numbers ranging:</Label>
-                      <Col sm="5">
+                      <Label sm="2">From:</Label>
+                      <Col sm="3">
                         <FormGroup>
                           <Input
-                            placeholder='10..35 lb, $300..$500, 2010..2011'
+                            placeholder='10 lb, $300, 2019'
                             type="text"
                             name="phrase"
                             onChange={e => this.setState({numbersRangingFrom: e.target.value})}
                           />
                         </FormGroup>
                       </Col>
-                      <Col sm="5">
+                      <Label sm="2">To:</Label>
+                      <Col sm="3">
                         <FormGroup>
                           <Input
-                            placeholder='10..35 lb, $300..$500, 2010..2011'
+                            placeholder='35 lb, $500, 2020'
                             type="text"
                             name="phrase"
                             onChange={e => this.setState({numbersRangingTo: e.target.value})}
@@ -225,12 +226,12 @@ class Step1 extends Component {
                             className="btn-round btn-block"
                             caret
                           >
-                            {countryName}
+                            {country}
                           </DropdownToggle>
                           <DropdownMenu>
                             <DropdownMenu>
                               <DropdownItem
-                                onClick={e => this.setState({countryName: e.currentTarget.textContent})}
+                                onClick={e => this.setState({country: e.currentTarget.textContent})}
                               >Any</DropdownItem>
                               {this.generateCountryMenuItems()}
                             </DropdownMenu>

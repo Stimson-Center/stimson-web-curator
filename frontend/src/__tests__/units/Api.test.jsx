@@ -6,8 +6,8 @@ it('GoogleCustomSearch', async () => {
   const payload = {
     "allOfTheseWords": 'tricolor rat terrier',
     "exactWordOrPhrase": '"rat terrier"',
-    "anyOfTheseWords": 'minature OR standard',
-    "noneOfTheseWordsOrPhrases": '-rodent, -"Jack Russell',
+    "anyOfTheseWords": 'miniature standard',
+    "noneOfTheseWordsOrPhrases": 'rodent "Jack Russell"',
     "siteOrDomain": null,
     "numbersRangingFrom": null,
     "numbersRangingTo": null,

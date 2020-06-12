@@ -220,9 +220,8 @@ class ArticleProgress(Resource):
 #       language: null,                         # gl, lr
 #       country: null,                          # cr
 #       siteOrDomain: null,                     # as_sitesearch
-#       termsAppearing: null,
 #       fileType: null                          # as_filetype
-#       sortBy: null                            # sort_by
+#       sortBy: null                            # sort
 #  }
 # https://developers.google.com/custom-search/docs/element
 # https://stackoverflow.com/questions/37083058/programmatically-searching-google-in-python-using-custom-search
