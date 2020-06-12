@@ -291,7 +291,6 @@ class Step1 extends Component {
                         <FormGroup check className="form-check-radio">
                           <Label check>
                             <Input
-                              defaultChecked
                               defaultValue="relevance"
                               id="relevance"
                               name="relevance"
