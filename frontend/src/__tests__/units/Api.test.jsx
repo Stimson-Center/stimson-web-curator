@@ -15,7 +15,6 @@ it('GoogleCustomSearch', async () => {
     "country": "United Kingdom",
     "fileType": null,
     "sortBy": "date",
-    "termsAppearing": null,
     "searchStart": 1
   };
   const url = flaskBackendUrl.concat('/search');
