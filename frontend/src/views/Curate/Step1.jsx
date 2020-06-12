@@ -26,20 +26,20 @@ class Step1 extends Component {
     super(props);
     this.state = {
       allOfTheseWords: null,
-      exactWordOrPhrase: null,
       anyOfTheseWords: null,
+      country: "any",
+      fileType: "any",
+      exactWordOrPhrase: null,
+      language: "any",
       noneOfTheseWordsOrPhrases: null,
       numbersRangingFrom: null,
       numbersRangingTo: null,
-      language: "any",
-      country: "any",
-      fileType: "any",
-      sortBy: "relevance", // blank means sort by relevance
       siteOrDomain: null,
-      termsAppearing: null
+      sortBy: "relevance" // blank means sort by relevance
     };
     this.generateLanguageMenuItems = this.generateLanguageMenuItems.bind(this);
     this.generateCountryMenuItems = this.generateCountryMenuItems.bind(this);
+    this.generateFileTypeMenuItems = this.generateCountryMenuItems.bind(this);
   }
 
   // to stop the warning of calling setState of unmounted component

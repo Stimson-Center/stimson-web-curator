@@ -163,121 +163,6 @@ class ArticleProgress(Resource):
         return response, 200, {'Content-Type': 'application/json'}
 
 
-# =====================================================================================================================
-# https://github.com/caiogranero/google-custom-search-api-python
-# I.O.U. caiogranero $10.00 since the Google documentation is not correct and your's is correct!
-# Args:
-#   q: string, Query (required)
-#   dateRestrict: string, Specifies all search results are from a time period
-#   hl: string, Sets the user interface language.
-#   orTerms: string, Provides additional search terms to check for in a document, where each document in the search results must contain at least one of the additional search terms
-#   highRange: string, Creates a range in form as_nlo value..as_nhi value and attempts to append it to query
-#   num: integer, Number of search results to return
-#   cr: string, Country restrict(s).
-#   relatedSite: string, Specifies that all search results should be pages that are related to the specified URL
-#   filter: string, Controls turning on or off the duplicate content filter.
-#     Allowed values
-#       0 - Turns off duplicate content filter.
-#       1 - Turns on duplicate content filter.
-#   gl: string, Geolocation of end user.
-#   searchType: string, Specifies the search type: image.
-#     Allowed values
-#       image - custom image search
-#   fileType: string, Returns images of a specified type. Some of the allowed values are: bmp, gif, png, jpg, svg, pdf, ...
-#   start: integer, The index of the first result to return
-#   lr: string, The language restriction for the search results
-#     Allowed values
-#       lang_ar - Arabic
-#   siteSearch: string, Specifies all search results should be pages from a given site
-#   cref: string, The URL of a linked custom search engine
-#   sort: string, The sort expression to apply to the results
-#   hq: string, Appends the extra query terms to the query.
-#   c2coff: string, Turns off the translation between zh-CN and zh-TW.
-#   googlehost: string, The local Google domain to use to perform the search.
-#   safe: string, Search safety level
-#     Allowed values
-#       high - Enables highest level of safe search filtering.
-#       medium - Enables moderate safe search filtering.
-#       off - Disables safe search filtering.
-#   exactTerms: string, Identifies a phrase that all documents in the search results must contain
-#   lowRange: string, Creates a range in form as_nlo value..as_nhi value and attempts to append it to query
-#   rights: string, Filters based on licensing. Supported values include: cc_publicdomain, cc_attribute, cc_sharealike, cc_noncommercial, cc_nonderived and combinations of these.
-#   excludeTerms: string, Identifies a word or phrase that should not appear in any documents in the search results
-#   linkSite: string, Specifies that all search results should contain a link to a particular URL
-#   cx: string, The custom search engine ID to scope this search query
-#   siteSearchFilter: string, Controls whether to include or exclude results from the site named in the as_sitesearch parameter
-#     Allowed values
-#       e - exclude
-#       i - include
-# =====================================================================================================================
-#  {
-#       allOfTheseWords: null,                  # queryParameterName
-#       exactWordOrPhrase: null,
-#       anyOfTheseWords: null,                  # orTerms
-#       noneOfTheseWordsOrPhrases: null,
-#       numbersRangingFrom: null,
-#       numbersRangingTo: null,
-#       language: null,                         # gl, lr
-#       country: null,                          # cr
-#       siteOrDomain: null,                     # as_sitesearch
-#       fileType: null                          # as_filetype
-#       sortBy: null                            # sort
-#  }
-# https://developers.google.com/custom-search/docs/element
-# https://stackoverflow.com/questions/37083058/programmatically-searching-google-in-python-using-custom-search
-class Search(Resource):
-    @staticmethod
-    def post():
-        # Get environment variables
-        load_dotenv()
-        api_key = os.getenv('GOOGLE_SECRET_API_KEY')
-        cse_id = os.getenv('GOOGLE_SECRET_CUSTOM_SEARCH_ID')
-        form = request.get_json()
-        kwargs = dict()
-        kwargs['filter'] = 1  # Turns on duplicate content filter
-        kwargs['safe'] = 'high'  # Enables highest level of safe search filtering
-        if form['language'] and form['language'] != 'any':
-            # https://developers.google.com/custom-search/docs/element
-            language_code = languages[form['language']]
-            kwargs['gl'] = language_code
-            kwargs['lr'] = f"lang_{language_code}"
-        if form['country'] and form['country'] != 'any':
-            # https://developers.google.com/custom-search/docs/element
-            country_code = countries[form['country']]
-            kwargs['cr'] = country_code
-        if form['sortBy'] and form['sortBy'] == 'date':
-            # In Google, sort_by ""  by default is sorted by "relevance"
-            kwargs['sort'] = form['sortBy']
-        if "exactWordOrPhrase" in form and form['exactWordOrPhrase']:
-            kwargs['exactTerms'] = form['exactWordOrPhrase']
-        if "anyOfTheseWords" in form and form['anyOfTheseWords']:
-            kwargs['orTerms'] = form['anyOfTheseWords']
-        if form["fileType"] and form['fileType'] != 'any':
-            file_type_code = file_types[form['fileType']]
-            kwargs['fileType'] = file_type_code
-        if "siteOrDomain" in form and form['siteOrDomain']:
-            kwargs['siteSearch'] = form['siteOrDomain']
-
-        service = build("customsearch", "v1", developerKey=api_key)
-        response = list()
-        search_term = form['allOfTheseWords']
-        search_start = form['searchStart'] if 'searchStart' in form else 1
-        page_limit = 10
-        for page in range(0, page_limit):
-            result = service.cse().list(
-                q=search_term,
-                cx=cse_id,
-                start=search_start,
-                **kwargs
-            ).execute()
-            if 'items' in result and len(result['items']):
-                response.extend(result['items'])
-                search_start += len(result['items'])
-            else:
-                break
-        return response, 200, {'Content-Type': 'application/json'}
-
-
 class Languages(Resource):
     @staticmethod
     def get():
@@ -323,6 +208,122 @@ class Share(Resource):
         with open(filepath, "w", encoding='utf-8') as f:
             f.write(json.dumps(form, indent=4, sort_keys=True))
         return {"filepath": filepath}, 200, {'Content-Type': 'application/json'}
+
+
+# =====================================================================================================================
+# https://github.com/caiogranero/google-custom-search-api-python
+# I.O.U. caiogranero $10.00 since the Google documentation is not correct and your's is correct!
+# Args:
+#   q: string, Query (required)
+#   dateRestrict: string, Specifies all search results are from a time period
+#   hl: string, Sets the user interface language.
+#   orTerms: string, Provides additional search terms to check for in a document, where each document in the search results must contain at least one of the additional search terms
+#   highRange: string, Creates a range in form as_nlo value..as_nhi value and attempts to append it to query
+#   num: integer, Number of search results to return
+#   cr: string, Country restrict(s).
+#   relatedSite: string, Specifies that all search results should be pages that are related to the specified URL
+#   filter: string, Controls turning on or off the duplicate content filter.
+#     Allowed values
+#       0 - Turns off duplicate content filter.
+#       1 - Turns on duplicate content filter.
+#   gl: string, Geolocation of end user.
+#   fileType: string, Returns images of a specified type. Some of the allowed values are: bmp, gif, png, jpg, svg, pdf, ...
+#   start: integer, The index of the first result to return
+#   lr: string, The language restriction for the search results
+#     Allowed values
+#       lang_ar - Arabic
+#   siteSearch: string, Specifies all search results should be pages from a given site
+#   cref: string, The URL of a linked custom search engine
+#   sort: string, The sort expression to apply to the results
+#   hq: string, Appends the extra query terms to the query.
+#   c2coff: string, Turns off the translation between zh-CN and zh-TW.
+#   googlehost: string, The local Google domain to use to perform the search.
+#   safe: string, Search safety level
+#     Allowed values
+#       high - Enables highest level of safe search filtering.
+#       medium - Enables moderate safe search filtering.
+#       off - Disables safe search filtering.
+#   exactTerms: string, Identifies a phrase that all documents in the search results must contain
+#   lowRange: string, Creates a range in form as_nlo value..as_nhi value and attempts to append it to query
+#   rights: string, Filters based on licensing. Supported values include: cc_publicdomain, cc_attribute, cc_sharealike, cc_noncommercial, cc_nonderived and combinations of these.
+#   excludeTerms: string, Identifies a word or phrase that should not appear in any documents in the search results
+#   linkSite: string, Specifies that all search results should contain a link to a particular URL
+#   cx: string, The custom search engine ID to scope this search query
+#   siteSearchFilter: string, Controls whether to include or exclude results from the site named in the as_sitesearch parameter
+#     Allowed values
+#       e - exclude
+#       i - include
+# =====================================================================================================================
+#  {
+#       allOfTheseWords: null,
+#       anyOfTheseWords: null,
+#       country: "any",
+#       fileType: "any",
+#       exactWordOrPhrase: null,
+#       language: "any",
+#       noneOfTheseWordsOrPhrases: null,
+#       numbersRangingFrom: null,
+#       numbersRangingTo: null,
+#       siteOrDomain: null,
+#       sortBy: "relevance" // blank
+#       means
+#       sort # by relevance
+#  }
+# https://developers.google.com/custom-search/docs/element
+# https://stackoverflow.com/questions/37083058/programmatically-searching-google-in-python-using-custom-search
+class Search(Resource):
+    @staticmethod
+    def post():
+        # Get environment variables
+        load_dotenv()
+        api_key = os.getenv('GOOGLE_SECRET_API_KEY')
+        cse_id = os.getenv('GOOGLE_SECRET_CUSTOM_SEARCH_ID')
+        form = request.get_json()
+        kwargs = dict()
+        kwargs['filter'] = 1  # Turns on duplicate content filter
+        kwargs['safe'] = 'high'  # Enables highest level of safe search filtering
+        search_term = form['allOfTheseWords']
+        if "anyOfTheseWords" in form and form['anyOfTheseWords']:
+            kwargs['orTerms'] = form['anyOfTheseWords']
+        if form['country'] and form['country'] != 'any':
+            # https://developers.google.com/custom-search/docs/element
+            country_code = countries[form['country']]
+            kwargs['cr'] = country_code
+        if "exactWordOrPhrase" in form and form['exactWordOrPhrase']:
+            kwargs['exactTerms'] = form['exactWordOrPhrase']
+        if form["fileType"] and form['fileType'] != 'any':
+            file_type_code = file_types[form['fileType']]
+            kwargs['fileType'] = file_type_code
+        if form['language'] and form['language'] != 'any':
+            # https://developers.google.com/custom-search/docs/element
+            language_code = languages[form['language']]
+            kwargs['gl'] = language_code
+            kwargs['lr'] = f"lang_{language_code}"
+        if "noneOfTheseWordsOrPhrases" in form and form['noneOfTheseWordsOrPhrases']:
+            kwargs['excludeTerms'] = form['noneOfTheseWordsOrPhrases']
+        if "siteOrDomain" in form and form['siteOrDomain']:
+            kwargs['siteSearch'] = form['siteOrDomain']
+        if form['sortBy'] and form['sortBy'] == 'date':
+            # In Google, sort_by ""  by default is sorted by "relevance"
+            kwargs['sort'] = form['sortBy']
+
+        service = build("customsearch", "v1", developerKey=api_key)
+        response = list()
+        search_start = form['searchStart'] if 'searchStart' in form else 1
+        page_limit = 10
+        for page in range(0, page_limit):
+            result = service.cse().list(
+                q=search_term,
+                cx=cse_id,
+                start=search_start,
+                **kwargs
+            ).execute()
+            if 'items' in result and len(result['items']):
+                response.extend(result['items'])
+                search_start += len(result['items'])
+            else:
+                break
+        return response, 200, {'Content-Type': 'application/json'}
 
 
 api.add_resource(HelloWorld, '/')

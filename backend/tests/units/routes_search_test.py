@@ -19,16 +19,15 @@ def test_search_defaults(client):
     payload = {
         "allOfTheseWords": "IUU",
         "anyOfTheseWords": None,
+        "country": "any",
         "exactWordOrPhrase": None,
         "fileType": None,
         "language": "any",
         "noneOfTheseWordsOrPhrases": None,
         "numbersRangingFrom": None,
         "numbersRangingTo": None,
-        "country": "any",
         "searchStart": 1,
         "siteOrDomain": None,
-        "termsAppearing": None,
         "sortBy": ""
     }
 
@@ -44,16 +43,15 @@ def test_search_thai(client):
     payload = {
         "allOfTheseWords": "IUU",
         "anyOfTheseWords": None,
+        "country": "Thailand",
         "exactWordOrPhrase": None,
         "fileType": None,
         "language": "Thai",
         "noneOfTheseWordsOrPhrases": None,
         "numbersRangingFrom": None,
         "numbersRangingTo": None,
-        "country": "Thailand",
         "searchStart": 1,
         "siteOrDomain": None,
-        "termsAppearing": None,
         "sortBy": ""
     }
 
