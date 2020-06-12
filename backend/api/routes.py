@@ -215,44 +215,44 @@ class Share(Resource):
 # I.O.U. caiogranero $10.00 since the Google documentation is not correct and your's is correct!
 # Args:
 #   q: string, Query (required)
-#   dateRestrict: string, Specifies all search results are from a time period
-#   hl: string, Sets the user interface language.
-#   orTerms: string, Provides additional search terms to check for in a document, where each document in the search results must contain at least one of the additional search terms
-#   highRange: string, Creates a range in form as_nlo value..as_nhi value and attempts to append it to query
-#   num: integer, Number of search results to return
+#   c2coff: string, Turns off the translation between zh-CN and zh-TW.
 #   cr: string, Country restrict(s).
-#   relatedSite: string, Specifies that all search results should be pages that are related to the specified URL
+#   cref: string, The URL of a linked custom search engine
+#   cx: string, The custom search engine ID to scope this search query
+#   dateRestrict: string, Specifies all search results are from a time period
+#   exactTerms: string, Identifies a phrase that all documents in the search results must contain
+#   excludeTerms: string, Identifies a word or phrase that should not appear in any documents in the search results
+#   fileType: string, Returns images of a specified type. Some of the allowed values are: bmp, gif, png, jpg, svg, pdf, ...
 #   filter: string, Controls turning on or off the duplicate content filter.
 #     Allowed values
 #       0 - Turns off duplicate content filter.
 #       1 - Turns on duplicate content filter.
 #   gl: string, Geolocation of end user.
-#   fileType: string, Returns images of a specified type. Some of the allowed values are: bmp, gif, png, jpg, svg, pdf, ...
-#   start: integer, The index of the first result to return
+#   googlehost: string, The local Google domain to use to perform the search.
+#   highRange: string, Creates a range in form as_nlo value..as_nhi value and attempts to append it to query
+#   hl: string, Sets the user interface language.
+#   hq: string, Appends the extra query terms to the query.
+#   linkSite: string, Specifies that all search results should contain a link to a particular URL
+#   lowRange: string, Creates a range in form as_nlo value..as_nhi value and attempts to append it to query
 #   lr: string, The language restriction for the search results
 #     Allowed values
 #       lang_ar - Arabic
-#   siteSearch: string, Specifies all search results should be pages from a given site
-#   cref: string, The URL of a linked custom search engine
-#   sort: string, The sort expression to apply to the results
-#   hq: string, Appends the extra query terms to the query.
-#   c2coff: string, Turns off the translation between zh-CN and zh-TW.
-#   googlehost: string, The local Google domain to use to perform the search.
+#   orTerms: string, Provides additional search terms to check for in a document, where each document in the search results must contain at least one of the additional search terms
+#   num: integer, Number of search results to return
+#   relatedSite: string, Specifies that all search results should be pages that are related to the specified URL
+#   rights: string, Filters based on licensing. Supported values include: cc_publicdomain, cc_attribute, cc_sharealike, cc_noncommercial, cc_nonderived and combinations of these.
 #   safe: string, Search safety level
 #     Allowed values
 #       high - Enables highest level of safe search filtering.
 #       medium - Enables moderate safe search filtering.
 #       off - Disables safe search filtering.
-#   exactTerms: string, Identifies a phrase that all documents in the search results must contain
-#   lowRange: string, Creates a range in form as_nlo value..as_nhi value and attempts to append it to query
-#   rights: string, Filters based on licensing. Supported values include: cc_publicdomain, cc_attribute, cc_sharealike, cc_noncommercial, cc_nonderived and combinations of these.
-#   excludeTerms: string, Identifies a word or phrase that should not appear in any documents in the search results
-#   linkSite: string, Specifies that all search results should contain a link to a particular URL
-#   cx: string, The custom search engine ID to scope this search query
+#   siteSearch: string, Specifies all search results should be pages from a given site
 #   siteSearchFilter: string, Controls whether to include or exclude results from the site named in the as_sitesearch parameter
 #     Allowed values
 #       e - exclude
 #       i - include
+#   sort: string, The sort expression to apply to the results
+#   start: integer, The index of the first result to return
 # =====================================================================================================================
 #  {
 #       allOfTheseWords: null,
