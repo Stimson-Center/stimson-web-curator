@@ -283,8 +283,7 @@ class Search(Resource):
         kwargs = dict()
         kwargs['filter'] = 1  # Turns on duplicate content filter
         kwargs['safe'] = 'high'  # Enables highest level of safe search filtering
-        search_term = form['allOfTheseWords']
-        kwargs['q'] = search_term
+        kwargs['q'] = form['allOfTheseWords'] # must be here
         if "orTerms" in form and form['orTerms']:
             kwargs['orTerms'] = form['orTerms']
         if form['country'] and form['country'] != 'any':
@@ -315,20 +314,20 @@ class Search(Resource):
             # In Google, sort_by ""  by default is sorted by "relevance"
             kwargs['sort'] = form['sort']
 
-        print(json.dumps(kwargs))
+        # print(json.dumps(kwargs))
         service = build("customsearch", "v1", developerKey=api_key)
         response = list()
-        search_start = form['start'] if 'start' in form else 1
+        start = form['start'] if 'start' in form else 1
         page_limit = 10
         for page in range(0, page_limit):
             result = service.cse().list(
                 cx=cse_id,
-                start=search_start,
+                start=start,
                 **kwargs
             ).execute()
             if 'items' in result and len(result['items']):
                 response.extend(result['items'])
-                search_start += len(result['items'])
+                start += len(result['items'])
             else:
                 break
         return response, 200, {'Content-Type': 'application/json'}
