@@ -285,30 +285,41 @@ class Search(Resource):
         kwargs['safe'] = 'high'  # Enables highest level of safe search filtering
         kwargs['q'] = form['allOfTheseWords'] # must be here
         if "orTerms" in form and form['orTerms']:
+            # Provides additional search terms to check for in a document, where each document in
+            # the search results must contain at least one of the additional search terms.
             kwargs['orTerms'] = form['orTerms']
         if form['country'] and form['country'] != 'any':
             # https://developers.google.com/custom-search/docs/element
-            country_code = countries[form['country']]
-            kwargs['cr'] = country_code
+            # Restricts search results to documents originating in a particular country.
+            # You may use Boolean operators in the cr parameter's value.
+            kwargs['cr'] = countries[form['country']]
         if "exactTerms" in form and form['exactTerms']:
+            # Identifies a phrase that all documents in the search results must contain
             kwargs['exactTerms'] = form['exactTerms']
         if form["fileType"] and form['fileType'] != 'any':
-            file_type_code = file_types[form['fileType']]
-            kwargs['fileType'] = file_type_code
+            # Restricts results to files of a specified extension. A list of
+            # file types indexable by Google can be found in Search Console
+            kwargs['fileType'] = file_types[form['fileType']]
         if form['language'] and form['language'] != 'any':
             # https://developers.google.com/custom-search/docs/element
             language_code = languages[form['language']]
+            # The local Google domain (for example, google.com, google.de, or google.fr) to use to perform the search
             kwargs['gl'] = language_code
+            # Restricts the search to documents written in a particular language
             kwargs['lr'] = f"lang_{language_code}"
         if "excludeTerms" in form and form['excludeTerms']:
+            # Identifies a word or phrase that should not appear in any documents in the search results.
             kwargs['excludeTerms'] = form['excludeTerms']
         if "lowRange" in form \
                 and form['lowRange'] \
                 and "highRange" in form \
                 and form['highRange']:
+            # Use lowRange and highRange to append an inclusive search range of lowRange...highRange to the query.
             kwargs['lowRange'] = form['lowRange']
             kwargs['highRange'] = form['highRange']
         if "siteSearch" in form and form['siteSearch']:
+            # Specifies a given site which should always be included or excluded from results
+            # (see siteSearchFilter parameter, below)
             kwargs['siteSearch'] = form['siteSearch']
         if form['sort'] and form['sort'] == 'date':
             # In Google, sort_by ""  by default is sorted by "relevance"
