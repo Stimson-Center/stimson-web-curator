@@ -68,8 +68,8 @@ class Step2 extends Component {
     let rows = dataTable.map((prop, key) => {
       return {
         id: key,
-        rank: prop[0],
-        title: prop[1],
+        displayLink: prop[0],
+        summary: prop[1],
         url: prop[2],
         actions: (
           // we've added some custom button actions
@@ -137,7 +137,6 @@ class Step2 extends Component {
       // any new query terms will force a render and re-execute this function
       // set up the request parameters
       let newDataTable = [];
-      let rowNumber = 1;
       let start = 1;
       let newQuery = wizardData.Search;
       newQuery['start'] = start;
@@ -145,13 +144,11 @@ class Step2 extends Component {
       axios.post("http://localhost:5000/search", newQuery)
         .then(response => {
           const data = response.data;
-          // console.log('Curate Step2: response.data=' + JSON.stringify(data, null, 2));
           if (!isEmpty(data)) {
-            for (let i = 0; i < data.length; i++) {
-              if (data[i].snippet && data[i].link) {
-                newDataTable.push([rowNumber++, data[i].snippet, data[i].link]);
-              }
-            }
+            data.forEach(function(d){
+              // console.log('Curate Step2: displayLink' + d.displayLink);
+              newDataTable.push([d.displayLink, d.snippet, d.link]);
+            });
           }
           // console.log("newDataTable=" + JSON.stringify(newDataTable, null, 2));
           this.setState({query: newQuery, data: this.handleData(newDataTable)});
@@ -195,13 +192,12 @@ class Step2 extends Component {
                     filterable
                     columns={[
                       {
-                        Header: "Rank",
-                        accessor: "rank",
-                        width: getColumnWidth(this.state.data, 'accessor', 'rank')
+                        Header: "Website",
+                        accessor: "displayLink",
                       },
                       {
-                        Header: "Title",
-                        accessor: "title"
+                        Header: "Summary",
+                        accessor: "summary"
                       },
                       {
                         Header: "Actions",
