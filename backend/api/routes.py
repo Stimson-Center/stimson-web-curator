@@ -288,7 +288,7 @@ class Search(Resource):
             # Provides additional search terms to check for in a document, where each document in
             # the search results must contain at least one of the additional search terms.
             kwargs['orTerms'] = form['orTerms']
-        if form['country'] and form['country'] != 'any':
+        if form['country'] and form['country'].lower() != 'any':
             # https://developers.google.com/custom-search/docs/element
             # Restricts search results to documents originating in a particular country.
             # You may use Boolean operators in the cr parameter's value.
@@ -296,11 +296,11 @@ class Search(Resource):
         if "exactTerms" in form and form['exactTerms']:
             # Identifies a phrase that all documents in the search results must contain
             kwargs['exactTerms'] = form['exactTerms']
-        if form["fileType"] and form['fileType'] != 'any':
+        if form["fileType"] and form['fileType'].lower() != 'any':
             # Restricts results to files of a specified extension. A list of
             # file types indexable by Google can be found in Search Console
             kwargs['fileType'] = file_types[form['fileType']]
-        if form['language'] and form['language'] != 'any':
+        if form['language'] and form['language'].lower() != 'any':
             # https://developers.google.com/custom-search/docs/element
             language_code = languages[form['language']]
             # The local Google domain (for example, google.com, google.de, or google.fr) to use to perform the search
@@ -312,8 +312,10 @@ class Search(Resource):
             kwargs['excludeTerms'] = form['excludeTerms']
         if "lowRange" in form \
                 and form['lowRange'] \
+                and form['lowRange'].lower() != "any" \
                 and "highRange" in form \
-                and form['highRange']:
+                and form['highRange'] \
+                and form['highRange'].lower() != "any":
             # Use lowRange and highRange to append an inclusive search range of lowRange...highRange to the query.
             kwargs['lowRange'] = form['lowRange']
             kwargs['highRange'] = form['highRange']
