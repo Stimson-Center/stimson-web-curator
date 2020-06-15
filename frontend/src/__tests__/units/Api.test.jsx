@@ -9,6 +9,7 @@ it('GoogleCustomSearch', async () => {
     "orTerms": 'miniature standard',
     "excludeTerms": 'rodent "Jack Russell"',
     "siteSearch": null,
+    "siteSearchFilter": "e",
     "lowRange": "any",
     "highRange": "any",
     "language": "English",

@@ -36,6 +36,7 @@ class Step1 extends Component {
       lowRange: "any",
       highRange: "any",
       siteSearch: null,
+      siteSearchFilter: "e",
       sort: "relevance" // blank means sort by relevance
     };
     this.generateLanguageMenuItems = this.generateLanguageMenuItems.bind(this);
@@ -116,7 +117,7 @@ class Step1 extends Component {
 
   render() {
     // noinspection JSUnusedLocalSymbols
-    const {language, country, fileType, sort, lowRange, highRange} = this.state;
+    const {language, country, fileType, sort, lowRange, highRange, siteSearchFilter} = this.state;
     return (
       <>
         <div className="content">
@@ -180,14 +181,42 @@ class Step1 extends Component {
                     </Row>
                     <Row>
                       <Label sm="4">Site or Domain:</Label>
-                      <Col sm="8">
+                      <Col xs={12} md={5} sm={3} lg={5}>
                         <FormGroup>
                           <Input
-                            placeholder='wikipedia.org or domain(s) like .edu, .org or .gov'
+                            placeholder='wikipedia.org OR .edu, .org or .gov'
                             type="text"
                             name="phrase"
                             onChange={e => this.setState({siteSearch: e.target.value})}
                           />
+                        </FormGroup>
+                      </Col>
+                      <Col xs={12} md={4} sm={2} lg={4}>
+                        <FormGroup check className="form-check-radio">
+                          <Label check>
+                            <Input
+                              defaultValue="exclude"
+                              id="exclude"
+                              name="exclude"
+                              type="radio"
+                              checked={siteSearchFilter === "e"}
+                              onChange={() => this.setState({siteSearchFilter: "e"})}
+                            />
+                            <span className="form-check-sign"/>
+                            Exclude
+                          </Label>
+                          <Label check>
+                            <Input
+                              defaultValue="include"
+                              id="include"
+                              name="include"
+                              type="radio"
+                              checked={siteSearchFilter === "i"}
+                              onChange={() => this.setState({siteSearchFilter: "i"})}
+                            />
+                            <span className="form-check-sign"/>
+                            Include
+                          </Label>
                         </FormGroup>
                       </Col>
                     </Row>
@@ -285,7 +314,6 @@ class Step1 extends Component {
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </Col>
-
                       <Label sm="2">Sort By:</Label>
                       <Col xs={12} md={4} sm={2} lg={4}>
                         <FormGroup check className="form-check-radio">
