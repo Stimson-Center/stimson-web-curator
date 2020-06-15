@@ -7,7 +7,7 @@ import {FaBinoculars} from 'react-icons/fa'; // https://react-icons.github.io/re
 import {Redirect} from "react-router-dom";
 import Cookies from "universal-cookie";
 import axios from 'axios';
-import {isEmpty} from "../../Utils";
+import {isEmpty, isEquivalent} from "../../Utils";
 // core components
 
 
@@ -133,7 +133,7 @@ class Step2 extends Component {
     if (wizardData !== undefined &&
       wizardData !== null &&
       wizardData.Search !== undefined &&
-      wizardData.Search !== query) {
+      !isEquivalent(wizardData.Search, query)) {
       // any new query terms will force a render and re-execute this function
       // set up the request parameters
       let newDataTable = [];
