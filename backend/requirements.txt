@@ -1,7 +1,7 @@
 flask
 flask-cors
 flask_restful
-google-api-python-client>=1.9.2
+google-api-python-client>=1.9.3
 nltk
 pytest
 pytest-flask

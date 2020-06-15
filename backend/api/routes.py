@@ -20,6 +20,7 @@ from flask_restful import Resource, Api
 from googleapiclient.discovery import build
 # noinspection PyPackageRequirements
 from scraper import Article
+from scraper import Sources as Srcs
 # noinspection PyPackageRequirements
 from scraper.configuration import Configuration
 
@@ -210,6 +211,15 @@ class Share(Resource):
         return {"filepath": filepath}, 200, {'Content-Type': 'application/json'}
 
 
+class Sources(Resource):
+    @staticmethod
+    def get():
+        url = request.args.get('url')
+        language = request.args.get('language')
+        sources = Srcs(url, language=language)
+        response = {"articles": sources.get_articles(), "categories": sources.get_categories()}
+        return response, 200, {'Content-Type': 'application/json'}
+
 # =====================================================================================================================
 # https://developers.google.com/custom-search/v1/reference/rest/v1/cse/list
 # https://github.com/caiogranero/google-custom-search-api-python
@@ -358,3 +368,4 @@ api.add_resource(FileTypes, '/filetypes')
 api.add_resource(Languages, '/languages')
 api.add_resource(Search, '/search')
 api.add_resource(Share, '/share')
+api.add_resource(Sources, '/sources')
