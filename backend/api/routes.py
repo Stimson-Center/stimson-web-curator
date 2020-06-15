@@ -213,10 +213,9 @@ class Share(Resource):
 
 class Sources(Resource):
     @staticmethod
-    def get():
-        url = request.args.get('url')
-        language = request.args.get('language')
-        sources = Srcs(url, language=language)
+    def post():
+        form = request.get_json()
+        sources = Srcs(form['url'], language=form['language'])
         response = {"articles": sources.get_articles(), "categories": sources.get_categories()}
         return response, 200, {'Content-Type': 'application/json'}
 
