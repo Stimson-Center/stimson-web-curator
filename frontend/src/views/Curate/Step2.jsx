@@ -96,7 +96,7 @@ class Step2 extends Component {
               color="success"
               size="sm"
             >
-              <i className="fa fa-heart"/>
+              <i className="fa fa-thumbs-up"/>
             </Button>{" "}
             {/* use this button to remove the data row */}
             <Button
@@ -118,7 +118,7 @@ class Step2 extends Component {
               color="danger"
               size="sm"
             >
-              <i className="fa fa-times"/>
+              <i className="fa fa-thumbs-down"/>
             </Button>{" "}
           </div>
         )
