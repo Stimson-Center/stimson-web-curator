@@ -30,7 +30,8 @@ const getSearchYears = () => {
   return years;
 }
 
-const  isEquivalent = (a, b) => {
+// http://adripofjavascript.com/blog/drips/object-equality-in-javascript.html
+const isEquivalent = (a, b) => {
   // Create arrays of property names
   const aProps = Object.getOwnPropertyNames(a);
   const bProps = Object.getOwnPropertyNames(b);
