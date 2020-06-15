@@ -33,7 +33,7 @@ class Curate extends Component {
               steps={[
                 {
                   stepName: "Search",
-                  stepIcon: "fa fa-binoculars",
+                  stepIcon: "fa eye",
                   component: Step1
                   // component: <Step1
                   //   props={this.props}
