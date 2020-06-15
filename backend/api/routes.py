@@ -283,7 +283,7 @@ class Search(Resource):
         kwargs = dict()
         kwargs['filter'] = 1  # Turns on duplicate content filter
         kwargs['safe'] = 'high'  # Enables highest level of safe search filtering
-        kwargs['q'] = form['allOfTheseWords'] # must be here
+        kwargs['q'] = form['allOfTheseWords']  # must be here
         if "orTerms" in form and form['orTerms']:
             # Provides additional search terms to check for in a document, where each document in
             # the search results must contain at least one of the additional search terms.
@@ -339,8 +339,12 @@ class Search(Resource):
                 **kwargs
             ).execute()
             if 'items' in result and len(result['items']):
-                response.extend(result['items'])
-                start += len(result['items'])
+                for item in result['items']:
+                    if 'displayLink' in item and item['displayLink'] \
+                            and 'snippet' in item and item['snippet'] \
+                            and 'link' in item and item['link']:
+                        response.append(item)
+                        start += 1
             else:
                 break
         return response, 200, {'Content-Type': 'application/json'}
