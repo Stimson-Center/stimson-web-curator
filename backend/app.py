@@ -17,12 +17,24 @@ __maintainer_email = "cooper@pobox.com"
 
 port = 5000
 
+REQUIRED_CORPORA = [
+    'brown',  # Required for FastNPExtractor
+    'punkt',  # Required for WordTokenizer
+    'maxent_treebank_pos_tagger',  # Required for NLTKTagger
+    'movie_reviews',  # Required for NaiveBayesAnalyzer
+    'wordnet',  # Required for lemmatization and Wordnet
+    'tokenizers/punkt/english.pickle',
+    'stopwords'
+]
+
 if __name__ == '__main__':
     from waitress import serve
     import nltk
 
-    nltk.download('punkt')
-    nltk.download('tokenizers/punkt/english.pickle')
+    for each in REQUIRED_CORPORA:
+        print(('Downloading "{0}"'.format(each)))
+        nltk.download(each)
+    print("Finished.")
 
     host = os.environ.get('IP', '0.0.0.0')
     port = int(os.environ.get('PORT', port))
