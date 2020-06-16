@@ -64,12 +64,25 @@ export function Article({...props}) {
     fetchData();
   }); // Empty array ensures that effect is only run on mount and unmount
 
-
+  let progressText = '';
+  switch (article.progress) {
+    case 20:
+      progressText = 'Downloading';
+      break;
+    case 40:
+      progressText = 'Parsing';
+      break;
+    case 60:
+      progressText = 'Natural Language Processing';
+      break;
+    default:
+      break;
+  }
   return (
     <div className="progress-container">
       <span className="progress-badge">Progress</span>
       <Progress max="100" value={article.progress}>
-        <span className="progress-value">{article.progress}%</span>
+        <span className="progress-value">{progressText} {article.progress}%</span>
       </Progress>
     </div>
   );
