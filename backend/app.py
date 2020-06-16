@@ -23,7 +23,6 @@ REQUIRED_CORPORA = [
     'maxent_treebank_pos_tagger',  # Required for NLTKTagger
     'movie_reviews',  # Required for NaiveBayesAnalyzer
     'wordnet',  # Required for lemmatization and Wordnet
-    'tokenizers/punkt/english.pickle',
     'stopwords'
 ]
 
