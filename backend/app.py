@@ -19,6 +19,10 @@ port = 5000
 
 if __name__ == '__main__':
     from waitress import serve
+    import nltk
+
+    nltk.download('punkt')
+    nltk.download('tokenizers/punkt/english.pickle')
 
     host = os.environ.get('IP', '0.0.0.0')
     port = int(os.environ.get('PORT', port))
