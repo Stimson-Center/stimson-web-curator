@@ -144,7 +144,7 @@ class ArticleProgress(Resource):
         elif isinstance(article.publish_date, str):
             publish_date = article.publish_date
         else:
-            publish_date = "2020-05-28"
+            publish_date = ""
         response = {
             "authors": article.authors,
             "images:": list(article.images),
