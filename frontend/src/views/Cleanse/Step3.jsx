@@ -4,15 +4,15 @@ import {Button, CardBody, Col, Row} from "reactstrap";
 import PropTypes from 'prop-types';
 
 class Step3 extends React.Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
     // this.state = {
     //   show: null
     // };
     // this.hideAlert = this.hideAlert.bind(this);
     // this.basicAlert = this.basicAlert.bind(this);
     // this.handlePublishArticle = this.handlePublishArticle.bind(this);
-  }
+  // }
 
   // to stop the warning of calling setState of unmounted component
   componentWillUnmount() {

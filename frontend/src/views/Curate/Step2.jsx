@@ -11,16 +11,16 @@ import {isEmpty, isEquivalent} from "../../Utils";
 // core components
 
 
-// https://github.com/tannerlinsley/react-table/issues/94
-const getColumnWidth = (rows, accessor, headerText) => {
-  const maxWidth = 800
-  const magicSpacing = 10
-  const cellLength = Math.max(
-    ...rows.map(row => (`${row[accessor]}` || '').length),
-    headerText.length,
-  )
-  return Math.min(maxWidth, cellLength * magicSpacing)
-}
+// // https://github.com/tannerlinsley/react-table/issues/94
+// const getColumnWidth = (rows, accessor, headerText) => {
+//   const maxWidth = 800
+//   const magicSpacing = 10
+//   const cellLength = Math.max(
+//     ...rows.map(row => (`${row[accessor]}` || '').length),
+//     headerText.length,
+//   )
+//   return Math.min(maxWidth, cellLength * magicSpacing)
+// }
 
 class Step2 extends Component {
   constructor(props) {
