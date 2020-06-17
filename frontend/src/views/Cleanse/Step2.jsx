@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 // react plugin used to create DropdownMenu for selecting items
 // reactstrap components
-import {Col, FormGroup, Input, Label, Progress, Row} from "reactstrap";
+import {Button, CardBody, Col, FormGroup, Input, Label, Progress, Row} from "reactstrap";
 import {isEmpty} from "../../Utils";
 import {Article} from "../../components/Article/Article";
 import {TextArea} from "@thumbtack/thumbprint-react";
@@ -72,6 +72,24 @@ class Step2 extends React.Component {
     });
   };
 
+  dowloadFileToDefaultFolder = () => {
+    const {article} = this.state;
+    // console.log("ARTICLE=" + JSON.stringify(article, null, 2));
+    const filename = `${article.publish_date} ${article.title}.json`;
+    const content = JSON.stringify(article, null, 4);
+    // const utf8ByteArray = toUTF8Array(content);
+    // const blob = new Blob([utf8ByteArray], {type: "application/json"});
+    let lines = [];
+    for (let [key, value] of Object.entries(article)) {
+      lines.push(`${key}:\t${value}\n`)
+    }
+    const blob = new Blob(lines, {type: "application/json"});
+    const url = URL.createObjectURL(blob);
+    let a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+  }
 
   render() {
     let {article, threadId} = this.state;
@@ -183,6 +201,21 @@ class Step2 extends React.Component {
                   onChange={event => this.handleChange(event, "text")}
                 />
               </FormGroup>
+            </Col>
+          </Row>
+          <Row className="justify-content-center">
+            <Col xs={12} lg={10}>
+              <CardBody>
+                <div className="btns-mr-5">
+                  <Button
+                    color="primary"
+                    className="btn-round"
+                    onClick={() => this.dowloadFileToDefaultFolder("application/json")}
+                  >
+                    <i className="now-ui-icons ui-2_favourite-28"/> Download Article
+                  </Button>
+                </div>
+              </CardBody>
             </Col>
           </Row>
         </>

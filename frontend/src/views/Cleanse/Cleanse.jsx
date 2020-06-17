@@ -8,7 +8,6 @@ import PanelHeader from "components/PanelHeader/PanelHeader.jsx";
 
 import Step1 from "./Step1.jsx";
 import Step2 from "./Step2.jsx";
-import Step3 from "./Step3.jsx";
 import {isEmpty} from "../../Utils";
 import Cookies from 'universal-cookie';
 
@@ -44,11 +43,6 @@ class Cleanse extends Component {
                   stepName: "Review",
                   stepIcon: "now-ui-icons ui-2_settings-90",
                   component: Step2
-                },
-                {
-                  stepName: "Publish",
-                  stepIcon: "now-ui-icons arrows-1_cloud-upload-94",
-                  component: Step3
                 }
               ]}
               navSteps
