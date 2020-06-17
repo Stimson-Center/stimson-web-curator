@@ -77,7 +77,11 @@ class Step3 extends React.Component {
     const content = JSON.stringify(article, null, 4);
     // const utf8ByteArray = toUTF8Array(content);
     // const blob = new Blob([utf8ByteArray], {type: "application/json"});
-    const blob = new Blob([content], {type: "application/json"});
+    let lines = [];
+    for (let [key, value] of Object.entries(article)) {
+      lines.push(`${key}:\t${value}\n`)
+    }
+    const blob = new Blob(lines, {type: "application/json"});
     const url = URL.createObjectURL(blob);
     let a = document.createElement('a');
     a.href = url;
