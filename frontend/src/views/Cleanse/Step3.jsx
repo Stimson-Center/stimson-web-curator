@@ -1,19 +1,17 @@
 import React from "react";
 // reactstrap components
 import {Button, CardBody, Col, Row} from "reactstrap";
-import SweetAlert from "react-bootstrap-sweetalert";
-import axios from "axios";
-import {isEmpty} from "../../Utils";
+import PropTypes from 'prop-types';
 
 class Step3 extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      show: null
-    };
-    this.hideAlert = this.hideAlert.bind(this);
-    this.basicAlert = this.basicAlert.bind(this);
-    this.handlePublishArticle = this.handlePublishArticle.bind(this);
+    // this.state = {
+    //   show: null
+    // };
+    // this.hideAlert = this.hideAlert.bind(this);
+    // this.basicAlert = this.basicAlert.bind(this);
+    // this.handlePublishArticle = this.handlePublishArticle.bind(this);
   }
 
   // to stop the warning of calling setState of unmounted component
@@ -24,50 +22,67 @@ class Step3 extends React.Component {
     }
   }
 
-  basicAlert() {
-    const {show} = this.state;
-    // console.log('Cleanse Step3: basicAlert=' + JSON.stringify(this.state, null, 2));
-    if (show) {
-      return (
-        <SweetAlert
-          success
-          style={{display: "block", marginTop: "50px"}}
-          title={"Saved:" + show}
-          onConfirm={() => this.hideAlert()}
-          onCancel={() => this.hideAlert()}
-          confirmBtnBsStyle="info"
-        />
-      );
-    }
-  }
+  // basicAlert() {
+  //   const {show} = this.state;
+  //   // console.log('Cleanse Step3: basicAlert=' + JSON.stringify(this.state, null, 2));
+  //   if (show) {
+  //     return (
+  //       <SweetAlert
+  //         success
+  //         style={{display: "block", marginTop: "50px"}}
+  //         title={"Saved:" + show}
+  //         onConfirm={() => this.hideAlert()}
+  //         onCancel={() => this.hideAlert()}
+  //         confirmBtnBsStyle="info"
+  //       />
+  //     );
+  //   }
+  // }
+  //
+  // hideAlert() {
+  //   const {show} = this.state;
+  //   if (show) {
+  //     this.setState({show: null});
+  //   }
+  // }
 
-  hideAlert() {
-    const {show} = this.state;
-    if (show) {
-      this.setState({show: null});
-    }
-  }
+  // handlePublishArticle() {
+  //   // console.log("Step3 handlePublishArticle props=" + JSON.stringify(this.props));
+  //   const {show} = this.state;
+  //   const {wizardData} = this.props;
+  //   // noinspection JSUnresolvedVariable
+  //   if (!isEmpty(wizardData) && !isEmpty(wizardData.Review) && !show) {
+  //     // noinspection JSUnresolvedVariable
+  //     const article = wizardData.Review.article;
+  //     axios.post("http://localhost:5000/share", article)
+  //       .then(response => {
+  //         // console.log('Cleanse Step3: response.data=' + JSON.stringify(response.data, null, 2));
+  //         const article = response.data;
+  //         if (article != null && !isEmpty(article) && !show) {
+  //           this.setState({show: article.filepath});
+  //         }
+  //       }).catch(error => {
+  //       // catch and print the error
+  //       console.log(error);
+  //     });
+  //   }
+  // }
 
-  handlePublishArticle() {
-    // console.log("Step3 handlePublishArticle props=" + JSON.stringify(this.props));
-    const {show} = this.state;
+
+  dowloadFileToDefaultFolder = () => {
     const {wizardData} = this.props;
-    // noinspection JSUnresolvedVariable
-    if (!isEmpty(wizardData) && !isEmpty(wizardData.Review) && !show) {
-      // noinspection JSUnresolvedVariable
-      const article = wizardData.Review.article;
-      axios.post("http://localhost:5000/share", article)
-        .then(response => {
-          // console.log('Cleanse Step3: response.data=' + JSON.stringify(response.data, null, 2));
-          const article = response.data;
-          if (article != null && !isEmpty(article) && !show) {
-            this.setState({show: article.filepath});
-          }
-        }).catch(error => {
-        // catch and print the error
-        console.log(error);
-      });
-    }
+    const article = wizardData.Review.article;
+    // console.log("ARTICLE=" + JSON.stringify(article));
+    const filename = `${article.publish_date} ${article.title}`;
+    const content = JSON.stringify(article);
+    // const utf8ByteArray = toUTF8Array(content);
+    // const blob = new Blob([utf8ByteArray], {type: "application/json"});
+    const blob = new Blob([content], {type: "application/json"});
+    const url = URL.createObjectURL(blob);
+    let a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
   }
 
   render() {
@@ -80,18 +95,21 @@ class Step3 extends React.Component {
                 <Button
                   color="primary"
                   className="btn-round"
-                  onClick={() => this.handlePublishArticle()}
+                  onClick={() => this.dowloadFileToDefaultFolder("application/json")}
                 >
-                  Save Article to home directory <i className="now-ui-icons ui-2_favourite-28"/>
+                  <i className="now-ui-icons ui-2_favourite-28"/> Download Article
                 </Button>
               </div>
             </CardBody>
-            {this.basicAlert()}
           </Col>
         </Row>
       </>
     );
   }
 }
+
+Step3.propTypes = {
+  wizardData: PropTypes.object.isRequired
+};
 
 export default Step3;
