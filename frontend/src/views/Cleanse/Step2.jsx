@@ -18,17 +18,6 @@ class Step2 extends React.Component {
       threadId: 0,
       updated: false,
     };
-    // console.log("props=" + JSON.stringify(props, null, 2));
-    // props={
-    //   "wizardData": {
-    //     "Download": {
-    //       "url": "https://www.yahoo.com",
-    //       "urlState": " has-success",
-    //       "article": {},
-    //       "urlFocus": false
-    //     }
-    //   }
-    // }
     this.handleProgress = this.handleProgress.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -77,19 +66,14 @@ class Step2 extends React.Component {
     // console.log("ARTICLE=" + JSON.stringify(article, null, 2));
     const filename = `${article.publish_date} ${article.title}.json`;
     const content = JSON.stringify(article, null, 4);
-    // const utf8ByteArray = toUTF8Array(content);
-    // const blob = new Blob([utf8ByteArray], {type: "application/json"});
-    let lines = [];
-    for (let [key, value] of Object.entries(article)) {
-      lines.push(`${key}:\t${value}\n`)
-    }
-    const blob = new Blob(lines, {type: "application/json"});
+    const blob = new Blob([content], {type: "application/json"});
     const url = URL.createObjectURL(blob);
     let a = document.createElement('a');
     a.href = url;
     a.download = filename;
     a.click();
   }
+
 
   render() {
     let {article, threadId} = this.state;

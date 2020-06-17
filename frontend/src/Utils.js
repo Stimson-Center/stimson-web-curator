@@ -86,11 +86,19 @@ const toUTF8Array = (str) => {
   }
   return utf8;
 }
+
+// https://gist.github.com/getify/3667624
+// NOTE: only escapes a " if it's not already escaped
+const escapeDoubleQuotes = (str) => {
+  return str.replace(/\\([\s\S])|(")/g,"\\$1$2"); // thanks @slevithan!
+}
+
 export {
   sleep,
   isEmpty,
   convertTimestampToDateFormat,
   getSearchYears,
   isEquivalent,
-  toUTF8Array
+  toUTF8Array,
+  escapeDoubleQuotes
 };
