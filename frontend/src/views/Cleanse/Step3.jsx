@@ -72,9 +72,9 @@ class Step3 extends React.Component {
   dowloadFileToDefaultFolder = () => {
     const {wizardData} = this.props;
     const article = wizardData.Review.article;
-    // console.log("ARTICLE=" + JSON.stringify(article));
+    // console.log("ARTICLE=" + JSON.stringify(article, null, 2));
     const filename = `${article.publish_date} ${article.title}`;
-    const content = JSON.stringify(article);
+    const content = JSON.stringify(article, null, 4);
     // const utf8ByteArray = toUTF8Array(content);
     // const blob = new Blob([utf8ByteArray], {type: "application/json"});
     const blob = new Blob([content], {type: "application/json"});
