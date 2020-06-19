@@ -76,16 +76,25 @@ class GetToken(Resource):
 
 
 class ExportingThread(threading.Thread):
-    def __init__(self, url):
+    def __init__(self, url, language='en'):
         self.progress = 0
         config = Configuration()
-        pdf_defaults = {
+        config.follow_meta_refresh = True
+        # Cooper, will need figure out when to ignore / respect webpage language
+        config.use_meta_language = False
+        config.http_success_only = False
+        config._language = language
+        config.ignored_content_types_defaults = {
             # "application/pdf": "%PDF-",
             # "application/x-pdf": "%PDF-",
             "application/x-bzpdf": "%PDF-",
             "application/x-gzpdf": "%PDF-"
         }
-        self.article = Article(url, request_timeout=config.request_timeout, ignored_content_types_defaults=pdf_defaults)
+        self.article = Article(url,
+                               language=language,
+                               config=config,
+                               request_timeout=config.request_timeout
+                               )
         super().__init__()
 
     def run(self):
@@ -117,8 +126,10 @@ class ArticlePool(Resource):
         # print("Values=" + json.dumps(request.values))
         # print("Form=" + json.dumps(request.form))
         url = request.args.get('url')
+        language = request.args.get('language')
+        language = language[:2]
         thread_id = random.randint(0, 10000)
-        exporting_threads[thread_id] = ExportingThread(url)
+        exporting_threads[thread_id] = ExportingThread(url, language)
         exporting_threads[thread_id].start()
         result = {"thread_id": thread_id}
         return result, 200, {'Content-Type': 'application/json'}
@@ -145,6 +156,7 @@ class ArticleProgress(Resource):
             publish_date = article.publish_date
         else:
             publish_date = ""
+
         response = {
             "authors": article.authors,
             "images:": list(article.images),
@@ -157,7 +169,8 @@ class ArticleProgress(Resource):
             "title": article.title,
             "topimage": article.top_image,
             "url": article.url,
-            "tables": article.tables
+            "tables": article.tables,
+            "language": article.meta_lang
         }
         # exporting_threads.pop(thread_id, None)
         # print(json.dumps(result))
@@ -218,6 +231,7 @@ class Sources(Resource):
         sources = Srcs(form['url'], language=form['language'])
         response = {"articles": sources.get_articles(), "categories": sources.get_categories()}
         return response, 200, {'Content-Type': 'application/json'}
+
 
 # =====================================================================================================================
 # https://developers.google.com/custom-search/v1/reference/rest/v1/cse/list

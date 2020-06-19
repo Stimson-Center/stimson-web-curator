@@ -79,9 +79,11 @@ class Step2 extends React.Component {
     let {article, threadId} = this.state;
     const {wizardData} = this.props;
     let url = null;
+    let language = 'en'
     if (!isEmpty(wizardData) && !isEmpty(wizardData.Download)) {
-      // console.log("Step2: wizardData=" + JSON.stringify(wizardData, null, 2));
+      console.log("Step2: wizardData=" + JSON.stringify(wizardData, null, 2));
       url = wizardData.Download.url;
+      language = wizardData.Download.language;
     }
     if (url === null) {
       return (
@@ -97,12 +99,14 @@ class Step2 extends React.Component {
         <>
           <Article
             url={url}
+            language={language}
             threadId={threadId}
             onProgress={this.handleProgress}
           />
         </>
       );
     } else if (article.progress === 100) {
+      // console.log("Article: article=" + JSON.stringify(article, null, 2));
       if (article.thread_id > 0) {
         axios({
           method: 'delete',

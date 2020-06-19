@@ -17,6 +17,7 @@ export function Article({...props}) {
   const [threadId, setThreadId] = useState(props.threadId);
 
   const url = props.url;
+  const language = props.language;
   useEffect(() => {
     const fetchData = async () => {
       // console.log("In Article fetchData url=" + url + " threadId=" + threadId);
@@ -24,7 +25,7 @@ export function Article({...props}) {
         let response1 = await axios({
           method: 'get',
           baseUrl: domain,
-          url: '/article?url=' + url,
+          url: encodeURI('/article?url=' + url + '&language=' + language),
           headers: {
             "Authorization": "",
             'Content-Type': 'application/json;charset=UTF-8'

@@ -93,6 +93,15 @@ const escapeDoubleQuotes = (str) => {
   return str.replace(/\\([\s\S])|(")/g,"\\$1$2"); // thanks @slevithan!
 }
 
+const getKeyByValue = (object, value) => {
+  return Object.keys(object).find(key => object[key] === value);
+}
+
+const getValueByIndex = (object, idx) => {
+  const key = Object.keys(object)[idx];
+  return object[key]
+}
+
 export {
   sleep,
   isEmpty,
@@ -100,5 +109,7 @@ export {
   getSearchYears,
   isEquivalent,
   toUTF8Array,
-  escapeDoubleQuotes
+  escapeDoubleQuotes,
+  getKeyByValue,
+  getValueByIndex
 };

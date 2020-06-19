@@ -1,7 +1,21 @@
 import React from "react";
 // reactstrap components
-import {Col, Input, InputGroup, InputGroupAddon, InputGroupText, Row} from "reactstrap";
+import {
+  Col,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Label,
+  Row,
+  UncontrolledDropdown
+} from "reactstrap";
 import Cookies from "universal-cookie";
+import {languages} from "../../variables/google";
+import {getKeyByValue, getValueByIndex} from "../../Utils"
 
 // core components
 
@@ -12,6 +26,8 @@ class Step1 extends React.Component {
     // console.log("Step1 props=" + JSON.stringify(props));
     this.state = {
       url: null,
+      languageName: getKeyByValue(languages, 'en'),
+      language: 'en',
       urlState: null,
       urlFocus: null
     };
@@ -69,7 +85,22 @@ class Step1 extends React.Component {
     }
   }
 
+  generateLanguageMenuItems() {
+    let languageNames = [];
+    // https://stackoverflow.com/questions/34913675/how-to-iterate-keys-values-in-javascript
+    Object.keys(languages).forEach(function (key) {
+      languageNames.push(key);
+    });
+    // https://stackoverflow.com/questions/44364502/how-to-set-selected-item-in-reactstrap-dropdown
+    // noinspection JSUnusedLocalSymbols
+    return languageNames.map((languageName, languageIndex) => (
+      <DropdownItem key={languageName}
+                    onClick={e => this.setState({languageName: e.currentTarget.textContent, language: getValueByIndex(languages, languageIndex)})}>{languageName}</DropdownItem>
+    ))
+  }
+
   render() {
+    const {languageName} = this.state;
     return (
       <>
         <h5 className="info-text">
@@ -100,6 +131,25 @@ class Step1 extends React.Component {
                 onChange={e => this.urlChange(e)}
               />
             </InputGroup>
+          </Col>
+        </Row>
+        <Row className="justify-content-center">
+          <Label sm="2">Language:</Label>
+          <Col xs={12} md={4} sm={2} lg={4}>
+            <UncontrolledDropdown>
+              <DropdownToggle
+                color="info"
+                className="btn-round btn-block"
+                caret
+              >
+                {languageName}
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem
+                  onClick={e => this.setState({language: e.currentTarget.textContent})}>{languageName}</DropdownItem>
+                {this.generateLanguageMenuItems()}
+              </DropdownMenu>
+            </UncontrolledDropdown>
           </Col>
         </Row>
       </>
