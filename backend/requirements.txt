@@ -8,5 +8,5 @@ pytest-flask
 python-dotenv
 oauth2client
 requests
-stimson-web-scraper>=0.0.13
+stimson-web-scraper>=0.0.14
 waitress>=1.4.4
