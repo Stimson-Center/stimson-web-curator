@@ -7,10 +7,8 @@ import {FaBinoculars} from 'react-icons/fa'; // https://react-icons.github.io/re
 import {Redirect} from "react-router-dom";
 import Cookies from "universal-cookie";
 import axios from 'axios';
-import SweetAlert from "react-bootstrap-sweetalert";
-import Iframe from 'react-iframe'
-// core components
 import {isEmpty, isEquivalent} from "../../Utils";
+// core components
 
 
 // // https://github.com/tannerlinsley/react-table/issues/94
@@ -42,14 +40,11 @@ class Step2 extends Component {
         fileType: "any",
         sort: ""
       },
-      data: this.handleData([[]]),
-      alert: null,
-      show: false
+      data: this.handleData([[]])
     };
     this.handleData = this.handleData.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.renderRedirect = this.renderRedirect.bind(this);
-    this.hideAlert = this.hideAlert.bind(this);
   }
 
   componentDidMount() {
@@ -68,33 +63,6 @@ class Step2 extends Component {
     }
   }
 
-  hideAlert() {
-    this.setState({
-      alert: null
-    });
-  }
-
-  modalDialog(url) {
-    this.setState({
-      alert: (
-        <SweetAlert
-          style={{display: "block", marginTop: "50px"}}
-          title={url}
-          onConfirm={() => this.hideAlert()}
-          onCancel={() => this.hideAlert()}
-          confirmBtnBsStyle="info">
-          <Iframe url={url}
-                  width="100%"
-                  height="200px"
-                  id="myId"
-                  className="myClassname"
-                  display="initial"
-                  position="relative"/>
-        </SweetAlert>
-      )
-    });
-  }
-
   handleData(dataTable) {
     // noinspection UnnecessaryLocalVariableJS
     let rows = dataTable.map((prop, key) => {
@@ -110,7 +78,7 @@ class Step2 extends Component {
             <Button
               onClick={() => {
                 let obj = this.state.data.find(o => o.id === key);
-                this.modalDialog(obj.url)
+                window.open(obj.url, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
               }}
               className="btn-icon btn-round"
               color="warning"
@@ -177,7 +145,7 @@ class Step2 extends Component {
         .then(response => {
           const data = response.data;
           if (!isEmpty(data)) {
-            data.forEach(function (d) {
+            data.forEach(function(d){
               // console.log('Curate Step2: displayLink' + d.displayLink);
               newDataTable.push([d.displayLink, d.snippet, d.link]);
             });
@@ -210,12 +178,10 @@ class Step2 extends Component {
   }
 
   render() {
-    const {alert} = this.state;
     return (
       <>
         {this.handleSearch()}
         {this.renderRedirect()}
-        {alert}
         <div className="content">
           <Row>
             <Col xs={12} md={12}>
