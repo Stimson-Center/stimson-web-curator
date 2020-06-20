@@ -51,4 +51,5 @@ amplify/.config/local-env-info.json
 **/.config/
 **/.bash_profile
 **/nohup.out
+.GOOGLE_APPLICATION_CREDENTIALS.json
 

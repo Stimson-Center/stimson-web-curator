@@ -15,8 +15,7 @@ class Step2 extends React.Component {
     super(props);
     this.state = {
       article: {progress: 0},
-      threadId: 0,
-      updated: false,
+      threadId: 0
     };
     this.handleProgress = this.handleProgress.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -56,8 +55,7 @@ class Step2 extends React.Component {
       article_update[stateName] = event.target.value
     }
     this.setState({
-      article: article_update,
-      updated: true
+      article: article_update
     });
   };
 
