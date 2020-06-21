@@ -85,7 +85,7 @@ class Step2 extends React.Component {
       );
     }
   }
-  showStartArticle(url, language, articleUrlChanged) {
+  showStartArticle(url, language, translate, articleUrlChanged) {
     if (articleUrlChanged) {
       // console.log("showStartArticle");
       return (
@@ -93,6 +93,7 @@ class Step2 extends React.Component {
           <Article
             url={url}
             language={language}
+            translate={translate}
             threadId={0}
             onProgress={this.handleProgress}
           />
@@ -101,7 +102,7 @@ class Step2 extends React.Component {
     }
   }
 
-  showArticleInProgress(url, language, threadId) {
+  showArticleInProgress(url, language, translate, threadId) {
     const {article} = this.state;
 
     if (article.progress > 0 && article.progress < 100) {
@@ -112,6 +113,7 @@ class Step2 extends React.Component {
           <Article
             url={url}
             language={language}
+            translate={translate}
             threadId={threadId}
             onProgress={this.handleProgress}
           />
@@ -219,7 +221,8 @@ class Step2 extends React.Component {
     const {wizardData} = this.props;
     let articleUrlChanged = false;
     let url = localStorage.getItem('articleUrl');
-    let language = 'en'
+    let language = 'en';
+    let translate = false;
     if (isEmpty(wizardData) || isEmpty(wizardData.Download)) {
       return (<div></div>);
     } else {
@@ -228,6 +231,7 @@ class Step2 extends React.Component {
         // console.log("Step2: wizardData=" + JSON.stringify(wizardData, null, 2));
         url = wizardData.Download.url;
         language = wizardData.Download.language;
+        translate = wizardData.Download.translate;
         localStorage.setItem('articleUrl', url);
         articleUrlChanged = true;
       }
@@ -251,8 +255,8 @@ class Step2 extends React.Component {
     return (
       <>
         {this.showProgressBar(url)}
-        {this.showStartArticle(url, language, articleUrlChanged)}
-        {this.showArticleInProgress(url, language, threadId)}
+        {this.showStartArticle(url, language, translate, articleUrlChanged)}
+        {this.showArticleInProgress(url, language, translate, threadId)}
         {this.showCompletedArticle()}
       </>
 

@@ -18,6 +18,8 @@ export function Article({...props}) {
 
   const url = props.url;
   const language = props.language;
+  const translate = props.translate;
+  // console.log("translate=" + translate);
   useEffect(() => {
     const fetchData = async () => {
       // console.log("In Article fetchData url=" + url + " threadId=" + threadId);
@@ -25,7 +27,7 @@ export function Article({...props}) {
         let response1 = await axios({
           method: 'get',
           baseUrl: domain,
-          url: encodeURI('/article?url=' + url + '&language=' + language),
+          url: encodeURI('/article?url=' + url + '&language=' + language + "&translate=" + translate),
           headers: {
             "Authorization": "",
             'Content-Type': 'application/json;charset=UTF-8'
@@ -41,7 +43,7 @@ export function Article({...props}) {
         }
       }
       if (threadId !== 0 && article.progress < 100) {
-        sleep(2000);
+        await sleep(2000);
         let response2 = await axios({
           method: 'get',
           baseUrl: domain,

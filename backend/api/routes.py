@@ -76,13 +76,13 @@ class GetToken(Resource):
 
 
 class ExportingThread(threading.Thread):
-    def __init__(self, url, language='en'):
+    def __init__(self, url, language='en', translate=False):
         self.progress = 0
         config = Configuration()
         config.follow_meta_refresh = True
         config.use_meta_language = False
         config.set_language(language)
-        config.translate = True
+        config.translate = translate
         config.http_success_only = False
         config.ignored_content_types_defaults = {
             # "application/pdf": "%PDF-",
@@ -90,6 +90,7 @@ class ExportingThread(threading.Thread):
             "application/x-bzpdf": "%PDF-",
             "application/x-gzpdf": "%PDF-"
         }
+        print(f"translate={translate}")
         self.article = Article(url, config=config)
         super().__init__()
 
@@ -124,8 +125,10 @@ class ArticlePool(Resource):
         url = request.args.get('url')
         language = request.args.get('language')
         language = language[:2]
+        translate = request.args.get('translate')
+
         thread_id = random.randint(0, 10000)
-        exporting_threads[thread_id] = ExportingThread(url, language)
+        exporting_threads[thread_id] = ExportingThread(url, language=language, translate=translate)
         exporting_threads[thread_id].start()
         result = {"thread_id": thread_id}
         return result, 200, {'Content-Type': 'application/json'}

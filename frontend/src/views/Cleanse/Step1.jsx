@@ -2,9 +2,10 @@ import React from "react";
 // reactstrap components
 import {
   Col,
+  CustomInput,
   DropdownItem,
   DropdownMenu,
-  DropdownToggle,
+  DropdownToggle, Form, FormGroup,
   Input,
   InputGroup,
   InputGroupAddon,
@@ -28,6 +29,7 @@ class Step1 extends React.Component {
       url: null,
       languageName: getKeyByValue(languages, 'en'),
       language: 'en',
+      translate: false,
       urlState: null,
       urlFocus: null
     };
@@ -103,12 +105,11 @@ class Step1 extends React.Component {
   }
 
   render() {
-    const {languageName} = this.state;
+    const {languageName, translate} = this.state;
     return (
       <>
         <h5 className="info-text">
-          {" "}
-          Enter URL of Web Site Page You Wish to Download
+          Enter URL of Article You Wish to Download
         </h5>
         <Row className="justify-content-center">
           <Col xs={12} lg={10} className="mt-3">
@@ -137,8 +138,8 @@ class Step1 extends React.Component {
           </Col>
         </Row>
         <Row className="justify-content-center">
-          <Label sm="2">Language:</Label>
-          <Col xs={12} md={4} sm={2} lg={4}>
+          <Label sm="2">Article Language:</Label>
+          <Col xs={10} md={4} sm={2} lg={4}>
             <UncontrolledDropdown>
               <DropdownToggle
                 color="info"
@@ -153,6 +154,23 @@ class Step1 extends React.Component {
                 {this.generateLanguageMenuItems()}
               </DropdownMenu>
             </UncontrolledDropdown>
+          </Col>
+        </Row>
+        <Row className="justify-content-center">
+          <Col xs={10} md={4} sm={2} lg={4}>
+            <FormGroup check inline>
+              <Label check>
+                <CustomInput
+                  id="translate"
+                  type="checkbox"
+                  inline
+                  value={translate}
+                  label="Translate Article to English"
+                  disabled={languageName === "English"}
+                  onClick={() => this.setState({translate: !translate})}
+                />
+              </Label>
+            </FormGroup>
           </Col>
         </Row>
       </>
