@@ -61,8 +61,10 @@ class Step2 extends React.Component {
 
   dowloadFileToDefaultFolder = () => {
     const {article} = this.state;
+    const {wizardData} = this.props;
+    const languageCode = wizardData.Download.language.substring(0, 2);
     // console.log("ARTICLE=" + JSON.stringify(article, null, 2));
-    const filename = `${article.publish_date} ${article.title}.json`;
+    const filename = `${article.publish_date} ${article.title}.${languageCode}.json`;
     const content = JSON.stringify(article, null, 4);
     const blob = new Blob([content], {type: "application/json"});
     const url = URL.createObjectURL(blob);
@@ -85,6 +87,7 @@ class Step2 extends React.Component {
       );
     }
   }
+
   showStartArticle(url, language, translate, articleUrlChanged) {
     if (articleUrlChanged) {
       // console.log("showStartArticle");
