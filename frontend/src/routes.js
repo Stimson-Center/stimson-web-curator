@@ -55,14 +55,14 @@ let routes = [
   {
     path: "/curate",
     name: "Curate",
-    icon: "now-ui-icons ui-1_zoom-bold",
+    icon: "fa fa-binoculars",
     component: Curate,
     layout: "/admin"
   },
   {
     path: "/cleanse",
     name: "Cleanse",
-    icon: "now-ui-icons gestures_tap-01",
+    icon: "fa fa-bullseye",
     component: Cleanse,
     layout: "/admin"
   },
