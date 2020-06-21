@@ -51,6 +51,7 @@ class Step1 extends React.Component {
 
   // to stop the warning of calling setState of unmounted component
   componentWillUnmount() {
+    localStorage.setItem('articleUrl', null);
     let id = window.setTimeout(null, 0);
     while (id--) {
       window.clearTimeout(id);
@@ -66,10 +67,12 @@ class Step1 extends React.Component {
       });
       return false;
     }
+    localStorage.setItem('articleUrl', null);
     return true;
   }
 
   urlChange(e) {
+    localStorage.setItem('articleUrl', null);
     this.setState({
       url: e.target.value
     });

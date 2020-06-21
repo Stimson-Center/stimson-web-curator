@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react';
 import {Progress} from "reactstrap";
 import axios from "axios";
 import {domain} from 'variables/general';
-import {isEmpty, sleep} from 'Utils';
+import {isEmpty, isEquivalent, sleep} from 'Utils';
 
 function notify(handler, args) {
   handler && handler.apply(null, [].concat(args));
@@ -54,7 +54,7 @@ export function Article({...props}) {
         .catch(err => {
           console.log(err)
         });
-        if (!isEmpty(response2) && !isEmpty(response2.data)) {
+        if (!isEmpty(response2) && !isEmpty(response2.data) && !isEquivalent(article, response2.data)) {
           // console.log("Article2: data=" + JSON.stringify(response2.data, null, 2));
           setArticle(response2.data);
           notify(props.onProgress, {article: response2.data, threadId: threadId});
@@ -75,6 +75,9 @@ export function Article({...props}) {
       break;
     case 60:
       progressText = 'Natural Language Processing';
+      break;
+    case 100:
+      progressText = 'Done';
       break;
     default:
       break;

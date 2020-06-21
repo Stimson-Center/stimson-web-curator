@@ -3,7 +3,7 @@ import axios from "axios";
 // react plugin used to create DropdownMenu for selecting items
 // reactstrap components
 import {Button, CardBody, Col, FormGroup, Input, Label, Progress, Row} from "reactstrap";
-import {isEmpty} from "../../Utils";
+import {isEmpty, sleep} from "../../Utils";
 import {Article} from "../../components/Article/Article";
 import {TextArea} from "@thumbtack/thumbprint-react";
 import {domain} from "../../variables/general";
@@ -14,7 +14,7 @@ class Step2 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      article: {progress: 0},
+      article: {url: null, progress: 0},
       threadId: 0
     };
     this.handleProgress = this.handleProgress.bind(this);
@@ -23,6 +23,7 @@ class Step2 extends React.Component {
 
   // to stop the warning of calling setState of unmounted component
   componentWillUnmount() {
+    localStorage.setItem('articleUrl', null);
     let id = window.setTimeout(null, 0);
     while (id--) {
       window.clearTimeout(id);
@@ -35,28 +36,27 @@ class Step2 extends React.Component {
     if (article.progress < 100) {
       this.render();
     }
-    return threadId !== 0 && article.progress === 100;
+    return article.progress === 100;
   }
 
   handleProgress(event) {
     if (event.threadId > 0) {
-      // console.log("Step2: handleProgress=" + JSON.stringify(event, null, 2));
-      this.setState({article: event.article, threadId: event.threadId});
+      const {article} = this.state;
+      if (event.article.progress !== article.progress) {
+        // console.log("Step2: handleProgress=" + JSON.stringify(event, null, 2));
+        this.setState({article: event.article, threadId: event.threadId});
+      }
     }
   }
 
   handleChange(event, stateName) {
-
     const {article} = this.state;
-    let article_update = article;
+    let articleUpdate = article;
     if (Object.prototype.toString.call(event) === "[object String]") {
-      article_update[stateName] = event
+      articleUpdate[stateName] = event
     } else {
-      article_update[stateName] = event.target.value
+      articleUpdate[stateName] = event.target.value
     }
-    this.setState({
-      article: article_update
-    });
   };
 
   dowloadFileToDefaultFolder = () => {
@@ -72,18 +72,9 @@ class Step2 extends React.Component {
     a.click();
   }
 
-
-  render() {
-    let {article, threadId} = this.state;
-    const {wizardData} = this.props;
-    let url = null;
-    let language = 'en'
-    if (!isEmpty(wizardData) && !isEmpty(wizardData.Download)) {
-      console.log("Step2: wizardData=" + JSON.stringify(wizardData, null, 2));
-      url = wizardData.Download.url;
-      language = wizardData.Download.language;
-    }
+  showProgressBar(url) {
     if (url === null) {
+      // console.log("showProgressBar");
       return (
         <div className="progress-container">
           <span className="progress-badge">Progress</span>
@@ -92,7 +83,30 @@ class Step2 extends React.Component {
           </Progress>
         </div>
       );
-    } else if (article.progress >= 0 && article.progress < 100) {
+    }
+  }
+  showStartArticle(url, language, articleUrlChanged) {
+    if (articleUrlChanged) {
+      // console.log("showStartArticle");
+      return (
+        <>
+          <Article
+            url={url}
+            language={language}
+            threadId={0}
+            onProgress={this.handleProgress}
+          />
+        </>
+      );
+    }
+  }
+
+  showArticleInProgress(url, language, threadId) {
+    const {article} = this.state;
+
+    if (article.progress > 0 && article.progress < 100) {
+      // console.log("showArticleInProgress");
+      sleep(1000)
       return (
         <>
           <Article
@@ -103,22 +117,13 @@ class Step2 extends React.Component {
           />
         </>
       );
-    } else if (article.progress === 100) {
-      // console.log("Article: article=" + JSON.stringify(article, null, 2));
-      if (article.thread_id > 0) {
-        axios({
-          method: 'delete',
-          baseUrl: domain,
-          url: '/article/' + article.thread_id,
-          headers: {
-            "Authorization": "",
-            'Content-Type': 'application/json;charset=UTF-8'
-          }
-        })
-          .catch(err => {
-            console.log(err)
-          });
-      }
+    }
+  }
+
+  showCompletedArticle() {
+    const {article} = this.state;
+    if (article.progress === 100) {
+      // console.log("showCompletedArticle");
       return (
         <>
           <h5 className="info-text"> Review / Modify Results</h5>
@@ -207,6 +212,51 @@ class Step2 extends React.Component {
         </>
       );
     }
+  }
+
+  render() {
+    const {article, threadId} = this.state;
+    const {wizardData} = this.props;
+    let articleUrlChanged = false;
+    let url = localStorage.getItem('articleUrl');
+    let language = 'en'
+    if (isEmpty(wizardData) || isEmpty(wizardData.Download)) {
+      return (<div></div>);
+    } else {
+      // console.log("Step2: article.url=" + article.url + "\nwizardData.Download.url" + wizardData.Download.url);
+      if (url !== wizardData.Download.url) {
+        // console.log("Step2: wizardData=" + JSON.stringify(wizardData, null, 2));
+        url = wizardData.Download.url;
+        language = wizardData.Download.language;
+        localStorage.setItem('articleUrl', url);
+        articleUrlChanged = true;
+      }
+      if (article.progress === 100) {
+        if (article.thread_id > 0) {
+          axios({
+            method: 'delete',
+            baseUrl: domain,
+            url: '/article/' + article.thread_id,
+            headers: {
+              "Authorization": "",
+              'Content-Type': 'application/json;charset=UTF-8'
+            }
+          })
+            .catch(err => {
+              console.log(err)
+            });
+        }
+      }
+    }
+    return (
+      <>
+        {this.showProgressBar(url)}
+        {this.showStartArticle(url, language, articleUrlChanged)}
+        {this.showArticleInProgress(url, language, threadId)}
+        {this.showCompletedArticle()}
+      </>
+
+    );
   }
 }
 
