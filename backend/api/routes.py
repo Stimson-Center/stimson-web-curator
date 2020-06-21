@@ -92,7 +92,7 @@ class ExportingThread(threading.Thread):
             "application/x-bzpdf": "%PDF-",
             "application/x-gzpdf": "%PDF-"
         }
-        print(f"translate={translate}")
+        # print(f"translate={translate}")
         self.article = Article(url, config=config)
         super().__init__()
 
