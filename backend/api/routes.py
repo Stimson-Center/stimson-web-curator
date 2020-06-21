@@ -80,21 +80,17 @@ class ExportingThread(threading.Thread):
         self.progress = 0
         config = Configuration()
         config.follow_meta_refresh = True
-        # Cooper, will need figure out when to ignore / respect webpage language
         config.use_meta_language = False
+        config.set_language(language)
+        config.translate = True
         config.http_success_only = False
-        config._language = language
         config.ignored_content_types_defaults = {
             # "application/pdf": "%PDF-",
             # "application/x-pdf": "%PDF-",
             "application/x-bzpdf": "%PDF-",
             "application/x-gzpdf": "%PDF-"
         }
-        self.article = Article(url,
-                               language=language,
-                               config=config,
-                               request_timeout=config.request_timeout
-                               )
+        self.article = Article(url, config=config)
         super().__init__()
 
     def run(self):
@@ -150,20 +146,13 @@ class ArticleProgress(Resource):
         # print("Values=" + json.dumps(request.values))
         # print("Form=" + json.dumps(request.form))
         article = exporting_threads[thread_id].article
-        if isinstance(article.publish_date, datetime.date):
-            publish_date = article.publish_date.strftime("%Y-%m-%d")
-        elif isinstance(article.publish_date, str):
-            publish_date = article.publish_date
-        else:
-            publish_date = ""
-
         response = {
             "authors": article.authors,
             "images:": list(article.images),
             "keywords": article.keywords,
             "movies": article.movies,
             "progress": exporting_threads[thread_id].progress,
-            "publish_date": publish_date,
+            "publish_date": article.publish_date,
             "summary": article.summary,
             "text": article.text,
             "title": article.title,
@@ -172,8 +161,6 @@ class ArticleProgress(Resource):
             "tables": article.tables,
             "language": article.meta_lang
         }
-        # exporting_threads.pop(thread_id, None)
-        # print(json.dumps(result))
         return response, 200, {'Content-Type': 'application/json'}
 
 
