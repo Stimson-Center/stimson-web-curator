@@ -82,6 +82,8 @@ class ExportingThread(threading.Thread):
         config.follow_meta_refresh = True
         config.use_meta_language = False
         config.set_language(language)
+        if isinstance(translate, str):
+            translate = translate.lower() == 'true'
         config.translate = translate
         config.http_success_only = False
         config.ignored_content_types_defaults = {
