@@ -62,7 +62,10 @@ class Step2 extends React.Component {
   dowloadFileToDefaultFolder = () => {
     const {article} = this.state;
     const {wizardData} = this.props;
-    const languageCode = wizardData.Download.language.substring(0, 2);
+    let languageCode = 'en';
+    if (!wizardData.Download.translate) {
+      languageCode = wizardData.Download.language.substring(0, 2);
+    }
     // console.log("ARTICLE=" + JSON.stringify(article, null, 2));
     const filename = `${article.publish_date} ${article.title}.${languageCode}.json`;
     const content = JSON.stringify(article, null, 4);
@@ -227,6 +230,7 @@ class Step2 extends React.Component {
     let language = 'en';
     let translate = false;
     if (isEmpty(wizardData) || isEmpty(wizardData.Download)) {
+      // noinspection CheckTagEmptyBody
       return (<div></div>);
     } else {
       // console.log("Step2: article.url=" + article.url + "\nwizardData.Download.url" + wizardData.Download.url);
