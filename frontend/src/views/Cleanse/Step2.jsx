@@ -31,7 +31,7 @@ class Step2 extends React.Component {
   }
 
   isValidated() {
-    const {article, threadId} = this.state;
+    const {article} = this.state;
     // console.log("Step2: isValidated progress=" + article.progress);
     if (article.progress < 100) {
       this.render();
