@@ -41,7 +41,7 @@ class Cleanse extends Component {
                 },
                 {
                   stepName: "Review",
-                  stepIcon: "now-ui-icons ui-2_settings-90",
+                  stepIcon: "now-ui-icons ui-1_zoom-bold",
                   component: Step2
                 }
               ]}
