@@ -1,5 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-( cd ./backend && python3 app.py &)
-( cd ./frontend && npm run start )
+( cd ./backend && ./start.sh &)
+( cd ./frontend && ./start.sh )
 
