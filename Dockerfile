@@ -44,6 +44,9 @@ COPY . /usr/app
 RUN chown -R ubuntu:ubuntu /usr/app
 RUN ln -sf /home/ubuntu/.local/bin/flask /usr/local/bin/flask
 
+# remove for security reasons
+RUN apt-get -y remove sudo curl
+
 USER ubuntu
 RUN mkdir -p /home/ubuntu/.local/bin
 RUN mkdir -p /home/ubuntu/.local/lib
@@ -77,6 +80,5 @@ EXPOSE 3000 5000
 
 #  Defines your runtime(define default command)
 # These commands unlike RUN (they are carried out in the construction of the container) are run when the container
-WORKDIR /usr/app
 CMD ["sh", "-c", "/usr/app/start.sh"]
 
