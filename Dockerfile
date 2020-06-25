@@ -36,7 +36,7 @@ RUN apt-get -y install nodejs
 # Trouble with COPY http://stackoverflow.com/a/30405787/2926832
 
 RUN groupadd ubuntu
-RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1001 ubuntu
+RUN useradd -rm -d /home/ubuntu -s /bin/bash -g ubuntu -G sudo -u 1001 ubuntu
 RUN usermod -aG ubuntu ubuntu
 RUN mkdir -p /usr/app
 WORKDIR /usr/app
