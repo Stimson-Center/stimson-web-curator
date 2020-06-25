@@ -2,12 +2,11 @@ flask
 flask-cors
 flask_restful
 google-api-python-client>=1.9.3
-nltk
 pytest
 pytest-flask
 python-dotenv
 oauth2client
 requests
 spacy
-stimson-web-scraper>=0.0.16
+stimson-web-scraper>=0.0.17
 waitress>=1.4.4
