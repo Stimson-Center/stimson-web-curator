@@ -56,3 +56,4 @@ amplify/.config/local-env-info.json
 .GOOGLE_APPLICATION_CREDENTIALS.json
 
 backend/tests/stimson-web-api.pid
+stimson-web-api.pid
