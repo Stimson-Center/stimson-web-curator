@@ -67,8 +67,10 @@ COPY .GOOGLE_APPLICATION_CREDENTIALS.json /usr/app/.GOOGLE_APPLICATION_CREDENTIA
 
 
 USER ubuntu
+# https://pythonspeed.com/articles/activate-virtualenv-dockerfile/
 RUN python -m venv /usr/app/.venv
 WORKDIR /usr/app/backend
+RUN . /usr/app/.venv/bin/activate && pip install --upgrade pip
 RUN . /usr/app/.venv/bin/activate && pip install -r requirements.txt
 RUN . /usr/app/.venv/bin/activate && exec python -m spacy download zh_core_web_sm  # Chinese
 RUN . /usr/app/.venv/bin/activate && exec python -m spacy download da_core_news_sm # Danish
