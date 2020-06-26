@@ -7,3 +7,5 @@ package-lock.json
 **/.github
 **/.idea
 **/.local
+**/__pycache__
+**/.DS_Store
