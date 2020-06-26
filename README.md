@@ -174,33 +174,36 @@ Links:
 
 ## Development RESTful API Server
 
-- `npm run start-api` will run the app's development server at [http://localhost:3000](http://localhost:3000) with hot module reloading.
+```bash
+    cd ~/stimson-web-curator/backend
+    ./start.sh
+```
+
+- will run the app's development api server at [http://localhost:5000](http://localhost:5000) without hot module reloading.
 
 
 ## Development GUI Server
 
-- `npm run start` will run the app's development server at [http://localhost:3000](http://localhost:3000) with hot module reloading.
+
+```bash
+    cd ~/stimson-web-curator/frontend
+    npm run start 
+```
+-  will run the app's development server at [http://localhost:3000](http://localhost:3000) with hot module reloading.
 
 ## Running Tests
 
-- `npm test` will run the tests once.
+- `npm run test` will run the tests once.
 
 - `npm run test:coverage` will run the tests and produce a coverage report in `coverage/`.
 
 - `npm run test:watch` will run the tests on every change.
-
-## Deploy
-
-```bash
-    ./deploy.sh
-```
 
 # Docker
 
 See DOCKER.md for more more details
 
 ```bash
-    docker system prune --force
     ./run_docker.sh
     open http://localhost:3000
 ```
@@ -214,6 +217,6 @@ Note: the API server is running on port 5000, to optionall prove that it is work
 To debug docker container
 
 ```bash
-    docker run --user ubuntu -it -v `pwd`:/usr/app --entrypoint=/bin/bash stimson-web-curator
+    docker run --user ubuntu -it --entrypoint=/bin/bash stimson-web-curator
 ```
 
