@@ -12,7 +12,7 @@ RUN apt-get -y update
 # See http://bugs.python.org/issue19846
 ENV LANG C.UTF-8
 
-RUN pip3 --no-cache-dir install --upgrade pip setuptools
+RUN pip --no-cache-dir install --upgrade pip setuptools
 RUN apt-get -y install build-essential libpoppler-cpp-dev pkg-config python-dev libpoppler-dev systemd
 
 COPY bashrc /etc/bash.bashrc
@@ -22,7 +22,7 @@ ENV TZ=UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get install -y tzdata
 
-RUN pip3 --no-cache-dir install virtualenv
+RUN pip --no-cache-dir install virtualenv
 
 # Install Node.js
 RUN apt -y update
