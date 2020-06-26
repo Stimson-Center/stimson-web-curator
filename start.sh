@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
-( cd ./backend && GOOGLE_APPLICATION_CREDENTIALS=/usr/app/.GOOGLE_APPLICATION_CREDENTIALS.json ./start.sh &)
-( cd ./frontend && ./start.sh )
 
+# sudo su - ubuntu service stimson-web-api restart
+( cd ./backend && ./start.sh & )
+( cd ./frontend && ./start.sh )

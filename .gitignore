@@ -54,3 +54,4 @@ amplify/.config/local-env-info.json
 **/nohup.out
 .GOOGLE_APPLICATION_CREDENTIALS.json
 
+backend/tests/stimson-web-api.pid

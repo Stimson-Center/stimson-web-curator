@@ -214,6 +214,6 @@ Note: the API server is running on port 5000, to optionall prove that it is work
 To debug docker container
 
 ```bash
-    docker run  -it -v `pwd`:/usr/app --entrypoint=/bin/bash stimson-web-curator
+    docker run --user ubuntu -it -v `pwd`:/usr/app --entrypoint=/bin/bash stimson-web-curator
 ```
 
