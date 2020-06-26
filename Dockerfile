@@ -22,8 +22,6 @@ ENV TZ=UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get install -y tzdata
 
-RUN pip --no-cache-dir install virtualenv
-
 # Install Node.js
 RUN apt -y update
 RUN apt -y upgrade
@@ -43,7 +41,12 @@ RUN chown -R ubuntu:ubuntu /usr/app
 # remove for security reasons
 RUN apt -y update
 RUN apt-get -y purge curl
-RUN (export SUDO_FORCE_REMOVE=yes && apt-get -y purge sudo)
+COPY backend/stimson-web-api /etc/init.d/stimson-web-api
+COPY backend/sudoers /etc/sudoers
+RUN chmod a+x /etc/init.d/stimson-web-api
+RUN chown ubuntu:ubuntu /etc/init.d/stimson-web-api
+# RUN (export SUDO_FORCE_REMOVE=yes && apt-get -y purge sudo)
+
 
 USER ubuntu
 RUN mkdir -p /home/ubuntu/.local/bin
@@ -62,7 +65,28 @@ COPY .GOOGLE_APPLICATION_CREDENTIALS.json /usr/app/.GOOGLE_APPLICATION_CREDENTIA
 #RUN chown ubuntu:ubuntu /etc/init.d/stimson-web-api
 #RUN update-rc.d stimson-web-api defaults
 
+
 USER ubuntu
+RUN python -m venv /usr/app/.venv
+WORKDIR /usr/app/backend
+RUN . /usr/app/.venv/bin/activate && pip install -r requirements.txt
+RUN . /usr/app/.venv/bin/activate && exec python -m spacy download zh_core_web_sm  # Chinese
+RUN . /usr/app/.venv/bin/activate && exec python -m spacy download da_core_news_sm # Danish
+RUN . /usr/app/.venv/bin/activate && exec python -m spacy download nl_core_news_sm # Dutch
+RUN . /usr/app/.venv/bin/activate && exec python -m spacy download en_core_web_sm  # English
+RUN . /usr/app/.venv/bin/activate && exec python -m spacy download fr_core_news_sm # French
+RUN . /usr/app/.venv/bin/activate && exec python -m spacy download de_core_news_sm # German
+RUN . /usr/app/.venv/bin/activate && exec python -m spacy download el_core_news_sm # Greek
+RUN . /usr/app/.venv/bin/activate && exec python -m spacy download it_core_news_sm # Italian
+RUN . /usr/app/.venv/bin/activate && exec python -m spacy download ja_core_news_sm # Japanese
+RUN . /usr/app/.venv/bin/activate && exec python -m spacy download lt_core_news_sm # Lithuanian
+RUN . /usr/app/.venv/bin/activate && exec python -m spacy download xx_ent_wiki_sm  # Multi-language
+RUN . /usr/app/.venv/bin/activate && exec python -m spacy download nb_core_news_sm # Norwegian Bokmål
+RUN . /usr/app/.venv/bin/activate && exec python -m spacy download pl_core_news_sm # Polish
+RUN . /usr/app/.venv/bin/activate && exec python -m spacy download pt_core_news_sm # Portuguese
+RUN . /usr/app/.venv/bin/activate && exec python -m spacy download ro_core_news_sm # Romanian
+RUN . /usr/app/.venv/bin/activate && exec python -m spacy download es_core_news_sm # Spanish
+
 WORKDIR /usr/app/frontend
 RUN npm install
 

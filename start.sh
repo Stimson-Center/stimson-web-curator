@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
 
-# sudo su - ubuntu service stimson-web-api restart
-( cd ./backend && ./start.sh & )
+sudo service stimson-web-api start
 ( cd ./frontend && ./start.sh )
