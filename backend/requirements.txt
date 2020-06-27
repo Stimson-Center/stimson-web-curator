@@ -8,5 +8,5 @@ python-dotenv
 oauth2client
 requests
 spacy
-stimson-web-scraper>=0.0.19
+stimson-web-scraper>=0.0.20
 waitress>=1.4.4
