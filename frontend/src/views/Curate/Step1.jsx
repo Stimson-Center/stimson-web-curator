@@ -6,6 +6,7 @@ import {
   Card,
   CardBody,
   Col,
+  Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
@@ -41,7 +42,7 @@ class Step1 extends Component {
     };
     this.generateLanguageMenuItems = this.generateLanguageMenuItems.bind(this);
     this.generateCountryMenuItems = this.generateCountryMenuItems.bind(this);
-    this.generateFileTypeMenuItems = this.generateCountryMenuItems.bind(this);
+    this.generateFileTypeMenuItems = this.generateFileTypeMenuItems.bind(this);
   }
 
   // to stop the warning of calling setState of unmounted component
@@ -117,7 +118,7 @@ class Step1 extends Component {
 
   render() {
     // noinspection JSUnusedLocalSymbols
-    const {language, country, fileType, sort, lowRange, highRange, siteSearchFilter} = this.state;
+    const {language, country, fileType, sort, lowRange, highRange, siteSearchFilter, dropdownOpen} = this.state;
     return (
       <>
         <div className="content">
@@ -231,7 +232,24 @@ class Step1 extends Component {
                           >
                             {lowRange}
                           </DropdownToggle>
-                          <DropdownMenu>
+                          <DropdownMenu
+                            modifiers={{
+                              setMaxHeight: {
+                                enabled: true,
+                                order: 890,
+                                fn: (data) => {
+                                  return {
+                                    ...data,
+                                    styles: {
+                                      ...data.styles,
+                                      overflow: 'auto',
+                                      maxHeight: 130,
+                                    },
+                                  };
+                                },
+                              },
+                            }}
+                          >
                             <DropdownItem
                               onClick={e => this.setState({lowRange: e.currentTarget.textContent})}>Any</DropdownItem>
                             {this.generateSearchYearsFromMenuItems()}
@@ -240,20 +258,37 @@ class Step1 extends Component {
                       </Col>
                       <Label sm="2">To Year:</Label>
                       <Col xs={12} md={4} sm={2} lg={4}>
-                          <UncontrolledDropdown>
-                            <DropdownToggle
-                              color="info"
-                              className="btn-round btn-block"
-                              caret
-                            >
-                              {highRange}
-                            </DropdownToggle>
-                            <DropdownMenu>
-                              <DropdownItem
-                                onClick={e => this.setState({highRange: e.currentTarget.textContent})}>Any</DropdownItem>
-                              {this.generateSearchYearsToMenuItems()}
-                            </DropdownMenu>
-                          </UncontrolledDropdown>
+                        <UncontrolledDropdown>
+                          <DropdownToggle
+                            color="info"
+                            className="btn-round btn-block"
+                            caret
+                          >
+                            {highRange}
+                          </DropdownToggle>
+                          <DropdownMenu
+                            modifiers={{
+                              setMaxHeight: {
+                                enabled: true,
+                                order: 890,
+                                fn: (data) => {
+                                  return {
+                                    ...data,
+                                    styles: {
+                                      ...data.styles,
+                                      overflow: 'auto',
+                                      maxHeight: 130,
+                                    },
+                                  };
+                                },
+                              },
+                            }}
+                          >
+                            <DropdownItem
+                              onClick={e => this.setState({highRange: e.currentTarget.textContent})}>Any</DropdownItem>
+                            {this.generateSearchYearsToMenuItems()}
+                          </DropdownMenu>
+                        </UncontrolledDropdown>
                       </Col>
                     </Row>
                     <Row>
@@ -267,7 +302,24 @@ class Step1 extends Component {
                           >
                             {language}
                           </DropdownToggle>
-                          <DropdownMenu>
+                          <DropdownMenu
+                            modifiers={{
+                              setMaxHeight: {
+                                enabled: true,
+                                order: 890,
+                                fn: (data) => {
+                                  return {
+                                    ...data,
+                                    styles: {
+                                      ...data.styles,
+                                      overflow: 'auto',
+                                      maxHeight: 130,
+                                    },
+                                  };
+                                },
+                              },
+                            }}
+                          >
                             <DropdownItem
                               onClick={e => this.setState({language: e.currentTarget.textContent})}>Any</DropdownItem>
                             {this.generateLanguageMenuItems()}
@@ -284,13 +336,30 @@ class Step1 extends Component {
                           >
                             {country}
                           </DropdownToggle>
-                          <DropdownMenu>
-                            <DropdownMenu>
+                          <DropdownMenu
+                            modifiers={{
+                              setMaxHeight: {
+                                enabled: true,
+                                order: 890,
+                                fn: (data) => {
+                                  return {
+                                    ...data,
+                                    styles: {
+                                      ...data.styles,
+                                      overflow: 'auto',
+                                      maxHeight: 130,
+                                    },
+                                  };
+                                },
+                              },
+                            }}
+                          >
+
                               <DropdownItem
                                 onClick={e => this.setState({country: e.currentTarget.textContent})}
                               >Any</DropdownItem>
                               {this.generateCountryMenuItems()}
-                            </DropdownMenu>
+
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </Col>
@@ -304,13 +373,28 @@ class Step1 extends Component {
                           >
                             {fileType}
                           </DropdownToggle>
-                          <DropdownMenu>
-                            <DropdownMenu>
-                              <DropdownItem
-                                onClick={e => this.setState({fileType: e.currentTarget.textContent})}
-                              >Any</DropdownItem>
-                              {this.generateFileTypeMenuItems()}
-                            </DropdownMenu>
+                          <DropdownMenu
+                            modifiers={{
+                              setMaxHeight: {
+                                enabled: true,
+                                order: 890,
+                                fn: (data) => {
+                                  return {
+                                    ...data,
+                                    styles: {
+                                      ...data.styles,
+                                      overflow: 'auto',
+                                      maxHeight: 130,
+                                    },
+                                  };
+                                },
+                              },
+                            }}
+                          >
+                            <DropdownItem
+                              onClick={e => this.setState({fileType: e.currentTarget.textContent})}
+                            >Any</DropdownItem>
+                            {this.generateFileTypeMenuItems()}
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </Col>
