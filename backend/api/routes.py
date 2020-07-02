@@ -164,7 +164,8 @@ class ArticleProgress(Resource):
             "topimage": article.top_image,
             "url": article.url,
             "tables": article.tables,
-            "language": article.meta_lang
+            "language": article.meta_lang,
+            "html": article.html
         }
         return response, 200, {'Content-Type': 'application/json'}
 
