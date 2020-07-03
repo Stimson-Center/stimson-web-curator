@@ -57,6 +57,7 @@ class Step2 extends React.Component {
     } else {
       articleUpdate[stateName] = event.target.value
     }
+    this.setState({article: articleUpdate})
   };
 
   dowloadFileToDefaultFolder = () => {
