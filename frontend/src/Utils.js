@@ -102,6 +102,12 @@ const getValueByIndex = (object, idx) => {
   return object[key]
 }
 
+
+const getApiUrl = () => {
+  const localhost = "http://localhost:5000";
+  return localhost
+}
+
 export {
   sleep,
   isEmpty,
@@ -111,5 +117,6 @@ export {
   toUTF8Array,
   escapeDoubleQuotes,
   getKeyByValue,
-  getValueByIndex
+  getValueByIndex,
+  getApiUrl
 };

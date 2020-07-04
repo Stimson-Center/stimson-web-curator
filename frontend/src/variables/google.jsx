@@ -1,6 +1,4 @@
 
-const flaskBackendUrl = 'http://localhost:5000';
-
 const languages = {
   "Afrikaans": "af",
   "Albanian": "sq",
@@ -350,7 +348,6 @@ const fileTypes = {
 }
 
 export {
-  flaskBackendUrl,
   languages,
   countries,
   fileTypes

@@ -36,7 +36,6 @@ def test_search_defaults(client):
     assert len(data) > 10
 
 
-
 # https://pypi.org/project/pytest-flask/
 @pytest.mark.options(debug=True)
 def test_search_thai(client):
@@ -57,6 +56,4 @@ def test_search_thai(client):
 
     response = client.post("/search", json=payload)
     data = validate(response)
-    assert len(data) > 10 # returned 71 results on 2020/06/10!
-
-
+    assert len(data) > 10  # returned 71 results on 2020/06/10!

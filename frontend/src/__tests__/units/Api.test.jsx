@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {flaskBackendUrl} from "../../variables/google";
+import {getApiUrl} from "../../Utils";
 
 it('GoogleCustomSearch', async () => {
   const payload = {
@@ -18,7 +18,7 @@ it('GoogleCustomSearch', async () => {
     "sort": "date",
     "start": 1
   };
-  const url = flaskBackendUrl.concat('/search');
+  const url = getApiUrl().concat('/search');
   expect(url).toEqual("http://localhost:5000/search");
   const response = await axios.post(url, payload);
   console.log(JSON.stringify(response.data, null, 2));
