@@ -71,6 +71,7 @@ class Step1 extends React.Component {
       return false;
     }
     localStorage.setItem('articleUrl', null);
+    localStorage.setItem('articleUrlChanged', '1');
     return true;
   }
 
@@ -149,7 +150,24 @@ class Step1 extends React.Component {
               >
                 {languageName}
               </DropdownToggle>
-              <DropdownMenu>
+              <DropdownMenu
+                modifiers={{
+                  setMaxHeight: {
+                    enabled: true,
+                    order: 890,
+                    fn: (data) => {
+                      return {
+                        ...data,
+                        styles: {
+                          ...data.styles,
+                          overflow: 'auto',
+                          maxHeight: 130,
+                        },
+                      };
+                    },
+                  },
+                }}
+              >
                 <DropdownItem
                   onClick={e => this.setState({language: e.currentTarget.textContent})}>{languageName}</DropdownItem>
                 {this.generateLanguageMenuItems()}
