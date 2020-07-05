@@ -5,7 +5,7 @@ import {
   CustomInput,
   DropdownItem,
   DropdownMenu,
-  DropdownToggle, 
+  DropdownToggle,
   FormGroup,
   Input,
   InputGroup,
@@ -45,7 +45,7 @@ class Step1 extends React.Component {
     if (cleanse_url !== undefined) {
       this.setState({
         url: cleanse_url,
-        urlState: " has-success",
+        urlState: "has-success",
         urlFocus: true
       });
       cookies.remove("cleanse_url");
@@ -63,10 +63,10 @@ class Step1 extends React.Component {
 
   isValidated() {
     if (
-      this.state.urlState !== " has-success"
+      this.state.urlState !== "has-success"
     ) {
       this.setState({
-        urlState: " has-danger"
+        urlState: "has-danger"
       });
       return false;
     }
@@ -82,11 +82,11 @@ class Step1 extends React.Component {
     const urlRex = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)?/gi;
     if (urlRex.test(e.target.value)) {
       this.setState({
-        urlState: " has-success"
+        urlState: "has-success"
       });
     } else {
       this.setState({
-        urlState: " has-danger"
+        urlState: "has-danger"
       });
     }
   }
