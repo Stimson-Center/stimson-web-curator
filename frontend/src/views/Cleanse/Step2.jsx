@@ -17,8 +17,14 @@ class Step2 extends React.Component {
       article: {url: null, progress: 0},
       threadId: 0
     };
+    this.currentWizardData = null;
     this.handleProgress = this.handleProgress.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.showProgressBar = this.showProgressBar.bind(this);
+    this.showStartArticle = this.showStartArticle.bind(this);
+    this.showArticleInProgress = this.showArticleInProgress.bind(this);
+    this.showCompletedArticle = this.showCompletedArticle.bind(this);
+    this.clearCache = this.clearCache.bind(this);
   }
 
   // to stop the warning of calling setState of unmounted component
@@ -40,12 +46,14 @@ class Step2 extends React.Component {
   }
 
   handleProgress(event) {
+    // This function is called back from component 'Article"
     if (event.threadId > 0) {
       const {article} = this.state;
       if (event.article.progress !== article.progress) {
         // console.log("Step2: handleProgress=" + JSON.stringify(event, null, 2));
         this.setState({article: event.article, threadId: event.threadId});
       }
+      // console.log("Article progress=" + event.article.progress);
     }
   }
 
@@ -79,7 +87,8 @@ class Step2 extends React.Component {
   }
 
   showProgressBar(url) {
-    if (url === null) {
+    const {article, threadId} = this.state;
+    if (threadId > 0 && article.progress === 0) {
       // console.log("showProgressBar");
       return (
         <div className="progress-container">
@@ -92,15 +101,15 @@ class Step2 extends React.Component {
     }
   }
 
-  showStartArticle(url, language, translate, articleUrlChanged) {
-    if (articleUrlChanged) {
+  showStartArticle() {
+    if (localStorage.getItem('articleUrlChanged')) {
       // console.log("showStartArticle");
       return (
         <>
           <Article
-            url={url}
-            language={language}
-            translate={translate}
+            url={this.currentWizardData.url}
+            language={this.currentWizardData.language}
+            translate={this.currentWizardData.translate}
             threadId={0}
             onProgress={this.handleProgress}
           />
@@ -109,18 +118,17 @@ class Step2 extends React.Component {
     }
   }
 
-  showArticleInProgress(url, language, translate, threadId) {
-    const {article} = this.state;
-
-    if (article.progress > 0 && article.progress < 100) {
+  showArticleInProgress() {
+    const {article, threadId} = this.state;
+    if (threadId > 0 && article.progress > 0 && article.progress < 100) {
       // console.log("showArticleInProgress");
       sleep(1000)
       return (
         <>
           <Article
-            url={url}
-            language={language}
-            translate={translate}
+            url={this.currentWizardData.url}
+            language={this.currentWizardData.language}
+            translate={this.currentWizardData.translate}
             threadId={threadId}
             onProgress={this.handleProgress}
           />
@@ -223,52 +231,50 @@ class Step2 extends React.Component {
     }
   }
 
-  render() {
+  clearCache() {
     const {article, threadId} = this.state;
+    if (article.progress === 100 && threadId > 0) {
+      axios({
+        method: 'delete',
+        baseUrl: domain,
+        url: '/article/' + threadId,
+        headers: {
+          "Authorization": "",
+          'Content-Type': 'application/json;charset=UTF-8'
+        }
+      })
+        .catch(err => {
+          console.log(err)
+        });
+    }
+  }
+
+  resetArticle = () => {
+    this.setState({article: {url: null, progress: 0}, threadId: 0});
+  }
+
+  render() {
     const {wizardData} = this.props;
-    let articleUrlChanged = false;
-    let url = localStorage.getItem('articleUrl');
-    let language = 'en';
-    let translate = false;
-    if (isEmpty(wizardData) || isEmpty(wizardData.Download)) {
+    if (this.currentWizardData !== wizardData.Download) {
+      this.currentWizardData = wizardData.Download;
+      this.resetArticle();
+      return (<div></div>);
+    }
+    if (isEmpty(this.currentWizardData)) {
       // noinspection CheckTagEmptyBody
       return (<div></div>);
     } else {
       // console.log("Step2: article.url=" + article.url + "\nwizardData.Download.url" + wizardData.Download.url);
-      if (url !== wizardData.Download.url) {
-        // console.log("Step2: wizardData=" + JSON.stringify(wizardData, null, 2));
-        url = wizardData.Download.url;
-        language = wizardData.Download.language;
-        translate = wizardData.Download.translate;
-        localStorage.setItem('articleUrl', url);
-        articleUrlChanged = true;
-      }
-      if (article.progress === 100) {
-        if (article.thread_id > 0) {
-          axios({
-            method: 'delete',
-            baseUrl: domain,
-            url: '/article/' + article.thread_id,
-            headers: {
-              "Authorization": "",
-              'Content-Type': 'application/json;charset=UTF-8'
-            }
-          })
-            .catch(err => {
-              console.log(err)
-            });
-        }
-      }
-    }
-    return (
-      <>
-        {this.showProgressBar(url)}
-        {this.showStartArticle(url, language, translate, articleUrlChanged)}
-        {this.showArticleInProgress(url, language, translate, threadId)}
-        {this.showCompletedArticle()}
-      </>
+      return (
+        <>
+          {this.showStartArticle()}
+          {this.showArticleInProgress()}
+          {this.showCompletedArticle()}
+          {this.clearCache()}
+        </>
 
-    );
+      );
+    }
   }
 }
 
