@@ -6,7 +6,6 @@ import {
   Card,
   CardBody,
   Col,
-  Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
@@ -118,7 +117,7 @@ class Step1 extends Component {
 
   render() {
     // noinspection JSUnusedLocalSymbols
-    const {language, country, fileType, sort, lowRange, highRange, siteSearchFilter, dropdownOpen} = this.state;
+    const {language, country, fileType, sort, lowRange, highRange, siteSearchFilter} = this.state;
     return (
       <>
         <div className="content">
