@@ -8,5 +8,5 @@ pytest-flask>=1.0.0
 python-dotenv>=0.14.0
 requests>=2.24.0
 spacy>=2.3.0
-stimson-web-scraper>=0.0.25
+stimson-web-scraper>=0.0.26
 waitress>=1.4.4
