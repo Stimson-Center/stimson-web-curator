@@ -1,0 +1,15 @@
+runtime: nodejs10
+env: standard
+env_variables:
+  SKIP_PREFLIGHT_CHECK: true
+  BUCKET_NAME: "stimson-gcs-ds-bucket"
+handlers:
+  - url: /
+    static_files: build/index.html
+    require_matching_file: false
+    upload: build/index.html
+  - url: '/(.*)'
+    static_files: "build/\\1"
+    require_matching_file: false
+    upload: 'build/.*'
+    secure: always
