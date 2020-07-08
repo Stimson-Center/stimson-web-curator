@@ -1,5 +1,5 @@
-runtime: nodejs10
-env: standard
+runtime: custom
+env: flex
 env_variables:
   SKIP_PREFLIGHT_CHECK: true
   BUCKET_NAME: "stimson-gcs-ds-bucket"
