@@ -21,7 +21,6 @@ WORKDIR /usr/app
 RUN npm install
 
 # server environment
-FROM nginx:alpine
 COPY nginx.conf /etc/nginx/conf.d/configfile.template
 ENV PORT 8080
 ENV HOST 0.0.0.0
