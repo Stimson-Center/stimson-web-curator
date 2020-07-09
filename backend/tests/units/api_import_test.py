@@ -3,5 +3,5 @@
 
 # noinspection PyUnresolvedReferences
 def test_package_import():
-    import api
+    from app.app import api
     assert True

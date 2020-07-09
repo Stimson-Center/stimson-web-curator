@@ -1,6 +1,5 @@
-# Docker file for a slim Ubuntu-based Python3 image
-
-FROM selenium/standalone-chrome-debug:latest
+FROM tiangolo/uwsgi-nginx-flask:python3.8
+# https://hub.docker.com/r/tiangolo/uwsgi-nginx-flask/
 LABEL maintainer="cooper@pobox.com"
 USER root
 
@@ -8,55 +7,44 @@ USER root
 SHELL ["/bin/bash", "-c"]
 
 RUN apt-get -y update
-RUN apt-get -y install build-essential libpoppler-cpp-dev pkg-config python-dev libpoppler-dev
-
-ARG USE_PYTHON_3_NOT_2=True
-ARG _PY_SUFFIX=${USE_PYTHON_3_NOT_2:+3}
-ARG PYTHON=python${_PY_SUFFIX}
-ARG PIP=pip${_PY_SUFFIX}
 
 # See http://bugs.python.org/issue19846
 ENV LANG C.UTF-8
 
-RUN apt-get update && apt-get install -y  ${PYTHON}-pip
-
-RUN ${PIP} --no-cache-dir install --upgrade pip setuptools
-
-# Some TF tools expect a "python" binary
-RUN ln -s $(which ${PYTHON}) /usr/local/bin/python
+RUN pip --no-cache-dir install --upgrade pip setuptools
+RUN apt-get -y install build-essential libpoppler-cpp-dev pkg-config python-dev libpoppler-dev systemd
 
 COPY bashrc /etc/bash.bashrc
 RUN chmod a+rwx /etc/bash.bashrc
-RUN echo "export PATH=${PATH}:/home/seluser/.local/bin" > /home/seluser/.bash_profile
 
-ENV TZ=UTC
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN apt-get install -y tzdata
+COPY .env /app/.env
+COPY .GOOGLE_APPLICATION_CREDENTIALS.json /app/.GOOGLE_APPLICATION_CREDENTIALS.json
+COPY requirements.txt /app/requirements.txt
 
-RUN ${PIP} --no-cache-dir install virtualenv
+COPY ./app /app
 
-# Bundle app source
-# Trouble with COPY http://stackoverflow.com/a/30405787/2926832
 
-RUN mkdir -p /usr/app
-RUN chown -R seluser:seluser /usr/app
-USER seluser
-COPY . /usr/app
-
-WORKDIR /usr/app
-RUN virtualenv venv
-RUN source venv/bin/activate
-RUN ${PIP} --no-cache-dir install -r requirements.txt
-
-EXPOSE 5000
-
-ENTRYPOINT ["python"]
-
-#  Defines your runtime(define default command)
-# These commands unlike RUN (they are carried out in the construction of the container) are run when the container
-# CMD ["app.py"]
-# CMD ["sh", "-c", "flask run"]
-CMD ["sh", "-c", "./start.sh"]
+# https://pythonspeed.com/articles/activate-virtualenv-dockerfile/
+WORKDIR /app
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+RUN pip install --upgrade certifi
+RUN python -m spacy download zh_core_web_sm  # Chinese
+RUN python -m spacy download da_core_news_sm # Danish
+RUN python -m spacy download nl_core_news_sm # Dutch
+RUN python -m spacy download en_core_web_sm  # English
+RUN python -m spacy download fr_core_news_sm # French
+RUN python -m spacy download de_core_news_sm # German
+RUN python -m spacy download el_core_news_sm # Greek
+RUN python -m spacy download it_core_news_sm # Italian
+# RUN python -m spacy download ja_core_news_sm # Japanese
+RUN python -m spacy download lt_core_news_sm # Lithuanian
+RUN python -m spacy download xx_ent_wiki_sm  # Multi-language
+RUN python -m spacy download nb_core_news_sm # Norwegian Bokmål
+RUN python -m spacy download pl_core_news_sm # Polish
+RUN python -m spacy download pt_core_news_sm # Portuguese
+RUN python -m spacy download ro_core_news_sm # Romanian
+RUN python -m spacy download es_core_news_sm # Spanish
 
 
 
