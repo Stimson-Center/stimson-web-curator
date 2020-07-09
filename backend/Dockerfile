@@ -19,10 +19,9 @@ RUN chmod a+rwx /etc/bash.bashrc
 
 COPY .env /app/.env
 COPY .GOOGLE_APPLICATION_CREDENTIALS.json /app/.GOOGLE_APPLICATION_CREDENTIALS.json
+ENV GOOGLE_APPLICATION_CREDENTIALS=/app/.GOOGLE_APPLICATION_CREDENTIALS.json
 COPY requirements.txt /app/requirements.txt
-
 COPY ./app /app
-
 
 # https://pythonspeed.com/articles/activate-virtualenv-dockerfile/
 WORKDIR /app
@@ -45,6 +44,3 @@ RUN python -m spacy download pl_core_news_sm # Polish
 RUN python -m spacy download pt_core_news_sm # Portuguese
 RUN python -m spacy download ro_core_news_sm # Romanian
 RUN python -m spacy download es_core_news_sm # Spanish
-
-
-

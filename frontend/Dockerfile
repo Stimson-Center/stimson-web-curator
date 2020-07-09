@@ -14,8 +14,8 @@ RUN chmod a+rwx /etc/bash.bashrc
 
 # Bundle app source
 # Trouble with COPY http://stackoverflow.com/a/30405787/2926832
-COPY . /usr/app
-WORKDIR /usr/app
+COPY . /app
+WORKDIR /app
 
 # Install app dependencies
 RUN npm install
@@ -25,7 +25,7 @@ COPY nginx.conf /etc/nginx/conf.d/configfile.template
 ENV PORT 8080
 ENV HOST 0.0.0.0
 RUN sh -c "envsubst '\$PORT'  < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf"
-COPY --from=react-build /usr/app/build /usr/share/nginx/html
+COPY --from=react-build /app/build /usr/share/nginx/html
 EXPOSE 8080
 
 #  Defines your runtime(define default command)

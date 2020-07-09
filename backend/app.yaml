@@ -2,6 +2,7 @@ runtime: custom
 env: flex
 env_variables:
   BUCKET_NAME: "stimson-gcs-ds-bucket"
+  GOOGLE_APPLICATION_CREDENTIALS: "/app/.GOOGLE_APPLICATION_CREDENTIALS.json"
 #entrypoint: gunicorn -b :$PORT app:app
 runtime_config:
   python_version: 3
@@ -18,5 +19,5 @@ manual_scaling:
   instances: 1
 resources:
   cpu: 1
-  memory_gb: 0.5
+  memory_gb: 1.0
   disk_size_gb: 10
