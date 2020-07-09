@@ -1,3 +1,5 @@
+import { config } from 'react-server';
+
 // https://flaviocopes.com/javascript-sleep/
 const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
@@ -102,9 +104,12 @@ const getValueByIndex = (object, idx) => {
   return object[key]
 }
 
-
 const getApiUrl = () => {
-  return process.env.PRODUCTION ? "https://stimson-web-curator-api.uk.r.appspot.com/" : "http://localhost:5000";
+  const globalConfig = config();
+  const isDevEnvironment = globalConfig.APP_ENV !== "production";
+  const GCLOUD = "https://stimson-web-curator-api.uk.r.appspot.com/";
+  const LOCAL = "http://localhost:5000";
+  return isDevEnvironment ? LOCAL : GCLOUD;
 }
 
 export {
