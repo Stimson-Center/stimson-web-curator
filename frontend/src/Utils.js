@@ -90,7 +90,7 @@ const toUTF8Array = (str) => {
 // https://gist.github.com/getify/3667624
 // NOTE: only escapes a " if it's not already escaped
 const escapeDoubleQuotes = (str) => {
-  return str.replace(/\\([\s\S])|(")/g,"\\$1$2"); // thanks @slevithan!
+  return str.replace(/\\([\s\S])|(")/g, "\\$1$2"); // thanks @slevithan!
 }
 
 const getKeyByValue = (object, value) => {
@@ -104,8 +104,7 @@ const getValueByIndex = (object, idx) => {
 
 
 const getApiUrl = () => {
-  const localhost = "http://localhost:5000";
-  return localhost
+  return process.env.PRODUCTION ? "https://stimson-web-curator-api.uk.r.appspot.com/" : "http://localhost:5000";
 }
 
 export {

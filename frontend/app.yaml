@@ -3,6 +3,7 @@ env: flex
 env_variables:
   SKIP_PREFLIGHT_CHECK: true
   BUCKET_NAME: "stimson-gcs-ds-bucket"
+  PRODUCTION: true
 handlers:
   - url: /
     static_files: build/index.html
