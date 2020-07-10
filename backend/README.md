@@ -94,12 +94,12 @@ See DOCKER.md for more more details
 ```bash
     cd ~/stimson-web-curator/backend
     ./run_docker.sh
-    open http://localhost:5000
+    open http://localhost:8000
 ```
 
 To debug docker container
 
 ```bash
-    docker run -it -v `pwd`:/usr/app --entrypoint=/bin/bash stimson-web-curator-api
+    docker run -p 80:80 -it --entrypoint=/bin/bash stimson-web-curator-api 
 ```
 

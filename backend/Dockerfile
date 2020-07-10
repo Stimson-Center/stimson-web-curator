@@ -1,19 +1,19 @@
 FROM tiangolo/uwsgi-nginx-flask:python3.8
-# https://hub.docker.com/r/tiangolo/uwsgi-nginx-flask/
-LABEL maintainer="cooper@pobox.com"
-USER root
 
-# Needed for string substitution
-SHELL ["/bin/bash", "-c"]
+RUN mkhomedir_helper nginx
 
-RUN apt-get -y update
+RUN ln -snf /usr/bin/python3 /usr/local/bin/python
+RUN ln -snf /usr/bin/pip3 /usr/local/bin/pip
 
-# See http://bugs.python.org/issue19846
-ENV LANG C.UTF-8
+RUN apt-get -y update && \
+    apt-get -y install build-essential libpoppler-cpp-dev pkg-config python-dev libpoppler-dev systemd pipenv
 
-RUN pip --no-cache-dir install --upgrade pip setuptools
-RUN apt-get -y install build-essential libpoppler-cpp-dev pkg-config python-dev libpoppler-dev systemd
+RUN apt-get -y update && \
+    apt-get -y install vim sudo telnet curl
+COPY sudoers /etc/sudoers
+COPY supervisord.conf /etc/supervisor/supervisord.conf
 
+RUN mkdir -p /app
 COPY bashrc /etc/bash.bashrc
 RUN chmod a+rwx /etc/bash.bashrc
 
@@ -23,9 +23,21 @@ ENV GOOGLE_APPLICATION_CREDENTIALS=/app/.GOOGLE_APPLICATION_CREDENTIALS.json
 COPY requirements.txt /app/requirements.txt
 COPY ./app /app
 
-# https://pythonspeed.com/articles/activate-virtualenv-dockerfile/
+## add permissions for nginx user
+RUN chown -R nginx:nginx /app && \
+    chmod -R 755 /app && \
+    chown -R nginx:nginx /var/cache/nginx && \
+    chown -R nginx:nginx /var/log/nginx && \
+    chown -R nginx:nginx /var/log/supervisor && \
+    chown -R nginx:nginx /var/run && \
+    chown -R nginx:nginx /etc/nginx/conf.d && \
+    chown nginx:nginx /etc/nginx/nginx.conf
+RUN touch /var/run/nginx.pid && \
+    chown -R nginx:nginx /var/run/nginx.pid
+
 WORKDIR /app
-RUN pip install --upgrade pip
+USER nginx
+RUN pip install --upgrade pip setuptools
 RUN pip install -r requirements.txt
 RUN pip install --upgrade certifi
 RUN python -m spacy download zh_core_web_sm  # Chinese
@@ -44,3 +56,13 @@ RUN python -m spacy download pl_core_news_sm # Polish
 RUN python -m spacy download pt_core_news_sm # Portuguese
 RUN python -m spacy download ro_core_news_sm # Romanian
 RUN python -m spacy download es_core_news_sm # Spanish
+
+# remove for security purposes
+RUN rm /app/requirements.txt
+
+## set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV FLASK_ENV production
+ENV SECRET_KEY $SECRET_KEY
+

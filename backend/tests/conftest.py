@@ -14,5 +14,5 @@ def fixture_directory():
 
 @pytest.fixture(scope='function')
 def app():
-    from app.app.main import app
+    from app.app import app
     return app
