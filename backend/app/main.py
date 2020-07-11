@@ -22,7 +22,7 @@ def create_app(name):
     flask_app.logger.setLevel(logging.DEBUG)
     Logger = flask_app.logger
     api = Api(flask_app)
-    cors = get_cors(flask_app)
+    cors = get_cors(flask_app, port=5000)
     create_routes(api)
     return flask_app
 
