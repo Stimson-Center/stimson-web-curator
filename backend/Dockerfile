@@ -31,7 +31,7 @@ RUN chown -R nginx:nginx /app && \
     chown nginx:nginx /etc/nginx/conf.d/default.conf
 RUN touch /var/run/nginx.pid && \
     chown -R nginx:nginx /var/run/nginx.pid
-    
+
 WORKDIR /app
 USER nginx
 

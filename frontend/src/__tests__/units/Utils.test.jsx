@@ -9,4 +9,5 @@ it('test getSearchYears', () => {
 
 it('test getScraperBaseUrl', () => {
   const scraperBaseUrl = getScraperBaseUrl();
+  expect(scraperBaseUrl.includes("http"));
 });

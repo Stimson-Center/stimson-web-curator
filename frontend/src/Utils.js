@@ -106,11 +106,10 @@ const getValueByIndex = (object, idx) => {
 
 const getScraperBaseUrl = () => {
   config()
-  const isDevEnvironment = process.env.NODE_ENV === "production" ? "production" : "development"
+  const isDevEnvironment = process.env.SCRAPPER_URL === "production" ? "production" : "development"
   const GCLOUD = "https://stimson-web-curator-api.uk.r.appspot.com";
   const LOCAL = "http://localhost:5000";
-  // return isDevEnvironment ? LOCAL : GCLOUD;
-  return GCLOUD;
+  return isDevEnvironment ? LOCAL : GCLOUD;
 }
 
 export {
