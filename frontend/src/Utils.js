@@ -1,4 +1,4 @@
-import { config } from 'react-server';
+import { config} from 'dotenv';
 
 // https://flaviocopes.com/javascript-sleep/
 const sleep = (milliseconds) => {
@@ -105,11 +105,12 @@ const getValueByIndex = (object, idx) => {
 }
 
 const getScraperBaseUrl = () => {
-  const globalConfig = config();
-  const isDevEnvironment = globalConfig.APP_ENV !== "production";
+  config()
+  const isDevEnvironment = process.env.NODE_ENV === "production" ? "production" : "development"
   const GCLOUD = "https://stimson-web-curator-api.uk.r.appspot.com";
   const LOCAL = "http://localhost:5000";
-  return isDevEnvironment ? LOCAL : GCLOUD;
+  // return isDevEnvironment ? LOCAL : GCLOUD;
+  return GCLOUD;
 }
 
 export {
