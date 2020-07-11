@@ -1,10 +1,8 @@
-
 import React, {useEffect, useState} from 'react';
 // reactstrap components
 import {Progress} from "reactstrap";
 import axios from "axios";
-import {domain} from 'variables/general';
-import {isEmpty, isEquivalent, sleep} from 'Utils';
+import {getScraperBaseUrl, isEmpty, isEquivalent, sleep} from 'Utils';
 
 function notify(handler, args) {
   handler && handler.apply(null, [].concat(args));
@@ -23,11 +21,11 @@ export function Article({...props}) {
   useEffect(() => {
     const fetchData = async () => {
       // console.log("In Article fetchData url=" + url + " threadId=" + threadId);
+      const scraperApiUrl = getScraperBaseUrl().concat(encodeURI('/article?url=' + url + '&language=' + language + "&translate=" + translate))
       if (url !== null && threadId === 0) {
         let response1 = await axios({
           method: 'get',
-          baseUrl: domain,
-          url: encodeURI('/article?url=' + url + '&language=' + language + "&translate=" + translate),
+          url: scraperApiUrl,
           headers: {
             "Authorization": "",
             'Content-Type': 'application/json;charset=UTF-8'
@@ -44,18 +42,18 @@ export function Article({...props}) {
       }
       if (threadId !== 0 && article.progress < 100) {
         await sleep(2000);
+        const scraperApiUrl = getScraperBaseUrl().concat('/article/' + threadId);
         let response2 = await axios({
           method: 'get',
-          baseUrl: domain,
-          url: '/article/' + threadId,
+          url: scraperApiUrl,
           headers: {
             "Authorization": "",
             'Content-Type': 'application/json;charset=UTF-8'
           }
         })
-        .catch(err => {
-          console.log(err)
-        });
+          .catch(err => {
+            console.log(err)
+          });
         if (!isEmpty(response2) && !isEmpty(response2.data) && !isEquivalent(article, response2.data)) {
           // console.log("Article2: data=" + JSON.stringify(response2.data, null, 2));
           setArticle(response2.data);

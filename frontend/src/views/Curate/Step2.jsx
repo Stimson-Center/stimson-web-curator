@@ -7,7 +7,7 @@ import {FaBinoculars} from 'react-icons/fa'; // https://react-icons.github.io/re
 import {Redirect} from "react-router-dom";
 import Cookies from "universal-cookie";
 import axios from 'axios';
-import {isEmpty, isEquivalent, getApiUrl} from "../../Utils";
+import {isEmpty, isEquivalent, getScraperBaseUrl} from "../../Utils";
 // core components
 
 
@@ -141,8 +141,16 @@ class Step2 extends Component {
       let newQuery = wizardData.Search;
       newQuery['start'] = start;
       // console.log('Curate Step2: query=' + JSON.stringify(newQuery, null, 2));
-      const url = getApiUrl().concat('/search');
-      axios.post(url, newQuery)
+      const scraperApiUrl = getScraperBaseUrl().concat('/search/');
+      axios({
+        method: 'post',
+        url: scraperApiUrl,
+        data: newQuery,
+        headers: {
+          "Authorization": "",
+          'Content-Type': 'application/json;charset=UTF-8'
+        }
+      })
         .then(response => {
           const data = response.data;
           if (!isEmpty(data)) {

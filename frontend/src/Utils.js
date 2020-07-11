@@ -104,10 +104,10 @@ const getValueByIndex = (object, idx) => {
   return object[key]
 }
 
-const getApiUrl = () => {
+const getScraperBaseUrl = () => {
   const globalConfig = config();
   const isDevEnvironment = globalConfig.APP_ENV !== "production";
-  const GCLOUD = "https://stimson-web-curator-api.uk.r.appspot.com/";
+  const GCLOUD = "https://stimson-web-curator-api.uk.r.appspot.com";
   const LOCAL = "http://localhost:5000";
   return isDevEnvironment ? LOCAL : GCLOUD;
 }
@@ -122,5 +122,5 @@ export {
   escapeDoubleQuotes,
   getKeyByValue,
   getValueByIndex,
-  getApiUrl
+  getScraperBaseUrl
 };

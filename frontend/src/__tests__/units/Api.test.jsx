@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {getApiUrl} from "../../Utils";
+import {getScraperBaseUrl} from "../../Utils";
 
 it('GoogleCustomSearch', async () => {
   const payload = {
@@ -18,9 +18,8 @@ it('GoogleCustomSearch', async () => {
     "sort": "date",
     "start": 1
   };
-  const url = getApiUrl().concat('/search');
-  expect(url).toEqual("http://localhost:5000/search");
-  const response = await axios.post(url, payload);
+  const scraperApiUrl = getScraperBaseUrl().concat('/search');
+  const response = await axios.post(scraperApiUrl, payload);
   console.log(JSON.stringify(response.data, null, 2));
   expect(response.status).toEqual(200)
   expect(response.statusText).toEqual("OK")

@@ -3,10 +3,9 @@ import axios from "axios";
 // react plugin used to create DropdownMenu for selecting items
 // reactstrap components
 import {Button, CardBody, Col, FormGroup, Input, Label, Progress, Row} from "reactstrap";
-import {isEmpty, sleep} from "../../Utils";
+import {isEmpty, sleep, getScraperBaseUrl} from "../../Utils";
 import {Article} from "../../components/Article/Article";
 import {TextArea} from "@thumbtack/thumbprint-react";
-import {domain} from "../../variables/general";
 
 // core components
 
@@ -234,10 +233,10 @@ class Step2 extends React.Component {
   clearCache() {
     const {article, threadId} = this.state;
     if (article.progress === 100 && threadId > 0) {
+      const scraperApiUrl = getScraperBaseUrl().concat('/article/' + threadId);
       axios({
         method: 'delete',
-        baseUrl: domain,
-        url: '/article/' + threadId,
+        url: scraperApiUrl,
         headers: {
           "Authorization": "",
           'Content-Type': 'application/json;charset=UTF-8'
