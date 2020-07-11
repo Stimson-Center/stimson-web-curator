@@ -9,4 +9,4 @@ Defaults        env_reset
 
 # % character before the group name as follows; this means that all member of the sys ubuntu
 # will run all commands using sudo without a password.
-%ubuntu ALL=(ALL) NOPASSWD: ALL
+%nginx ALL=(ALL) NOPASSWD: ALL
