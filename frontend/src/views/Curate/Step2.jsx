@@ -138,19 +138,11 @@ class Step2 extends Component {
       // set up the request parameters
       let newDataTable = [];
       let start = 1;
-      let newQuery = wizardData.Search;
-      newQuery['start'] = start;
+      let payload = wizardData.Search;
+      payload['start'] = start;
       // console.log('Curate Step2: query=' + JSON.stringify(newQuery, null, 2));
-      const scraperApiUrl = getScraperBaseUrl().concat('/search/');
-      axios({
-        method: 'post',
-        url: scraperApiUrl,
-        data: newQuery,
-        headers: {
-          "Authorization": "",
-          'Content-Type': 'application/json;charset=UTF-8'
-        }
-      })
+      const scraperApiUrl = getScraperBaseUrl().concat('/search');
+      axios.post(scraperApiUrl, payload)
         .then(response => {
           const data = response.data;
           if (!isEmpty(data)) {
@@ -160,7 +152,7 @@ class Step2 extends Component {
             });
           }
           // console.log("newDataTable=" + JSON.stringify(newDataTable, null, 2));
-          this.setState({query: newQuery, data: this.handleData(newDataTable)});
+          this.setState({query: payload, data: this.handleData(newDataTable)});
         }).catch(error => {
         // catch and print the error
         console.log(error);

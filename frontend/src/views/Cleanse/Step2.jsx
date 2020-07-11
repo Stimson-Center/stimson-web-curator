@@ -234,17 +234,7 @@ class Step2 extends React.Component {
     const {article, threadId} = this.state;
     if (article.progress === 100 && threadId > 0) {
       const scraperApiUrl = getScraperBaseUrl().concat('/article/' + threadId);
-      axios({
-        method: 'delete',
-        url: scraperApiUrl,
-        headers: {
-          "Authorization": "",
-          'Content-Type': 'application/json;charset=UTF-8'
-        }
-      })
-        .catch(err => {
-          console.log(err)
-        });
+      axios.delete(scraperApiUrl);
     }
   }
 

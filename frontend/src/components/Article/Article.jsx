@@ -23,17 +23,7 @@ export function Article({...props}) {
       // console.log("In Article fetchData url=" + url + " threadId=" + threadId);
       const scraperApiUrl = getScraperBaseUrl().concat(encodeURI('/article?url=' + url + '&language=' + language + "&translate=" + translate))
       if (url !== null && threadId === 0) {
-        let response1 = await axios({
-          method: 'get',
-          url: scraperApiUrl,
-          headers: {
-            "Authorization": "",
-            'Content-Type': 'application/json;charset=UTF-8'
-          }
-        })
-          .catch(err => {
-            console.log(err)
-          });
+        let response1 = await axios.get(scraperApiUrl);
         if (!isEmpty(response1) && !isEmpty(response1.data)) {
           // console.log("Article1: data=" + JSON.stringify(response1.data, null, 2));
           setThreadId(response1.data.thread_id);
@@ -43,17 +33,7 @@ export function Article({...props}) {
       if (threadId !== 0 && article.progress < 100) {
         await sleep(2000);
         const scraperApiUrl = getScraperBaseUrl().concat('/article/' + threadId);
-        let response2 = await axios({
-          method: 'get',
-          url: scraperApiUrl,
-          headers: {
-            "Authorization": "",
-            'Content-Type': 'application/json;charset=UTF-8'
-          }
-        })
-          .catch(err => {
-            console.log(err)
-          });
+        let response2 = await axios.get(scraperApiUrl)
         if (!isEmpty(response2) && !isEmpty(response2.data) && !isEquivalent(article, response2.data)) {
           // console.log("Article2: data=" + JSON.stringify(response2.data, null, 2));
           setArticle(response2.data);
