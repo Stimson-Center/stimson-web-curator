@@ -5,9 +5,6 @@ RUN mkhomedir_helper nginx
 RUN apt-get -y update && \
     apt-get -y install build-essential libpoppler-cpp-dev pkg-config python-dev libpoppler-dev systemd pipenv python3-venv
 
-RUN apt-get -y update && \
-    apt-get -y install vim sudo telnet curl
-COPY sudoers /etc/sudoers
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 COPY ./default.conf /etc/nginx/conf.d/default.conf
 
