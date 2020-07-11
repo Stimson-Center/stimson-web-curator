@@ -8,7 +8,7 @@ import logging
 from flask_restful import Api
 
 from flask import Flask
-from scraper.restful.endpoints import create_routes
+from scraper.restful.endpoints import create_routes, get_cors
 
 # from .api.endpoints import create_routes
 
@@ -22,6 +22,7 @@ def create_app(name):
     flask_app.logger.setLevel(logging.DEBUG)
     Logger = flask_app.logger
     api = Api(flask_app)
+    cors = get_cors(flask_app)
     create_routes(api)
     return flask_app
 
