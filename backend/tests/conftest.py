@@ -1,6 +1,11 @@
 import logging
 
 import pytest
+import pytest
+from flask import Flask
+from flask_restful import Api
+
+from scraper.restful.endpoints import create_routes
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -14,5 +19,8 @@ def fixture_directory():
 
 @pytest.fixture(scope='function')
 def app():
-    from app.app import app
+    app = Flask("test")
+    api = Api(app)
+    create_routes(api)
+    app.logger.setLevel(logging.DEBUG)
     return app

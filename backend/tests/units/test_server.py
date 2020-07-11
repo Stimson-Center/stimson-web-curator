@@ -1,17 +1,26 @@
 # -*- coding: utf-8 -*-
 
+
+# noinspection PyUnresolvedReferences
+# -*- coding: utf-8 -*-
+
 import json
 
 import pytest
 
 
 # https://pypi.org/project/pytest-flask/
+
+@pytest.mark.options(debug=False)
+def test_app(app):
+    assert not app.debug, 'Ensure the app not in debug mode'
+
+
 @pytest.mark.options(debug=True)
-def test_countries(client):
-    response = client.get("/countries")
+def test_hello(client):
+    response = client.get("/")
     assert 200 == response.status_code
     assert '200 OK' == response.status
     assert 'utf-8' == response.charset
     data = json.loads(response.data)
-    assert len(data) == 242
-    assert data["United States"] == "countryUS"
+    assert data['hello'] == 'world'
