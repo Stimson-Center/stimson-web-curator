@@ -9,5 +9,5 @@ gcloud config set project stimson-web-curator-ui
 gcloud app deploy --project=stimson-web-curator-ui --promote
 gcloud app describe --project=stimson-web-curator-ui
 gcloud app browse
-gcloud app logs tail -s default
+# gcloud app logs tail -s default
 
