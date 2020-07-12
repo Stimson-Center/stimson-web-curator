@@ -48,6 +48,8 @@ export function Article({...props}) {
   let progressText = '';
   switch (article.progress) {
     case 0:
+      progressText = 'Initialization can take a minute';
+      break;
     case 20:
       progressText = 'Downloading can take a minute';
       break;
