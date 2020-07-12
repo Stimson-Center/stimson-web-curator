@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://www.stimson.org",
   "dependencies": {
+    "@thumbtack/thumbprint-react": "13.0.0",
     "axios": "0.19.2",
     "bootstrap": "4.5.0",
     "chart.js": "2.9.3",
@@ -38,13 +39,12 @@
     "react-table": "6.11.5",
     "react-tagsinput": "3.19.0",
     "reactstrap": "8.5.1",
-    "serve": "11.3.2",
+    "serve": "^11.3.2",
     "superagent": "5.3.1",
-    "@thumbtack/thumbprint-react": "13.0.0",
     "universal-cookie": "4.0.3"
   },
   "scripts": {
-    "start": "env-cmd -f .env.production react-scripts start",
+    "start": "react-scripts start",
     "prestart": "npm install -g serve",
     "local": "react-scripts start",
     "build": "env-cmd -f .env.production react-scripts build",
@@ -56,7 +56,7 @@
     "@types/markerclustererplus": "2.1.33",
     "@types/react": "16.9.43",
     "ajv": "6.12.3",
-    "env-cmd": "10.1.0",
+    "env-cmd": "^10.1.0",
     "eslint-plugin-flowtype": "5.2.0",
     "gh-pages": "3.1.0",
     "typescript": "3.9.6"
