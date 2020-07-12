@@ -87,18 +87,7 @@ class Step2 extends React.Component {
   showStartArticle() {
     // console.log("showStartArticle");
     const {article, threadId} = this.state;
-    if (threadId > 0 && article.progress === 0) {
-      // console.log("showProgressBar");
-      return (
-        <div className="progress-container">
-          <span className="progress-badge">Progress</span>
-          <Progress max="100" value={0}>
-            <span className="progress-value">{0}%</span>
-          </Progress>
-        </div>
-      );
-    }
-    else if (localStorage.getItem('articleUrlChanged')) {
+    if (threadId === 0 && article.progress === 0) {
       return (
         <>
           <Article
