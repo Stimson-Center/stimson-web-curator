@@ -30,28 +30,10 @@ import { createBrowserHistory } from "history";
 import "bootstrap/dist/css/bootstrap.css";
 // import "./assets/scss/now-ui-dashboard.scss?v=1.3.0";
 import "./assets/scss/now-ui-dashboard.scss";
-// import "assets/css/demo.css";
 
 import AdminLayout from 'layouts/Admin.jsx';
 import AuthLayout from "layouts/Auth.jsx";
 const hist = createBrowserHistory();
-
-
-// // noinspection JSUnusedLocalSymbols
-// const ProtectedRoute = ({ render: C, props: childProps, ...rest }) => (
-//   <Route
-//     {...rest}
-//     render={(rProps) => (childProps.isLoggedIn ? (
-//       <C {...rProps} {...childProps} />
-//     ) : (
-//       <Redirect
-//         to={`/auth?redirect=${rProps.location.pathname}${
-//           rProps.location.search
-//         }`}
-//       />
-//     ))}
-//   />
-// );
 
 const ProppedRoute = ({ render: C, props: childProps, ...rest }) => (
   <Route {...rest} render={(rProps) => <C {...rProps} {...childProps} />} />
@@ -149,7 +131,7 @@ class App extends React.Component {
 }
 
 const AppWithRouter = () => (
-  <Router  history={hist}>
+  <Router history={hist}>
     <App />
   </Router>
 );
