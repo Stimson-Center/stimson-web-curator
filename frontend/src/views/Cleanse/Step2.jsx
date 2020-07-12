@@ -19,7 +19,6 @@ class Step2 extends React.Component {
     this.currentWizardData = null;
     this.handleProgress = this.handleProgress.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.showProgressBar = this.showProgressBar.bind(this);
     this.showStartArticle = this.showStartArticle.bind(this);
     this.showArticleInProgress = this.showArticleInProgress.bind(this);
     this.showCompletedArticle = this.showCompletedArticle.bind(this);
@@ -85,7 +84,8 @@ class Step2 extends React.Component {
     a.click();
   }
 
-  showProgressBar(url) {
+  showStartArticle() {
+    // console.log("showStartArticle");
     const {article, threadId} = this.state;
     if (threadId > 0 && article.progress === 0) {
       // console.log("showProgressBar");
@@ -98,11 +98,7 @@ class Step2 extends React.Component {
         </div>
       );
     }
-  }
-
-  showStartArticle() {
-    if (localStorage.getItem('articleUrlChanged')) {
-      // console.log("showStartArticle");
+    else if (localStorage.getItem('articleUrlChanged')) {
       return (
         <>
           <Article
@@ -234,6 +230,7 @@ class Step2 extends React.Component {
     const {article, threadId} = this.state;
     if (article.progress === 100 && threadId > 0) {
       const scraperApiUrl = getScraperBaseUrl().concat('/article/' + threadId);
+      // noinspection JSIgnoredPromiseFromCall
       axios.delete(scraperApiUrl);
     }
   }
