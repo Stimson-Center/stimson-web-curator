@@ -10,16 +10,16 @@
     "classnames": "2.2.6",
     "dotenv": "8.2.0",
     "history": "4.10.1",
-    "moment": "2.26.0",
+    "moment": "2.27.0",
     "node-sass": "4.14.1",
-    "nouislider": "14.5.0",
-    "npm-check-updates": "6.0.1",
+    "nouislider": "14.6.0",
+    "npm-check-updates": "7.0.1",
     "npm-run-all": "4.1.5",
     "perfect-scrollbar": "1.5.0",
     "prop-types": "15.7.2",
     "react": "16.13.1",
-    "react-big-calendar": "0.24.6",
-    "react-bootstrap-sweetalert": "5.1.9",
+    "react-big-calendar": "0.26.0",
+    "react-bootstrap-sweetalert": "5.1.15",
     "react-bootstrap-switch": "15.5.3",
     "react-bootstrap-wizard": "0.0.7",
     "react-chartjs-2": "2.9.0",
@@ -37,10 +37,10 @@
     "react-server": "0.8.1",
     "react-table": "6.11.5",
     "react-tagsinput": "3.19.0",
-    "reactstrap": "8.4.1",
+    "reactstrap": "8.5.1",
     "serve": "11.3.2",
     "superagent": "5.3.1",
-    "@thumbtack/thumbprint-react": "12.5.0",
+    "@thumbtack/thumbprint-react": "13.0.0",
     "universal-cookie": "4.0.3"
   },
   "scripts": {
@@ -52,14 +52,14 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "@types/googlemaps": "3.39.6",
+    "@types/googlemaps": "3.39.9",
     "@types/markerclustererplus": "2.1.33",
-    "@types/react": "16.9.35",
-    "ajv": "6.12.2",
-    "env-cmd": "^10.1.0",
-    "eslint-plugin-flowtype": "5.1.0",
-    "gh-pages": "2.2.0",
-    "typescript": "3.9.3"
+    "@types/react": "16.9.43",
+    "ajv": "6.12.3",
+    "env-cmd": "10.1.0",
+    "eslint-plugin-flowtype": "5.2.0",
+    "gh-pages": "3.1.0",
+    "typescript": "3.9.6"
   },
   "eslintConfig": {
     "extends": "react-app"
