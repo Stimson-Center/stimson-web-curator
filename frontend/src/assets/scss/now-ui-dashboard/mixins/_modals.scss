@@ -10,12 +10,12 @@
 
   //inputs
   @include input-coloured-bg(
-    $opacity-5,
-    $white-color,
-    $white-color,
-    $transparent-bg,
-    $opacity-1,
-    $opacity-2
+                  $opacity-5,
+                  $white-color,
+                  $white-color,
+                  $transparent-bg,
+                  $opacity-1,
+                  $opacity-2
   );
 
   .input-group-addon,

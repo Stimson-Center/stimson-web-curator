@@ -138,8 +138,8 @@
 }
 
 @include form-control-lg-padding(
-  $padding-large-vertical,
-  $padding-input-horizontal
+                $padding-large-vertical,
+                $padding-input-horizontal
 );
 @include input-base-padding($padding-input-vertical, $padding-input-horizontal);
 
@@ -150,6 +150,7 @@
   .form-control + .input-group-append .input-group-text {
     background-color: $opacity-gray-3;
     border: medium none;
+
     &:focus,
     &:active,
     &:active {
@@ -180,6 +181,7 @@
     color: $danger-color;
   }
 }
+
 .has-success {
   .form-control-feedback,
   .control-label {
@@ -207,9 +209,11 @@
   .has-success & {
     background-color: $white-color;
   }
+
   .has-danger .form-control:focus + & {
     color: $danger-color;
   }
+
   .has-success .form-control:focus + & {
     color: $success-color;
   }
@@ -233,6 +237,7 @@
 .input-group-append .input-group-text {
   border-left: none;
 }
+
 .input-group-prepend .input-group-text {
   border-right: none;
 }
@@ -261,6 +266,7 @@
     margin-top: 9px;
   }
 }
+
 .input-group[disabled] {
   .input-group-prepend .input-group-text,
   .input-group-append .input-group-text {
@@ -281,11 +287,13 @@
 .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle) {
   border-right: 0 none;
 }
+
 .input-group .form-control:last-child,
 .input-group-btn:last-child > .dropdown-toggle,
 .input-group-btn:first-child > .btn:not(:first-child) {
   border-left: 0 none;
 }
+
 .form-control[disabled],
 .form-control[readonly],
 fieldset[disabled] .form-control {
@@ -298,6 +306,7 @@ fieldset[disabled] .form-control {
   border-width: $border-thin;
   padding: $padding-btn-vertical $padding-base-horizontal;
 }
+
 .input-group-btn .btn-default:not(.btn-fill) {
   border-color: $medium-gray;
 }
@@ -305,6 +314,7 @@ fieldset[disabled] .form-control {
 .input-group-btn:last-child > .btn {
   margin-left: 0;
 }
+
 textarea.form-control {
   max-width: 100%;
   max-height: 80px;

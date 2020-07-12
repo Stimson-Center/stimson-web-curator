@@ -24,13 +24,16 @@
 @mixin placeholder() {
   &::-moz-placeholder {
     @content;
-  } // Firefox
+  }
+  // Firefox
   &:-ms-input-placeholder {
     @content;
-  } // Internet Explorer 10+
+  }
+  // Internet Explorer 10+
   &::-webkit-input-placeholder {
     @content;
-  } // Safari and Chrome
+  }
+  // Safari and Chrome
 }
 
 @mixin light-form() {
@@ -74,8 +77,7 @@
       padding: $padding-vertical - 1 0 $padding-vertical $padding-horizontal - 1;
 
       & + .form-control {
-        padding: $padding-vertical $padding-horizontal - 1 $padding-vertical
-          $padding-horizontal - 3;
+        padding: $padding-vertical $padding-horizontal - 1 $padding-vertical $padding-horizontal - 3;
       }
     }
   }
@@ -119,8 +121,7 @@
 
       & + .form-control,
       & ~ .form-control {
-        padding: $padding-vertical - 1 $padding-horizontal $padding-vertical
-          $padding-horizontal - 3;
+        padding: $padding-vertical - 1 $padding-horizontal $padding-vertical $padding-horizontal - 3;
       }
     }
   }

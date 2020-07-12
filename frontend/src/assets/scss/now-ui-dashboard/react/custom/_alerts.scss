@@ -39,6 +39,7 @@
     &:not(:disabled):not(.disabled):focus {
       color: $white-color;
     }
+
     opacity: 0.9;
     text-shadow: none;
     line-height: 0;

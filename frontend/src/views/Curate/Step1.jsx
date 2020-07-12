@@ -354,10 +354,10 @@ class Step1 extends Component {
                             }}
                           >
 
-                              <DropdownItem
-                                onClick={e => this.setState({country: e.currentTarget.textContent})}
-                              >Any</DropdownItem>
-                              {this.generateCountryMenuItems()}
+                            <DropdownItem
+                              onClick={e => this.setState({country: e.currentTarget.textContent})}
+                            >Any</DropdownItem>
+                            {this.generateCountryMenuItems()}
 
                           </DropdownMenu>
                         </UncontrolledDropdown>

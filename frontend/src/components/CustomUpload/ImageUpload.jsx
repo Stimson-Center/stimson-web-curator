@@ -17,10 +17,8 @@
 import React from "react";
 // used for making the prop types of this component
 import PropTypes from "prop-types";
-
 // reactstrap components
-import { Button } from "reactstrap";
-
+import {Button} from "reactstrap";
 // core components
 import defaultImage from "assets/img/image_placeholder.jpg";
 import defaultAvatar from "assets/img/placeholder.jpg";
@@ -34,6 +32,7 @@ class ImageUpload extends React.Component {
     };
     this.fileInput = React.createRef();
   }
+
   handleImageChange = e => {
     e.preventDefault();
     let reader = new FileReader();
@@ -62,6 +61,7 @@ class ImageUpload extends React.Component {
     });
     this.fileInput.current.value = null;
   };
+
   render() {
     return (
       <div className="fileinput text-center">
@@ -71,7 +71,7 @@ class ImageUpload extends React.Component {
           ref={this.fileInput}
         />
         <div className={"thumbnail" + (this.props.avatar ? " img-circle" : "")}>
-          <img src={this.state.imagePreviewUrl} alt="..." />
+          <img src={this.state.imagePreviewUrl} alt="..."/>
         </div>
         <div>
           {this.state.file === null ? (
@@ -83,13 +83,13 @@ class ImageUpload extends React.Component {
               <Button className="btn-round" onClick={() => this.handleClick()}>
                 Change
               </Button>
-              {this.props.avatar ? <br /> : null}
+              {this.props.avatar ? <br/> : null}
               <Button
                 color="danger"
                 className="btn-round"
                 onClick={() => this.handleRemove()}
               >
-                <i className="fa fa-times" /> Remove
+                <i className="fa fa-times"/> Remove
               </Button>
             </span>
           )}

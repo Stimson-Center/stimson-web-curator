@@ -88,6 +88,7 @@
   &[data-color="primary"] {
     @include set-wizard-color($brand-primary);
   }
+
   &[data-color="white"] {
     @include set-wizard-color($white-color);
   }

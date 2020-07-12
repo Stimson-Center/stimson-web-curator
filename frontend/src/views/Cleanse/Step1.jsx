@@ -98,7 +98,10 @@ class Step1 extends React.Component {
     // noinspection JSUnusedLocalSymbols
     return languageNames.map((languageName, languageIndex) => (
       <DropdownItem key={languageName}
-                    onClick={e => this.setState({languageName: e.currentTarget.textContent, language: getValueByIndex(languages, languageIndex)})}>{languageName}</DropdownItem>
+                    onClick={e => this.setState({
+                      languageName: e.currentTarget.textContent,
+                      language: getValueByIndex(languages, languageIndex)
+                    })}>{languageName}</DropdownItem>
     ))
   }
 

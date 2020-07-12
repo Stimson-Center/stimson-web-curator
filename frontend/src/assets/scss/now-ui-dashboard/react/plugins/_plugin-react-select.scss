@@ -34,6 +34,7 @@ This file was modified entirely by Creative Tim for React-Select v2.0.0
     padding-bottom: 10px;
     margin-bottom: unset;
     margin-top: unset;
+
     &:before {
       display: inline-block;
       position: absolute;
@@ -61,6 +62,7 @@ This file was modified entirely by Creative Tim for React-Select v2.0.0
       left: 10px;
     }
   }
+
   .react-select__menu-list {
     max-height: 198px;
     overflow-y: auto;
@@ -68,6 +70,7 @@ This file was modified entirely by Creative Tim for React-Select v2.0.0
     padding-top: unset;
     position: relative;
   }
+
   .react-select__option {
     font-size: 0.8571em;
     padding-top: 0.6rem;
@@ -84,12 +87,14 @@ This file was modified entirely by Creative Tim for React-Select v2.0.0
     outline: none;
     color: #292b2c;
   }
+
   .react-select__menu {
     .react-select__option {
       &,
       &:active {
         background-color: transparent;
       }
+
       &.react-select__option--is-selected {
         &,
         &.react-select__option--is-focused {
@@ -99,12 +104,14 @@ This file was modified entirely by Creative Tim for React-Select v2.0.0
           }
         }
       }
+
       &.react-select__option--is-focused {
         &,
         &:active {
           background-color: $smoke-bg;
         }
       }
+
       &.react-select__option--is-disabled {
         &,
         &:active {
@@ -114,6 +121,7 @@ This file was modified entirely by Creative Tim for React-Select v2.0.0
       }
     }
   }
+
   .react-select__control {
     border-radius: 19px;
     min-height: 37px;
@@ -122,12 +130,14 @@ This file was modified entirely by Creative Tim for React-Select v2.0.0
     border-collapse: separate;
     display: table;
     width: 100%;
+
     &,
     &:hover {
       border: 1px solid $light-gray;
       box-shadow: none;
       background-color: transparent;
     }
+
     &.react-select__control--is-focused {
       .react-select__dropdown-indicator {
         &:after {
@@ -135,52 +145,63 @@ This file was modified entirely by Creative Tim for React-Select v2.0.0
           top: -4px;
         }
       }
+
       &,
       &:hover {
         border: 1px solid $primary-color;
         box-shadow: none;
       }
     }
+
     .react-select__value-container--has-value {
       .react-select__multi-value {
         display: inline-flex;
         border-radius: 19px;
         background-color: transparent;
+
         & + div:not(.react-select__multi-value) {
           display: inline-flex;
         }
+
         .react-select__multi-value__label {
           font-size: 0.9em;
         }
       }
+
       .react-select__single-value {
         top: 48%;
         color: $black-color;
       }
     }
+
     .react-select__placeholder {
       color: $dark-gray;
       line-height: normal;
       font-size: 0.8571em;
       top: 48%;
     }
+
     .react-select__value-container,
     .react-select__indicators {
       display: table-cell;
     }
+
     .react-select__indicators {
       width: 60px;
       padding-right: 10px;
       align-items: flex-end;
       vertical-align: middle;
       text-align: right;
+
       .react-select__indicator-separator {
         display: none;
       }
+
       .react-select__indicator {
         padding: 0;
         display: inline-block;
       }
+
       .react-select__dropdown-indicator {
         &:after {
           transition: all 150ms ease 0s;
@@ -193,13 +214,16 @@ This file was modified entirely by Creative Tim for React-Select v2.0.0
           position: relative;
           content: "";
         }
+
         &:hover:after {
           border-top-color: $link-disabled-color;
         }
+
         & > * {
           display: none;
         }
       }
+
       .react-select__clear-indicator {
         &:before {
           content: "\D7";
@@ -210,12 +234,14 @@ This file was modified entirely by Creative Tim for React-Select v2.0.0
           position: relative;
           margin-right: 3px;
         }
+
         & > * {
           display: none;
         }
       }
     }
   }
+
   &.primary {
     .react-select__control {
       .react-select__value-container--has-value {
@@ -225,11 +251,14 @@ This file was modified entirely by Creative Tim for React-Select v2.0.0
         }
       }
     }
+
     .react-select__multi-value {
       border: 1px solid $primary-color;
+
       .react-select__multi-value__remove {
         color: $primary-color-opacity;
         border-left: 1px solid $primary-color-opacity;
+
         &:hover {
           color: $primary-color;
           background-color: transparent;
@@ -237,6 +266,7 @@ This file was modified entirely by Creative Tim for React-Select v2.0.0
       }
     }
   }
+
   &.success {
     .react-select__control {
       .react-select__value-container--has-value {
@@ -246,11 +276,14 @@ This file was modified entirely by Creative Tim for React-Select v2.0.0
         }
       }
     }
+
     .react-select__multi-value {
       border: 1px solid $success-color;
+
       .react-select__multi-value__remove {
         color: $success-color-opacity;
         border-left: 1px solid $success-color-opacity;
+
         &:hover {
           color: $success-color;
           background-color: transparent;
@@ -258,6 +291,7 @@ This file was modified entirely by Creative Tim for React-Select v2.0.0
       }
     }
   }
+
   &.info {
     .react-select__control {
       .react-select__value-container--has-value {
@@ -267,11 +301,14 @@ This file was modified entirely by Creative Tim for React-Select v2.0.0
         }
       }
     }
+
     .react-select__multi-value {
       border: 1px solid $info-color;
+
       .react-select__multi-value__remove {
         color: $info-color-opacity;
         border-left: 1px solid $info-color-opacity;
+
         &:hover {
           color: $info-color;
           background-color: transparent;
@@ -279,6 +316,7 @@ This file was modified entirely by Creative Tim for React-Select v2.0.0
       }
     }
   }
+
   &.warning {
     .react-select__control {
       .react-select__value-container--has-value {
@@ -288,11 +326,14 @@ This file was modified entirely by Creative Tim for React-Select v2.0.0
         }
       }
     }
+
     .react-select__multi-value {
       border: 1px solid $warning-color;
+
       .react-select__multi-value__remove {
         color: $warning-color-opacity;
         border-left: 1px solid $warning-color-opacity;
+
         &:hover {
           color: $warning-color;
           background-color: transparent;
@@ -300,6 +341,7 @@ This file was modified entirely by Creative Tim for React-Select v2.0.0
       }
     }
   }
+
   &.danger {
     .react-select__control {
       .react-select__value-container--has-value {
@@ -309,11 +351,14 @@ This file was modified entirely by Creative Tim for React-Select v2.0.0
         }
       }
     }
+
     .react-select__multi-value {
       border: 1px solid $danger-color;
+
       .react-select__multi-value__remove {
         color: $danger-color-opacity;
         border-left: 1px solid $danger-color-opacity;
+
         &:hover {
           color: $danger-color;
           background-color: transparent;
@@ -321,26 +366,31 @@ This file was modified entirely by Creative Tim for React-Select v2.0.0
       }
     }
   }
+
   .react-select__multi-value {
     .react-select__multi-value__remove {
       position: relative;
       color: $opacity-gray-8;
+
       &:hover {
         color: $dark-gray;
         background-color: transparent;
       }
     }
   }
+
   &.react-select--is-disabled {
     .react-select__multi-value--is-disabled {
       .react-select__multi-value__remove {
         display: none;
       }
+
       &.react-select__multi-value {
         background-color: #fcfcfc;
         border: 1px solid #e3e3e3;
       }
     }
+
     .react-select__control--is-disabled {
       background-color: #f9f9f9;
     }

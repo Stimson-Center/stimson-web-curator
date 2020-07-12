@@ -123,46 +123,46 @@
 
   &.dropdown-primary {
     @include dropdown-colors(
-      darken($primary-color, 3%),
-      $opacity-8,
-      $white-color,
-      $opacity-2
+                    darken($primary-color, 3%),
+                    $opacity-8,
+                    $white-color,
+                    $opacity-2
     );
   }
 
   &.dropdown-info {
     @include dropdown-colors(
-      darken($info-color, 3%),
-      $opacity-8,
-      $white-color,
-      $opacity-2
+                    darken($info-color, 3%),
+                    $opacity-8,
+                    $white-color,
+                    $opacity-2
     );
   }
 
   &.dropdown-danger {
     @include dropdown-colors(
-      darken($danger-color, 3%),
-      $opacity-8,
-      $white-color,
-      $opacity-2
+                    darken($danger-color, 3%),
+                    $opacity-8,
+                    $white-color,
+                    $opacity-2
     );
   }
 
   &.dropdown-success {
     @include dropdown-colors(
-      darken($success-color, 3%),
-      $opacity-8,
-      $white-color,
-      $opacity-2
+                    darken($success-color, 3%),
+                    $opacity-8,
+                    $white-color,
+                    $opacity-2
     );
   }
 
   &.dropdown-warning {
     @include dropdown-colors(
-      darken($warning-color, 3%),
-      $opacity-8,
-      $white-color,
-      $opacity-2
+                    darken($warning-color, 3%),
+                    $opacity-8,
+                    $white-color,
+                    $opacity-2
     );
   }
 

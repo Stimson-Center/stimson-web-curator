@@ -15,27 +15,25 @@
 
 */
 import React from "react";
-
 // reactstrap components
 import {
+  Button,
   Card,
-  CardHeader,
-  CardTitle,
   CardBody,
   CardFooter,
-  Container,
-  Row,
+  CardHeader,
+  CardTitle,
   Col,
+  Container,
   Form,
   FormGroup,
+  Input,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  Input,
   Label,
-  Button
+  Row
 } from "reactstrap";
-
 // core components
 import bgImage from "assets/img/bg16.jpg";
 
@@ -44,12 +42,15 @@ class RegisterPage extends React.Component {
     super(props);
     this.state = {};
   }
+
   componentDidMount() {
     document.body.classList.add("register-page");
   }
+
   componentWillUnmount() {
     document.body.classList.remove("register-page");
   }
+
   render() {
     return (
       <>
@@ -60,7 +61,7 @@ class RegisterPage extends React.Component {
                 <Col lg={5} md={8} xs={12}>
                   <div className="info-area info-horizontal mt-5">
                     <div className="icon icon-primary">
-                      <i className="now-ui-icons media-2_sound-wave" />
+                      <i className="now-ui-icons media-2_sound-wave"/>
                     </div>
                     <div className="description">
                       <h5 className="info-title">Marketing</h5>
@@ -72,7 +73,7 @@ class RegisterPage extends React.Component {
                   </div>
                   <div className="info-area info-horizontal">
                     <div className="icon icon-primary">
-                      <i className="now-ui-icons media-1_button-pause" />
+                      <i className="now-ui-icons media-1_button-pause"/>
                     </div>
                     <div className="description">
                       <h5 className="info-title">Fully Coded in React 16</h5>
@@ -84,7 +85,7 @@ class RegisterPage extends React.Component {
                   </div>
                   <div className="info-area info-horizontal">
                     <div className="icon icon-info">
-                      <i className="now-ui-icons users_single-02" />
+                      <i className="now-ui-icons users_single-02"/>
                     </div>
                     <div className="description">
                       <h5 className="info-title">Built Audience</h5>
@@ -101,13 +102,13 @@ class RegisterPage extends React.Component {
                       <CardTitle tag="h4">Register</CardTitle>
                       <div className="social btns-mr-5">
                         <Button className="btn-icon btn-round" color="twitter">
-                          <i className="fab fa-twitter" />
+                          <i className="fab fa-twitter"/>
                         </Button>
                         <Button className="btn-icon btn-round" color="dribbble">
-                          <i className="fab fa-dribbble" />
+                          <i className="fab fa-dribbble"/>
                         </Button>
                         <Button className="btn-icon btn-round" color="facebook">
-                          <i className="fab fa-facebook-f" />
+                          <i className="fab fa-facebook-f"/>
                         </Button>
                         <h5 className="card-description">or be classical</h5>
                       </div>
@@ -121,17 +122,17 @@ class RegisterPage extends React.Component {
                         >
                           <InputGroupAddon addonType="prepend">
                             <InputGroupText>
-                              <i className="now-ui-icons users_circle-08" />
+                              <i className="now-ui-icons users_circle-08"/>
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input
                             type="text"
                             placeholder="First Name..."
                             onFocus={e =>
-                              this.setState({ firstnameFocus: true })
+                              this.setState({firstnameFocus: true})
                             }
                             onBlur={e =>
-                              this.setState({ firstnameFocus: false })
+                              this.setState({firstnameFocus: false})
                             }
                           />
                         </InputGroup>
@@ -142,17 +143,17 @@ class RegisterPage extends React.Component {
                         >
                           <InputGroupAddon addonType="prepend">
                             <InputGroupText>
-                              <i className="now-ui-icons text_caps-small" />
+                              <i className="now-ui-icons text_caps-small"/>
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input
                             type="text"
                             placeholder="Last Name..."
                             onFocus={e =>
-                              this.setState({ lastnameFocus: true })
+                              this.setState({lastnameFocus: true})
                             }
                             onBlur={e =>
-                              this.setState({ lastnameFocus: false })
+                              this.setState({lastnameFocus: false})
                             }
                           />
                         </InputGroup>
@@ -163,20 +164,20 @@ class RegisterPage extends React.Component {
                         >
                           <InputGroupAddon addonType="prepend">
                             <InputGroupText>
-                              <i className="now-ui-icons ui-1_email-85" />
+                              <i className="now-ui-icons ui-1_email-85"/>
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input
                             type="email"
                             placeholder="Email..."
-                            onFocus={e => this.setState({ emailFocus: true })}
-                            onBlur={e => this.setState({ emailFocus: false })}
+                            onFocus={e => this.setState({emailFocus: true})}
+                            onBlur={e => this.setState({emailFocus: false})}
                           />
                         </InputGroup>
                         <FormGroup check>
                           <Label check>
-                            <Input type="checkbox" />
-                            <span className="form-check-sign" />
+                            <Input type="checkbox"/>
+                            <span className="form-check-sign"/>
                             <div>
                               I agree to the{" "}
                               <a href="#something">terms and conditions</a>.
@@ -203,7 +204,7 @@ class RegisterPage extends React.Component {
         </div>
         <div
           className="full-page-background"
-          style={{ backgroundImage: "url(" + bgImage + ")" }}
+          style={{backgroundImage: "url(" + bgImage + ")"}}
         />
       </>
     );

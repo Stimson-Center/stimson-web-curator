@@ -31,7 +31,7 @@ export function Article({...props}) {
         }
       }
       if (threadId !== 0 && article.progress < 100) {
-        await sleep(10);
+        await sleep(4000);
         const scraperApiUrl = getScraperBaseUrl().concat('/article/' + threadId);
         let response2 = await axios.get(scraperApiUrl)
         if (!isEmpty(response2) && !isEmpty(response2.data) && !isEquivalent(article, response2.data)) {

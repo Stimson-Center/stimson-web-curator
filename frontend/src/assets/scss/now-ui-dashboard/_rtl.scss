@@ -3,6 +3,7 @@
     right: 260px;
     left: auto;
   }
+
   .sidebar,
   .bootstrap-navbar {
     right: 0;
@@ -16,6 +17,7 @@
 
     .nav {
       padding: 0;
+
       i {
         float: right !important;
         margin-left: 15px;
@@ -58,22 +60,22 @@
     }
 
     .sidebar-wrapper
-      > .nav
-      [data-toggle="collapse"]
-      ~ div
-      > ul
-      > li
-      > a
-      .sidebar-mini-icon,
+    > .nav
+    [data-toggle="collapse"]
+    ~ div
+    > ul
+    > li
+    > a
+    .sidebar-mini-icon,
     .sidebar-wrapper
-      .user
-      .info
-      [data-toggle="collapse"]
-      ~ div
-      > ul
-      > li
-      > a
-      .sidebar-mini-icon {
+    .user
+    .info
+    [data-toggle="collapse"]
+    ~ div
+    > ul
+    > li
+    > a
+    .sidebar-mini-icon {
       float: right;
       margin-left: 15px;
       margin-right: 0;
@@ -206,22 +208,22 @@
 
   @media (max-width: 991px) {
     .sidebar
-      .sidebar-wrapper
-      > .nav
-      [data-toggle="collapse"]
-      ~ div
-      > ul
-      > li
-      > .sidebar-normal,
+    .sidebar-wrapper
+    > .nav
+    [data-toggle="collapse"]
+    ~ div
+    > ul
+    > li
+    > .sidebar-normal,
     .sidebar
-      .sidebar-wrapper
-      .user
-      .user-info
-      [data-toggle="collapse"]
-      ~ div
-      > ul
-      > li
-      > .sidebar-normal {
+    .sidebar-wrapper
+    .user
+    .user-info
+    [data-toggle="collapse"]
+    ~ div
+    > ul
+    > li
+    > .sidebar-normal {
       text-align: right;
     }
 
@@ -246,24 +248,24 @@
 
   @media (min-width: 991px) {
     &.sidebar-mini
-      .sidebar
-      .sidebar-wrapper
-      > .nav
-      [data-toggle="collapse"]
-      ~ div
-      > ul
-      > li
-      > .sidebar-normal,
+    .sidebar
+    .sidebar-wrapper
+    > .nav
+    [data-toggle="collapse"]
+    ~ div
+    > ul
+    > li
+    > .sidebar-normal,
     &.sidebar-mini
-      .sidebar
-      .sidebar-wrapper
-      .user
-      .info
-      [data-toggle="collapse"]
-      ~ div
-      > ul
-      > li
-      > .sidebar-normal,
+    .sidebar
+    .sidebar-wrapper
+    .user
+    .info
+    [data-toggle="collapse"]
+    ~ div
+    > ul
+    > li
+    > .sidebar-normal,
     &.sidebar-mini .sidebar .sidebar-wrapper .user .info > a > span,
     &.sidebar-mini .sidebar .sidebar-wrapper > .nav li > a p {
       position: relative;
@@ -271,47 +273,47 @@
 
     &.sidebar-mini .sidebar:hover .sidebar-wrapper > .nav li > a p,
     &.sidebar-mini
-      .sidebar:hover
-      .sidebar-wrapper
-      > .nav
-      [data-toggle="collapse"]
-      ~ div
-      > ul
-      > li
-      > a
-      .sidebar-normal,
+    .sidebar:hover
+    .sidebar-wrapper
+    > .nav
+    [data-toggle="collapse"]
+    ~ div
+    > ul
+    > li
+    > a
+    .sidebar-normal,
     &.sidebar-mini
-      .sidebar:hover
-      .sidebar-wrapper
-      .user
-      .user-info
-      [data-toggle="collapse"]
-      ~ div
-      > ul
-      > li
-      > .sidebar-normal,
+    .sidebar:hover
+    .sidebar-wrapper
+    .user
+    .user-info
+    [data-toggle="collapse"]
+    ~ div
+    > ul
+    > li
+    > .sidebar-normal,
     &.sidebar-mini .sidebar:hover .sidebar-wrapper .user .user-info > a > span,
     &.sidebar-mini
-      .sidebar
-      .sidebar-wrapper
-      > .nav
-      [data-toggle="collapse"]
-      ~ div
-      > ul
-      > li
-      > a
-      .sidebar-normal,
+    .sidebar
+    .sidebar-wrapper
+    > .nav
+    [data-toggle="collapse"]
+    ~ div
+    > ul
+    > li
+    > a
+    .sidebar-normal,
     &.sidebar-mini
-      .sidebar
-      .sidebar-wrapper
-      .user
-      .info
-      [data-toggle="collapse"]
-      ~ div
-      > ul
-      > li
-      > a
-      .sidebar-normal,
+    .sidebar
+    .sidebar-wrapper
+    .user
+    .info
+    [data-toggle="collapse"]
+    ~ div
+    > ul
+    > li
+    > a
+    .sidebar-normal,
     &.sidebar-mini .sidebar .sidebar-wrapper .user .info > a > span,
     &.sidebar-mini .sidebar .sidebar-wrapper > .nav li > a p,
     &.sidebar-mini .sidebar .logo a.logo-normal {
@@ -324,26 +326,26 @@
 
     &.sidebar-mini .sidebar:hover .sidebar-wrapper > .nav li > a p,
     &.sidebar-mini
-      .sidebar:hover
-      .sidebar-wrapper
-      > .nav
-      [data-toggle="collapse"]
-      ~ div
-      > ul
-      > li
-      > a
-      .sidebar-normal,
+    .sidebar:hover
+    .sidebar-wrapper
+    > .nav
+    [data-toggle="collapse"]
+    ~ div
+    > ul
+    > li
+    > a
+    .sidebar-normal,
     &.sidebar-mini
-      .sidebar:hover
-      .sidebar-wrapper
-      .user
-      .user-info
-      [data-toggle="collapse"]
-      ~ div
-      > ul
-      > li
-      > a
-      .sidebar-normal,
+    .sidebar:hover
+    .sidebar-wrapper
+    .user
+    .user-info
+    [data-toggle="collapse"]
+    ~ div
+    > ul
+    > li
+    > a
+    .sidebar-normal,
     &.sidebar-mini .sidebar:hover .sidebar-wrapper .user .user-info > a > span,
     &.sidebar-mini .sidebar:hover .logo a.logo-normal {
       -webkit-transform: translat3d(0, 0, 0);
@@ -394,6 +396,7 @@
       }
     }
   }
+
   &.sidebar-mini {
     .collapse,
     .collapsing {
@@ -411,6 +414,7 @@
     .nav .nav-item .nav-link i {
       margin-right: 0;
     }
+
     .nav .nav-item .nav,
     .user .user-info [data-toggle="collapse"] ~ div .nav {
       .nav-item .nav-link {
@@ -421,6 +425,7 @@
         }
       }
     }
+
     .user .user-info [data-toggle="collapse"] ~ div .nav {
       .nav-item .nav-link {
         .sidebar-normal {
@@ -437,11 +442,11 @@
   .input-group > .custom-select:not(:last-child),
   .input-group > .form-control:not(:last-child),
   .input-group
-    > .input-group-append:last-child
-    > .btn:not(:last-child):not(.dropdown-toggle),
+  > .input-group-append:last-child
+  > .btn:not(:last-child):not(.dropdown-toggle),
   .input-group
-    > .input-group-append:last-child
-    > .input-group-text:not(:last-child),
+  > .input-group-append:last-child
+  > .input-group-text:not(:last-child),
   .input-group > .input-group-append:not(:last-child) > .btn,
   .input-group > .input-group-append:not(:last-child) > .input-group-text,
   .input-group > .input-group-prepend > .btn,
@@ -456,8 +461,8 @@
   .input-group > .input-group-append > .input-group-text,
   .input-group > .input-group-prepend:first-child > .btn:not(:first-child),
   .input-group
-    > .input-group-prepend:first-child
-    > .input-group-text:not(:first-child),
+  > .input-group-prepend:first-child
+  > .input-group-text:not(:first-child),
   .input-group > .input-group-prepend:not(:first-child) > .btn,
   .input-group > .input-group-prepend:not(:first-child) > .input-group-text,
   .input-group > .custom-select:not(:first-child),

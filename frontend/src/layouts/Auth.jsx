@@ -15,16 +15,14 @@
 
 */
 import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
-
 // core components
 import AuthNavbar from "components/Navbars/AuthNavbar.jsx";
 import Footer from "components/Footer/Footer.jsx";
-// import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
-
 import routes from "routes.js";
+// import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 
 let ps;
 
@@ -32,16 +30,19 @@ class Auth extends React.Component {
   state = {
     filterColor: "yellow"
   };
+
   componentDidMount() {
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(this.refs.fullPages);
     }
   }
+
   componentWillUnmount() {
     if (navigator.platform.indexOf("Win") > -1) {
       ps.destroy();
     }
   }
+
   getRoutes = routes => {
     return routes.map((prop, key) => {
       if (prop.collapse) {
@@ -61,8 +62,9 @@ class Auth extends React.Component {
     });
   };
   handleColorClick = color => {
-    this.setState({ filterColor: color });
+    this.setState({filterColor: color});
   };
+
   render() {
     return (
       <>
@@ -74,9 +76,9 @@ class Auth extends React.Component {
           >
             <Switch>
               {this.getRoutes(routes)}
-              <Redirect from="/auth" to="/auth/login-page" />
+              <Redirect from="/auth" to="/auth/login-page"/>
             </Switch>
-            <Footer fluid />
+            <Footer fluid/>
           </div>
         </div>
         {/*<FixedPlugin*/}

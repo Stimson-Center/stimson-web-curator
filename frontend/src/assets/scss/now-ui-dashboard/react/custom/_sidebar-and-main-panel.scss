@@ -116,6 +116,7 @@
 
     @extend .animation-transition-general;
   }
+
   .logo-tim {
     border-radius: 50%;
     border: 1px solid #333;
@@ -196,13 +197,16 @@
         & ~ li:hover a[aria-expanded="true"],
         & ~ li:focus a[aria-expanded="true"] {
           background-color: $opacity-1;
+
           i {
             color: $white-color;
           }
         }
+
         & ~ li a[aria-expanded="true"],
         & ~ li a[aria-expanded="true"] {
           background-color: transparent;
+
           i {
             color: $opacity-5;
           }
@@ -360,26 +364,33 @@
     top: 0;
     left: 0;
   }
+
   &:after {
     @include icon-gradient($default-color);
     z-index: 3;
   }
+
   &,
   &[data-color="black"] {
     @include sidebar-color($black-color);
   }
+
   &[data-color="blue"] {
     @include sidebar-color($info-color);
   }
+
   &[data-color="green"] {
     @include sidebar-color($success-color);
   }
+
   &[data-color="orange"] {
     @include sidebar-color($orange-color);
   }
+
   &[data-color="red"] {
     @include sidebar-color($danger-color);
   }
+
   &[data-color="yellow"] {
     @include sidebar-color($warning-color);
   }
@@ -452,6 +463,7 @@
 .visible-on-sidebar-regular {
   display: inline-block !important;
 }
+
 .visible-on-sidebar-mini {
   display: none !important;
 }
@@ -552,6 +564,7 @@
     .visible-on-sidebar-regular {
       display: none !important;
     }
+
     .visible-on-sidebar-mini {
       display: inline-block !important;
     }
@@ -587,13 +600,13 @@
       .sidebar-wrapper {
         > .nav [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
         .user
-          .info
-          [data-toggle="collapse"]
-          ~ div
-          > ul
-          > li
-          > a
-          .sidebar-normal,
+        .info
+        [data-toggle="collapse"]
+        ~ div
+        > ul
+        > li
+        > a
+        .sidebar-normal,
         .user .info > a > span,
         > .nav li > a p {
           @include transform-translate-x(-25px);
@@ -615,19 +628,20 @@
       .navbar-minimize {
         opacity: 1;
       }
+
       .sidebar-wrapper {
         width: 260px;
 
         > .nav li > a p,
         > .nav [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
         .user
-          .info
-          [data-toggle="collapse"]
-          ~ div
-          > ul
-          > li
-          > a
-          .sidebar-normal,
+        .info
+        [data-toggle="collapse"]
+        ~ div
+        > ul
+        > li
+        > a
+        .sidebar-normal,
         .user .info > a > span {
           @include transform-translate-x(0px);
           opacity: 1;
@@ -649,6 +663,7 @@
     .title {
       color: $white-color;
     }
+
     .category {
       max-width: 600px;
       color: $opacity-5;
@@ -675,10 +690,12 @@
     box-shadow: none;
   }
 }
+
 .navbar .navbar-nav .nav-link i.fa + p,
 .navbar .navbar-nav .nav-link i.now-ui-icons + p {
   margin-left: 6px;
 }
+
 @media screen and (max-width: 991px) {
   .main-panel {
     width: 100%;

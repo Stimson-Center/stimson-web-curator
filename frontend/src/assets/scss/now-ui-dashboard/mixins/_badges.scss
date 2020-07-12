@@ -19,6 +19,7 @@
     }
   }
 }
+
 @mixin create-colored-badges() {
   &.primary-badge {
     @include badges-color($brand-primary);

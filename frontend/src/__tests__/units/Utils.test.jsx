@@ -1,5 +1,4 @@
-
-import {getSearchYears, getScraperBaseUrl} from "../../Utils";
+import {getScraperBaseUrl, getSearchYears} from "../../Utils";
 
 it('test getSearchYears', () => {
   const searchYears = getSearchYears();

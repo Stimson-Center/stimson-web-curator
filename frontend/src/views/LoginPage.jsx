@@ -15,23 +15,21 @@
 
 */
 import React from "react";
-
 // reactstrap components
 import {
+  Button,
   Card,
   CardBody,
-  CardHeader,
   CardFooter,
-  Form,
-  Container,
+  CardHeader,
   Col,
+  Container,
+  Form,
   Input,
   InputGroup,
   InputGroupAddon,
-  InputGroupText,
-  Button
+  InputGroupText
 } from "reactstrap";
-
 // core components
 import nowLogo from "assets/img/Stimson_Logo.png";
 
@@ -46,22 +44,26 @@ class LoginPage extends React.Component {
       register: false
     };
   }
+
   componentDidMount() {
     document.body.classList.add("login-page");
   }
+
   componentWillUnmount() {
     document.body.classList.remove("login-page");
   }
+
   // https://medium.com/p/4de5e517354a/responses/show
   renderRedirect = () => {
-    const { login, register } = this.state;
+    const {login, register} = this.state;
     if (login) {
-      return (<Redirect push to="/admin/curate" />);
+      return (<Redirect push to="/admin/curate"/>);
     }
     if (register) {
-      return (<Redirect push to="/auth/register-page" />);
+      return (<Redirect push to="/auth/register-page"/>);
     }
   }
+
   render() {
     return (
       <>
@@ -74,7 +76,7 @@ class LoginPage extends React.Component {
                   <Card className="card-login card-plain">
                     <CardHeader>
                       <div className="logo-container">
-                        <img src={nowLogo} alt="now-logo" />
+                        <img src={nowLogo} alt="now-logo"/>
                       </div>
                     </CardHeader>
                     <CardBody>
@@ -86,14 +88,14 @@ class LoginPage extends React.Component {
                       >
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <i className="now-ui-icons users_circle-08" />
+                            <i className="now-ui-icons users_circle-08"/>
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
                           type="text"
                           placeholder="First Name..."
-                          onFocus={e => this.setState({ firstnameFocus: true })}
-                          onBlur={e => this.setState({ firstnameFocus: false })}
+                          onFocus={e => this.setState({firstnameFocus: true})}
+                          onBlur={e => this.setState({firstnameFocus: false})}
                         />
                       </InputGroup>
                       <InputGroup
@@ -104,14 +106,14 @@ class LoginPage extends React.Component {
                       >
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <i className="now-ui-icons text_caps-small" />
+                            <i className="now-ui-icons text_caps-small"/>
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
                           type="text"
                           placeholder="Last Name..."
-                          onFocus={e => this.setState({ lastnameFocus: true })}
-                          onBlur={e => this.setState({ lastnameFocus: false })}
+                          onFocus={e => this.setState({lastnameFocus: true})}
+                          onBlur={e => this.setState({lastnameFocus: false})}
                         />
                       </InputGroup>
                     </CardBody>
@@ -122,7 +124,7 @@ class LoginPage extends React.Component {
                         size="lg"
                         href="#pablo"
                         className="mb-3 btn-round"
-                        onClick={e => this.setState({login:true})}
+                        onClick={e => this.setState({login: true})}
                       >
                         Get Started
                       </Button>
@@ -131,7 +133,7 @@ class LoginPage extends React.Component {
                           <a
                             href="#pablo"
                             className="link footer-link"
-                            onClick={e => this.setState({register:true})}
+                            onClick={e => this.setState({register: true})}
                           >
                             Create Account
                           </a>
@@ -153,7 +155,7 @@ class LoginPage extends React.Component {
         </div>
         <div
           className="full-page-background"
-          style={{ backgroundImage: "url(" + bgImage + ")" }}
+          style={{backgroundImage: "url(" + bgImage + ")"}}
         />
       </>
     );

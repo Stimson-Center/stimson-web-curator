@@ -1,4 +1,3 @@
-
 const languages = {
   "Afrikaans": "af",
   "Albanian": "sq",

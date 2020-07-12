@@ -21,10 +21,8 @@ import {NavLink, Redirect} from "react-router-dom";
 import PropTypes from "prop-types";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
-
 // reactstrap components
-import { Nav, Collapse, Button } from "reactstrap";
-
+import {Button, Collapse, Nav} from "reactstrap";
 // core components
 import avatar from "assets/img/Stimson_Brian_Finlay.jpg";
 import logo from "assets/img/Stimson_Logo.png";
@@ -41,6 +39,7 @@ class Sidebar extends React.Component {
     };
     this.sidebar = React.createRef();
   }
+
   componentDidMount() {
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(this.sidebar.current, {
@@ -49,6 +48,7 @@ class Sidebar extends React.Component {
       });
     }
   }
+
   componentWillUnmount() {
     if (navigator.platform.indexOf("Win") > -1) {
       ps.destroy();
@@ -59,6 +59,7 @@ class Sidebar extends React.Component {
       window.clearTimeout(id);
     }
   }
+
   // this creates the intial state of this component based on the collapse routes
   // that it gets through this.props.routes
   getCollapseStates = routes => {
@@ -89,10 +90,11 @@ class Sidebar extends React.Component {
     }
     return false;
   }
+
   // this function creates the links and collapses that appear in the sidebar (left menu)
   createLinks = routes => {
     return routes.map((prop, key) => {
-      if(prop.invisible) return null;
+      if (prop.invisible) return null;
       if (prop.collapse) {
         const st = {};
         st[prop["state"]] = !this.state[prop.state];
@@ -112,10 +114,10 @@ class Sidebar extends React.Component {
             >
               {prop.icon !== undefined ? (
                 <>
-                  <i className={prop.icon} />
+                  <i className={prop.icon}/>
                   <p>
                     {prop.name}
-                    <b className="caret" />
+                    <b className="caret"/>
                   </p>
                 </>
               ) : (
@@ -123,7 +125,7 @@ class Sidebar extends React.Component {
                   <span className="sidebar-mini-icon">{prop.mini}</span>
                   <span className="sidebar-normal">
                     {prop.name}
-                    <b className="caret" />
+                    <b className="caret"/>
                   </span>
                 </>
               )}
@@ -139,7 +141,7 @@ class Sidebar extends React.Component {
           <NavLink to={prop.layout + prop.path} activeClassName="">
             {prop.icon !== undefined ? (
               <>
-                <i className={prop.icon} />
+                <i className={prop.icon}/>
                 <p>{prop.name}</p>
               </>
             ) : (
@@ -159,12 +161,13 @@ class Sidebar extends React.Component {
   };
   // https://medium.com/p/4de5e517354a/responses/show
   renderRedirect = () => {
-    const { userProfile } = this.state;
+    const {userProfile} = this.state;
     // console.log("userProfile=" + userProfile);
     if (userProfile) {
-      return (<Redirect push to="/admin/user-page" />);
+      return (<Redirect push to="/admin/user-page"/>);
     }
   }
+
   render() {
     return (
       <>
@@ -176,7 +179,7 @@ class Sidebar extends React.Component {
               target="_blank"
             >
               <div className="logo-img">
-                <img src={logo} alt="stimcon-logo" />
+                <img src={logo} alt="stimcon-logo"/>
               </div>
             </a>
             <a
@@ -194,8 +197,8 @@ class Sidebar extends React.Component {
                 id="minimizeSidebar"
                 onClick={() => this.props.minimizeSidebar()}
               >
-                <i className="now-ui-icons text_align-center visible-on-sidebar-regular" />
-                <i className="now-ui-icons design_bullet-list-67 visible-on-sidebar-mini" />
+                <i className="now-ui-icons text_align-center visible-on-sidebar-regular"/>
+                <i className="now-ui-icons design_bullet-list-67 visible-on-sidebar-mini"/>
               </Button>
             </div>
           </div>
@@ -217,12 +220,12 @@ class Sidebar extends React.Component {
                   data-toggle="collapse"
                   aria-expanded={this.state.openAvatar}
                   onClick={() =>
-                    this.setState({ openAvatar: !this.state.openAvatar, userProfile: !this.state.userProfile} )
+                    this.setState({openAvatar: !this.state.openAvatar, userProfile: !this.state.userProfile})
                   }
                 >
                   <span>
                     Brian Finlay
-                    <b className="caret" />
+                    <b className="caret"/>
                   </span>
                 </a>
                 {/*<Collapse isOpen={this.state.openAvatar}>*/}
@@ -261,7 +264,8 @@ Sidebar.defaultProps = {
   routes: [],
   showNotification: false,
   backgroundColor: "blue",
-  minimizeSidebar: () => {}
+  minimizeSidebar: () => {
+  }
 };
 
 Sidebar.propTypes = {

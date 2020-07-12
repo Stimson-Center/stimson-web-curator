@@ -71,6 +71,7 @@
       }
     }
   }
+
   > thead > tr > th,
   > tbody > tr > th,
   > tfoot > tr > th,
@@ -84,6 +85,7 @@
   .th-description {
     max-width: 150px;
   }
+
   .td-price {
     font-size: 26px;
     font-weight: $font-weight-light;
@@ -92,6 +94,7 @@
     top: 4px;
     text-align: right;
   }
+
   .td-total {
     font-weight: $font-weight-bold;
     font-size: $font-size-h5;
@@ -113,6 +116,7 @@
     font-size: $font-size-h6;
     text-transform: uppercase;
   }
+
   > tbody > tr > td {
     font-size: $font-paragraph;
 
@@ -121,22 +125,27 @@
       margin-bottom: 5px;
     }
   }
+
   .td-name {
     font-weight: $font-weight-normal;
     font-size: 1.5em;
+
     small {
       color: $dark-gray;
       font-size: 0.75em;
       font-weight: $font-weight-light;
     }
   }
+
   .td-number {
     font-weight: $font-weight-light;
     font-size: $font-size-h4;
   }
+
   .td-name {
     min-width: 200px;
   }
+
   .td-number {
     text-align: right;
     min-width: 170px;

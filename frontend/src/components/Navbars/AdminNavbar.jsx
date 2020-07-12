@@ -15,23 +15,21 @@
 
 */
 import React from "react";
-import { Redirect } from "react-router-dom";
-
+import {Redirect} from "react-router-dom";
 // used for making the prop types of this component
 import PropTypes from "prop-types";
-
 // reactstrap components
 import {
   Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
+  Container,
   Dropdown,
-  DropdownToggle,
-  DropdownMenu,
   DropdownItem,
-  Container
+  DropdownMenu,
+  DropdownToggle,
+  Nav,
+  Navbar,
+  NavbarBrand,
+  NavbarToggler
 } from "reactstrap";
 
 
@@ -78,9 +76,11 @@ class AdminNavbar extends React.Component {
       });
     }
   };
+
   componentDidMount() {
     window.addEventListener("resize", this.updateColor.bind(this));
   }
+
   componentDidUpdate(e) {
     if (
       window.innerWidth < 993 &&
@@ -91,16 +91,18 @@ class AdminNavbar extends React.Component {
       this.sidebarToggle.current.classList.toggle("toggled");
     }
   }
+
   // https://medium.com/p/4de5e517354a/responses/show
   renderRedirect = () => {
-    const { signOut } = this.state;
+    const {signOut} = this.state;
     if (signOut) {
-      return (<Redirect push to="/auth/login-page" />);
+      return (<Redirect push to="/auth/login-page"/>);
     }
   }
+
   render() {
     return (
-    // add or remove classes depending if we are on full-screen-maps page or not
+      // add or remove classes depending if we are on full-screen-maps page or not
       <Navbar
         color={
           window.location.href.indexOf("full-screen-maps") !== -1
@@ -112,7 +114,7 @@ class AdminNavbar extends React.Component {
           window.location.href.indexOf("full-screen-maps") !== -1
             ? "navbar-absolute "
             : "navbar-absolute " +
-              (this.state.color === "transparent" ? "navbar-transparent " : "")
+            (this.state.color === "transparent" ? "navbar-transparent " : "")
         }
       >
         <Container fluid>
@@ -124,17 +126,17 @@ class AdminNavbar extends React.Component {
                 className="navbar-toggler"
                 onClick={() => this.openSidebar()}
               >
-                <span className="navbar-toggler-bar bar1" />
-                <span className="navbar-toggler-bar bar2" />
-                <span className="navbar-toggler-bar bar3" />
+                <span className="navbar-toggler-bar bar1"/>
+                <span className="navbar-toggler-bar bar2"/>
+                <span className="navbar-toggler-bar bar3"/>
               </button>
             </div>
             <NavbarBrand href="/">{this.props.brandText}</NavbarBrand>
           </div>
           <NavbarToggler onClick={this.toggle}>
-            <span className="navbar-toggler-bar navbar-kebab" />
-            <span className="navbar-toggler-bar navbar-kebab" />
-            <span className="navbar-toggler-bar navbar-kebab" />
+            <span className="navbar-toggler-bar navbar-kebab"/>
+            <span className="navbar-toggler-bar navbar-kebab"/>
+            <span className="navbar-toggler-bar navbar-kebab"/>
           </NavbarToggler>
           <Collapse
             isOpen={this.state.isOpen}
@@ -149,7 +151,7 @@ class AdminNavbar extends React.Component {
                 toggle={e => this.dropdownToggle(e)}
               >
                 <DropdownToggle caret nav>
-                  <i className="now-ui-icons text_align-center" />
+                  <i className="now-ui-icons text_align-center"/>
                   <p>
                     <span className="d-lg-none d-md-block">Some Actions</span>
                   </p>
@@ -157,7 +159,7 @@ class AdminNavbar extends React.Component {
                 <DropdownMenu right>
                   <DropdownItem
                     href="SignOut"
-                    onClick={e => this.setState({signOut:true})}
+                    onClick={e => this.setState({signOut: true})}
                   >
                     Sign Out
                   </DropdownItem>

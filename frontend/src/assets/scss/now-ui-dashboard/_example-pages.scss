@@ -23,12 +23,12 @@
 
     &.card-plain {
       @include input-coloured-bg(
-        $opacity-5,
-        $white-color,
-        $white-color,
-        $transparent-bg,
-        $opacity-1,
-        $opacity-2
+                      $opacity-5,
+                      $white-color,
+                      $white-color,
+                      $transparent-bg,
+                      $opacity-1,
+                      $opacity-2
       );
 
       .input-group-addon,
@@ -49,15 +49,19 @@
 [filter-color="primary"] {
   @include linear-gradient(rgba($black-color, 0.2), rgba($brand-primary, 0.6));
 }
+
 [filter-color="orange"] {
   @include linear-gradient(rgba($black-color, 0.2), rgba($brand-warning, 0.6));
 }
+
 [filter-color="green"] {
   @include linear-gradient(rgba($black-color, 0.2), rgba($brand-success, 0.6));
 }
+
 [filter-color="red"] {
   @include linear-gradient(rgba($black-color, 0.2), rgba($brand-danger, 0.6));
 }
+
 [filter-color="blue"] {
   @include linear-gradient(rgba($black-color, 0.2), rgba($brand-info, 0.6));
 }
@@ -153,6 +157,7 @@
           }
         }
       }
+
       .description {
         overflow: hidden;
       }

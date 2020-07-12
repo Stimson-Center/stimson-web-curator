@@ -26,6 +26,7 @@
         color: $default-color;
       }
     }
+
     .input-group-prepend .input-group-text i,
     .input-group-append .input-group-text i {
       color: $default-color;
@@ -119,9 +120,11 @@
 
     .nav-link.btn {
       padding: $padding-btn-vertical $padding-btn-horizontal;
+
       &.btn-lg {
         padding: $padding-large-vertical $padding-large-horizontal;
       }
+
       &.btn-sm {
         padding: $padding-small-vertical $padding-small-horizontal;
       }

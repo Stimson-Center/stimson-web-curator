@@ -15,7 +15,7 @@
 
 */
 /*eslint-disable*/
-import React, { Component } from "react";
+import React, {Component} from "react";
 // used for making the prop types of this component
 import PropTypes from "prop-types";
 // react plugin used to create switch buttons
@@ -33,22 +33,25 @@ class FixedPlugin extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.onMiniClick = this.onMiniClick.bind(this);
   }
+
   handleClick() {
     if (this.state.classes === "dropdown") {
-      this.setState({ classes: "dropdown show" });
+      this.setState({classes: "dropdown show"});
     } else {
-      this.setState({ classes: "dropdown" });
+      this.setState({classes: "dropdown"});
     }
   }
+
   onMiniClick() {
     this.props.handleMiniClick();
   }
+
   render() {
     return (
       <div className="fixed-plugin">
         <div className={this.state.classes}>
           <div onClick={this.handleClick}>
-            <i className="fa fa-cog fa-2x" />
+            <i className="fa fa-cog fa-2x"/>
           </div>
           <ul className="dropdown-menu show">
             <li className="header-title">SIDEBAR BACKGROUND</li>
@@ -154,9 +157,11 @@ class FixedPlugin extends Component {
 
 FixedPlugin.defaultProps = {
   sidebarMini: true,
-  handleMiniClick: () => {},
+  handleMiniClick: () => {
+  },
   bgColor: "blue",
-  handleColorClick: () => {}
+  handleColorClick: () => {
+  }
 };
 
 FixedPlugin.propTypes = {

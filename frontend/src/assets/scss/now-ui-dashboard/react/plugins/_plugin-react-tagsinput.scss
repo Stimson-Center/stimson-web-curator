@@ -32,6 +32,7 @@
   content: "\ea53";
   padding: 0px 2px;
 }
+
 .react-tagsinput-tag a {
   cursor: pointer;
   position: absolute;
@@ -73,21 +74,27 @@
     }
 
     @include badge-color($default-color);
+
     &.primary {
       @include badge-color($primary-color);
     }
+
     &.info {
       @include badge-color($info-color);
     }
+
     &.success {
       @include badge-color($success-color);
     }
+
     &.warning {
       @include badge-color($warning-color);
     }
+
     &.danger {
       @include badge-color($danger-color);
     }
+
     &.neutral {
       @include badge-color($white-color);
       color: inherit;

@@ -15,19 +15,8 @@
 
 */
 import React from "react";
-
 // reactstrap components
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Row,
-  Col,
-  Form,
-  Input,
-  FormGroup
-} from "reactstrap";
-
+import {Card, CardBody, CardHeader, Col, Form, FormGroup, Input, Row} from "reactstrap";
 // core components
 import PanelHeader from "../components/PanelHeader/PanelHeader.jsx";
 // core components
@@ -45,6 +34,7 @@ class UserProfile extends React.Component {
     country: '',
     postalCode: ''
   };
+
   // noinspection JSCheckFunctionSignatures
   async componentDidMount() {
     this.setState({
@@ -65,7 +55,7 @@ class UserProfile extends React.Component {
     // console.log(username);
     return (
       <>
-        <PanelHeader size="sm" />
+        <PanelHeader size="sm"/>
         <div className="content">
           <Row>
             <Col md="8">
@@ -195,14 +185,14 @@ class UserProfile extends React.Component {
             <Col md="4">
               <Card className="card-user">
                 <div className="image">
-                  <img alt="..." src={require("../assets/img/bg5.jpg")} />
+                  <img alt="..." src={require("../assets/img/bg5.jpg")}/>
                 </div>
                 <CardBody>
                   <div className="author">
-                    <PictureUpload />
+                    <PictureUpload/>
                   </div>
                 </CardBody>
-                <hr />
+                <hr/>
               </Card>
             </Col>
           </Row>

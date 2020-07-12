@@ -532,22 +532,27 @@ temporary rendered events).
     background-color: $brand-info;
     // @include shadow-big-color($brand-info);
   }
+
   &.event-green {
     background-color: $brand-success;
     // @include shadow-big-color($brand-success);
   }
+
   &.event-orange {
     background-color: $brand-warning;
     // @include shadow-big-color($brand-warning);
   }
+
   &.event-red {
     background-color: $brand-danger;
     // @include shadow-big-color($brand-danger);
   }
+
   &.event-rose {
     // background-color: $brand-rose;
     // @include shadow-big-color($brand-rose);
   }
+
   &.event-default {
     background-color: $default-color;
     // @include shadow-big-color($gray-light);
@@ -964,6 +969,7 @@ a.fc-more:hover {
 .fc-ltr .fc-basic-view .fc-day-top .fc-day-number {
   float: right;
 }
+
 .fc-rtl .fc-basic-view .fc-day-top .fc-day-number {
   float: left;
 }
@@ -972,6 +978,7 @@ a.fc-more:hover {
   float: left;
   border-radius: 0 0 3px 0;
 }
+
 .fc-rtl .fc-basic-view .fc-day-top .fc-week-number {
   float: right;
   border-radius: 0 0 0 3px;
@@ -1373,6 +1380,7 @@ be a descendant of the grid when it is being dragged.
 .fc-ltr .fc-list-heading-main {
   float: left;
 }
+
 .fc-ltr .fc-list-heading-alt {
   float: right;
 }
@@ -1380,6 +1388,7 @@ be a descendant of the grid when it is being dragged.
 .fc-rtl .fc-list-heading-main {
   float: right;
 }
+
 .fc-rtl .fc-list-heading-alt {
   float: left;
 }
@@ -1404,6 +1413,7 @@ be a descendant of the grid when it is being dragged.
 .fc-ltr .fc-list-item-marker {
   padding-right: 0;
 }
+
 .fc-rtl .fc-list-item-marker {
   padding-left: 0;
 }
@@ -1452,9 +1462,11 @@ be a descendant of the grid when it is being dragged.
       text-align: right;
     }
   }
+
   .content {
     padding: 0 !important;
   }
+
   // .fc-toolbar{
   //     padding-top: $padding-default-horizontal;
   //     padding-left: $padding-default-horizontal;
@@ -1463,13 +1475,16 @@ be a descendant of the grid when it is being dragged.
   .fc td:first-child {
     border-left: 0;
   }
+
   .fc td:last-child {
     border-right: 0;
   }
+
   .fc-basic-view td:last-child.fc-week-number span,
   .fc-basic-view td:last-child.fc-day-number {
     // padding-right: $padding-default-horizontal;
   }
+
   .fc .fc-day-header:last-child {
     padding-right: 15px;
   }
@@ -1494,6 +1509,7 @@ be a descendant of the grid when it is being dragged.
   .fc .fc-row:last-child td {
     border-bottom: 0;
   }
+
   .fc .fc-body .fc-widget-content {
     border-bottom: 0;
   }

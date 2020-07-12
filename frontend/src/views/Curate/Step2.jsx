@@ -7,7 +7,7 @@ import {FaBinoculars} from 'react-icons/fa'; // https://react-icons.github.io/re
 import {Redirect} from "react-router-dom";
 import Cookies from "universal-cookie";
 import axios from 'axios';
-import {isEmpty, isEquivalent, getScraperBaseUrl} from "../../Utils";
+import {getScraperBaseUrl, isEmpty, isEquivalent} from "../../Utils";
 // core components
 
 
@@ -146,7 +146,7 @@ class Step2 extends Component {
         .then(response => {
           const data = response.data;
           if (!isEmpty(data)) {
-            data.forEach(function(d){
+            data.forEach(function (d) {
               // console.log('Curate Step2: displayLink' + d.displayLink);
               newDataTable.push([d.displayLink, d.snippet, d.link]);
             });

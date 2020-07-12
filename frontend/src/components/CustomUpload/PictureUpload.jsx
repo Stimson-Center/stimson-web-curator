@@ -28,6 +28,7 @@ class PictureUpload extends React.Component {
     this.handleImageChange = this.handleImageChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
   handleImageChange(e) {
     e.preventDefault();
     let reader = new FileReader();
@@ -40,12 +41,14 @@ class PictureUpload extends React.Component {
     };
     reader.readAsDataURL(file);
   }
+
   handleSubmit(e) {
     e.preventDefault();
     // this.state.file is the file/image uploaded
     // in this function you can save the image (this.state.file) on form submit
     // you have to call it yourself
   }
+
   render() {
     return (
       <div className="picture-container">
@@ -55,7 +58,7 @@ class PictureUpload extends React.Component {
             className="picture-src"
             alt="..."
           />
-          <input type="file" onChange={e => this.handleImageChange(e)} />
+          <input type="file" onChange={e => this.handleImageChange(e)}/>
         </div>
         <h6 className="description">Choose Picture</h6>
       </div>

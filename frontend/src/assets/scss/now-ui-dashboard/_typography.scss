@@ -5,6 +5,7 @@ select,
 textarea {
   font-family: $sans-serif-family;
 }
+
 h1,
 h2,
 h3,
@@ -16,11 +17,13 @@ h6 {
 
 a {
   color: $primary-color;
+
   &:hover,
   &:focus {
     color: $primary-color;
   }
 }
+
 h1,
 .h1 {
   font-size: $font-size-h1;
@@ -33,17 +36,20 @@ h1,
     opacity: 0.8;
   }
 }
+
 h2,
 .h2 {
   font-size: $font-size-h2;
   margin-bottom: $margin-base-vertical * 2;
 }
+
 h3,
 .h3 {
   font-size: $font-size-h3;
   margin-bottom: $margin-base-vertical * 2;
   line-height: 1.4em;
 }
+
 h4,
 .h4 {
   font-size: $font-size-h4;
@@ -56,18 +62,21 @@ h4,
     margin-top: -10px;
   }
 }
+
 h5,
 .h5 {
   font-size: $font-size-h5;
   line-height: 1.4em;
   margin-bottom: 15px;
 }
+
 h6,
 .h6 {
   font-size: $font-size-h6;
   font-weight: $font-weight-bold;
   text-transform: uppercase;
 }
+
 p {
   &.description {
     font-size: 1.14em;
@@ -91,6 +100,7 @@ p {
       text-decoration: none;
     }
   }
+
   & + .category {
     margin-top: -10px;
   }
@@ -103,6 +113,7 @@ p {
   color: $dark-gray;
   font-weight: $font-weight-light;
 }
+
 .category,
 .card-category {
   text-transform: capitalize;
@@ -120,21 +131,25 @@ a.text-primary:focus,
 a.text-primary:hover {
   color: $brand-primary !important;
 }
+
 .text-info,
 a.text-info:focus,
 a.text-info:hover {
   color: $brand-info !important;
 }
+
 .text-success,
 a.text-success:focus,
 a.text-success:hover {
   color: $brand-success !important;
 }
+
 .text-warning,
 a.text-warning:focus,
 a.text-warning:hover {
   color: $brand-warning !important;
 }
+
 .text-danger,
 a.text-danger:focus,
 a.text-danger:hover {
