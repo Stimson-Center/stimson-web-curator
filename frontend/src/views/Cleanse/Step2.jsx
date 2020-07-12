@@ -19,7 +19,6 @@ class Step2 extends React.Component {
     this.currentWizardData = null;
     this.handleProgress = this.handleProgress.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.showStartArticle = this.showStartArticle.bind(this);
     this.showArticleInProgress = this.showArticleInProgress.bind(this);
     this.showCompletedArticle = this.showCompletedArticle.bind(this);
     this.clearCache = this.clearCache.bind(this);
@@ -84,27 +83,9 @@ class Step2 extends React.Component {
     a.click();
   }
 
-  showStartArticle() {
-    // console.log("showStartArticle");
-    const {article, threadId} = this.state;
-    if (threadId === 0 && article.progress === 0) {
-      return (
-        <>
-          <Article
-            url={this.currentWizardData.url}
-            language={this.currentWizardData.language}
-            translate={this.currentWizardData.translate}
-            threadId={0}
-            onProgress={this.handleProgress}
-          />
-        </>
-      );
-    }
-  }
-
   showArticleInProgress() {
     const {article, threadId} = this.state;
-    if (threadId > 0 && article.progress > 0 && article.progress < 100) {
+    if (localStorage.getItem('articleUrlChanged') || article.progress < 100) {
       // console.log("showArticleInProgress");
       sleep(1000)
       return (
@@ -242,7 +223,6 @@ class Step2 extends React.Component {
       // console.log("Step2: article.url=" + article.url + "\nwizardData.Download.url" + wizardData.Download.url);
       return (
         <>
-          {this.showStartArticle()}
           {this.showArticleInProgress()}
           {this.showCompletedArticle()}
           {this.clearCache()}
