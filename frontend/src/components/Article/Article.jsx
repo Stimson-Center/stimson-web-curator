@@ -31,7 +31,7 @@ export function Article({...props}) {
         }
       }
       if (threadId !== 0 && article.progress < 100) {
-        await sleep(4000);
+        await sleep(2000);
         const scraperApiUrl = getScraperBaseUrl().concat('/article/' + threadId);
         let response2 = await axios.get(scraperApiUrl)
         if (!isEmpty(response2) && !isEmpty(response2.data) && !isEquivalent(article, response2.data)) {
@@ -47,14 +47,15 @@ export function Article({...props}) {
 
   let progressText = '';
   switch (article.progress) {
+    case 0:
     case 20:
-      progressText = 'Downloading';
+      progressText = 'Downloading can take a minute';
       break;
     case 40:
-      progressText = 'Parsing';
+      progressText = 'Parsing can take a minute';
       break;
     case 60:
-      progressText = 'Natural Language Processing';
+      progressText = 'Natural Language Processing can take a minute';
       break;
     case 100:
       progressText = 'Done';
