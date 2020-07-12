@@ -56,7 +56,7 @@
     "@types/markerclustererplus": "2.1.33",
     "@types/react": "16.9.43",
     "ajv": "6.12.3",
-    "env-cmd": "^10.1.0",
+    "env-cmd": "10.1.0",
     "eslint-plugin-flowtype": "5.2.0",
     "gh-pages": "3.1.0",
     "typescript": "3.9.6"
@@ -75,9 +75,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "engines": {
-    "node": ">=10.0.0 <13.0.0",
-    "npm": ">=6.0.0"
   }
 }
