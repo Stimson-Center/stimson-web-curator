@@ -18,6 +18,8 @@ export function Article({...props}) {
   const language = props.language;
   const translate = props.translate;
   // console.log("translate=" + translate);
+  // NOTE: DOES WOT WORK WITH SSR (server-side rendering) serve -s build
+  // https://medium.com/swlh/how-to-use-useeffect-on-server-side-654932c51b13
   useEffect(() => {
     const fetchData = async () => {
       // console.log("In Article fetchData url=" + url + " threadId=" + threadId);
