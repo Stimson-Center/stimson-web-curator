@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 // reactstrap components
 import {Progress} from "reactstrap";
 import axios from "axios";
-import {getScraperBaseUrl, isEmpty, isEquivalent, sleep} from 'Utils';
+import {getScraperBaseUrl, isEmpty, isEquivalent, sleep} from '../../Utils';
 
 function notify(handler, args) {
   handler && handler.apply(null, [].concat(args));

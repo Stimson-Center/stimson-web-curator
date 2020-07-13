@@ -35,7 +35,7 @@ import {
   Row
 } from "reactstrap";
 // core components
-import bgImage from "assets/img/bg16.jpg";
+import bgImage from "../assets/img/bg16.jpg";
 
 class RegisterPage extends React.Component {
   constructor(props) {

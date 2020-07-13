@@ -20,8 +20,8 @@ import PropTypes from "prop-types";
 // reactstrap components
 import {Button} from "reactstrap";
 // core components
-import defaultImage from "assets/img/image_placeholder.jpg";
-import defaultAvatar from "assets/img/placeholder.jpg";
+import defaultImage from "../../assets/img/image_placeholder.jpg";
+import defaultAvatar from "../../assets/img/placeholder.jpg";
 
 class ImageUpload extends React.Component {
   constructor(props) {

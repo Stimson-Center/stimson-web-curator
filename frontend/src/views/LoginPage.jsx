@@ -15,6 +15,7 @@
 
 */
 import React from "react";
+import {Redirect} from "react-router-dom";
 // reactstrap components
 import {
   Button,
@@ -31,10 +32,8 @@ import {
   InputGroupText
 } from "reactstrap";
 // core components
-import nowLogo from "assets/img/Stimson_Logo.png";
-
-import bgImage from "assets/img/Stimson_Background.jpg";
-import {Redirect} from "react-router-dom";
+import nowLogo from "../assets/img/Stimson_Logo.png";
+import bgImage from "../assets/img/Stimson_Background.jpg";
 
 class LoginPage extends React.Component {
   constructor(props) {

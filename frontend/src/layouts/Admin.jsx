@@ -21,11 +21,11 @@ import PerfectScrollbar from "perfect-scrollbar";
 // react plugin for creating notifications
 import NotificationAlert from "react-notification-alert";
 // core components
-import AdminNavbar from "components/Navbars/AdminNavbar.jsx";
-import Footer from "components/Footer/Footer.jsx";
-import Sidebar from "components/Sidebar/Sidebar.jsx";
-import routes from "routes.js";
-// import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
+import AdminNavbar from "../components/Navbars/AdminNavbar.jsx";
+import Footer from "../components/Footer/Footer.jsx";
+import Sidebar from "../components/Sidebar/Sidebar.jsx";
+import routes from "../routes.js";
+// import FixedPlugin from "../components/FixedPlugin/FixedPlugin.jsx";
 
 let ps;
 

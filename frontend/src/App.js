@@ -21,11 +21,10 @@ import {Redirect, Route, Router, Switch,} from 'react-router-dom';
 import {createBrowserHistory} from "history";
 // styles for this kit
 import "bootstrap/dist/css/bootstrap.css";
-// import "./assets/scss/now-ui-dashboard.scss?v=1.3.0";
+// core components
 import "./assets/scss/now-ui-dashboard.scss";
-
-import AdminLayout from 'layouts/Admin.jsx';
-import AuthLayout from "layouts/Auth.jsx";
+import AdminLayout from './layouts/Admin.jsx';
+import AuthLayout from "./layouts/Auth.jsx";
 
 const hist = createBrowserHistory();
 

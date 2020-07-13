@@ -19,7 +19,6 @@ import React from "react";
 import {Card, CardBody, CardHeader, Col, Form, FormGroup, Input, Row} from "reactstrap";
 // core components
 import PanelHeader from "../components/PanelHeader/PanelHeader.jsx";
-// core components
 import PictureUpload from "../components/CustomUpload/PictureUpload.jsx";
 
 class UserProfile extends React.Component {

@@ -7,8 +7,8 @@ import {FaBinoculars} from 'react-icons/fa'; // https://react-icons.github.io/re
 import {Redirect} from "react-router-dom";
 import Cookies from "universal-cookie";
 import axios from 'axios';
-import {getScraperBaseUrl, isEmpty, isEquivalent} from "../../Utils";
 // core components
+import {getScraperBaseUrl, isEmpty, isEquivalent} from "../../Utils";
 
 
 // // https://github.com/tannerlinsley/react-table/issues/94

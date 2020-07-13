@@ -19,9 +19,9 @@ import {Redirect, Route, Switch} from "react-router-dom";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 // core components
-import AuthNavbar from "components/Navbars/AuthNavbar.jsx";
-import Footer from "components/Footer/Footer.jsx";
-import routes from "routes.js";
+import AuthNavbar from "../components/Navbars/AuthNavbar.jsx";
+import Footer from "../components/Footer/Footer.jsx";
+import routes from "../routes.js";
 // import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 
 let ps;
