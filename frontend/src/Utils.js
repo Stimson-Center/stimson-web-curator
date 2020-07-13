@@ -1,3 +1,5 @@
+import {config} from "dotenv";
+
 // https://flaviocopes.com/javascript-sleep/
 const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
@@ -104,13 +106,11 @@ const getValueByIndex = (object, idx) => {
 
 const getScraperBaseUrl = () => {
   const GCLOUD = "https://stimson-web-curator-api.uk.r.appspot.com";
-  // const LOCAL = "http://localhost:5000";
-  // const env = config().parsed;
-  // if (env.hasAttribute('SCRAPPER_URL')) {
-  //   console.log("SCRAPPER_URL=" + env.SCRAPPER_URL)
-  //   const isDevEnvironment = env.SCRAPPER_URL !== "production";
-  //   return isDevEnvironment ? LOCAL : GCLOUD;
-  // }
+  const LOCAL = "http://localhost:5000";
+  const env = config().parsed;
+  if (env && env.hasOwnProperty('SCRAPPER_URL')) {
+    return env.SCRAPPER_URL === "production" ? GCLOUD : LOCAL;
+  }
   return GCLOUD;
 }
 
