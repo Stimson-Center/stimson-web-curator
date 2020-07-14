@@ -2,10 +2,11 @@ import React from "react";
 import axios from "axios";
 // react plugin used to create DropdownMenu for selecting items
 // reactstrap components
-import {Button, CardBody, Col, FormGroup, Input, Label, Row} from "reactstrap";
-import {getScraperBaseUrl, isEmpty, sleep, replaceNewlineWithSpace} from "../../Utils";
-import {Article} from "../../components/Article/Article";
 import {TextArea} from "@thumbtack/thumbprint-react";
+// components
+import {Button, CardBody, Col, FormGroup, Input, Label, Row} from "reactstrap";
+import {getScraperBaseUrl, isEmpty, replaceNewlineWithSpace} from "../../Utils";
+import {Article} from "../../components/Article/Article";
 
 // core components
 
@@ -87,7 +88,6 @@ class Step2 extends React.Component {
     const {article, threadId} = this.state;
     if (localStorage.getItem('articleUrlChanged') || article.progress < 100) {
       // console.log("showArticleInProgress");
-      sleep(100)
       return (
         <>
           <Article
@@ -203,7 +203,10 @@ class Step2 extends React.Component {
     if (article.progress === 100 && threadId > 0) {
       const scraperApiUrl = getScraperBaseUrl().concat('/article/' + threadId);
       // noinspection JSIgnoredPromiseFromCall
-      axios.delete(scraperApiUrl);
+      axios.delete(scraperApiUrl)
+        .catch(error => {
+          console.log(error);
+        })
     }
   }
 

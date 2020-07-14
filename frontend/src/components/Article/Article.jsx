@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 // reactstrap components
 import {Progress} from "reactstrap";
 import axios from "axios";
-import {getScraperBaseUrl, isEmpty, isEquivalent, sleep} from '../../Utils';
+import {getScraperBaseUrl, isEmpty, sleep} from '../../Utils';
 
 function notify(handler, args) {
   handler && handler.apply(null, [].concat(args));
@@ -31,14 +31,17 @@ export function Article({...props}) {
         }
       }
       if (threadId !== 0 && article.progress < 100) {
-        await sleep(2000);
+        await sleep(1000);
         const scraperApiUrl = getScraperBaseUrl().concat('/article/' + threadId);
-        let response2 = await axios.get(scraperApiUrl)
-        if (!isEmpty(response2) && !isEmpty(response2.data) && !isEquivalent(article, response2.data)) {
-          // console.log("Article2: data=" + JSON.stringify(response2.data, null, 2));
-          setArticle(response2.data);
-          notify(props.onProgress, {article: response2.data, threadId: threadId});
-        }
+        axios.get(scraperApiUrl)
+          .then(response2 => {
+            // console.log("Article2: data=" + JSON.stringify(response2.data, null, 2));
+            setArticle(response2.data);
+            notify(props.onProgress, {article: response2.data, threadId: threadId});
+          })
+          .catch(error => {
+            console.log(error);
+          })
       }
     }
     // noinspection JSIgnoredPromiseFromCall
