@@ -3,7 +3,7 @@ import axios from "axios";
 // react plugin used to create DropdownMenu for selecting items
 // reactstrap components
 import {Button, CardBody, Col, FormGroup, Input, Label, Row} from "reactstrap";
-import {getScraperBaseUrl, isEmpty, sleep} from "../../Utils";
+import {getScraperBaseUrl, isEmpty, sleep, replaceNewlineWithSpace} from "../../Utils";
 import {Article} from "../../components/Article/Article";
 import {TextArea} from "@thumbtack/thumbprint-react";
 
@@ -87,7 +87,7 @@ class Step2 extends React.Component {
     const {article, threadId} = this.state;
     if (localStorage.getItem('articleUrlChanged') || article.progress < 100) {
       // console.log("showArticleInProgress");
-      sleep(1000)
+      sleep(100)
       return (
         <>
           <Article
@@ -104,6 +104,7 @@ class Step2 extends React.Component {
 
   showCompletedArticle() {
     const {article} = this.state;
+    const summary = replaceNewlineWithSpace(article.summary);
     if (article.progress === 100) {
       // console.log("showCompletedArticle");
       return (
@@ -157,7 +158,7 @@ class Step2 extends React.Component {
                 <Label>Summary</Label>
                 <TextArea
                   type="text"
-                  value={!isEmpty(article) ? article.summary : "edit"}
+                  value={!isEmpty(article) ? summary : "edit"}
                   onChange={event => this.handleChange(event, "summary")}
                   rows={5}
                 />
@@ -172,6 +173,7 @@ class Step2 extends React.Component {
                   type="text"
                   value={!isEmpty(article) ? article.text : "enter"}
                   onChange={event => this.handleChange(event, "text")}
+                  rows={10}
                 />
               </FormGroup>
             </Col>

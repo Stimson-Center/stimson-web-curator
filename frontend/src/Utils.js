@@ -129,6 +129,30 @@ function hexToRGB(hex, alpha) {
   }
 }
 
+// https://stackoverflow.com/questions/9849754/how-can-i-replace-newlines-line-breaks-with-spaces-in-javascript/34936253#:~:text=replace()%20function%3A,than%20just%20the%20first%20one.
+const replaceNewlineWithSpace = (str) => {
+  /*
+    The /[\r\n\x0B\x0C\u0085\u2028\u2029]+/g means:
+
+      [ - start of a positive character class matching any single char defined inside it:
+      \r - (\x0D) - \n] - a carriage return (CR)
+      \n - (\x0A) - a line feed character (LF)
+      \x0B - a line tabulation (LT)
+      \x0C - form feed (FF)
+      \u0085 - next line (NEL)
+      \u2028 - line separator (LS)
+      \u2029 - paragraph separator (PS) ] - end of the character class
+      + - a quantifier that makes the regex engine match the previous atom (the character class here) one or more times (consecutive linebreaks are matched)
+      /g - find and replace all occurrences in the provided string.
+   */
+  if (str && str.length) {
+    // eslint-disable-next-line no-control-regex
+    return str.replace(/[\r\n\x0B\x0C\u0085\u2028\u2029]+/g, ' ');
+  }
+  return str;
+}
+
+
 export {
   sleep,
   isEmpty,
@@ -140,5 +164,6 @@ export {
   getKeyByValue,
   getValueByIndex,
   getScraperBaseUrl,
-  hexToRGB
+  hexToRGB,
+  replaceNewlineWithSpace
 };
