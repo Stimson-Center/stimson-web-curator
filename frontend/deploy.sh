@@ -3,7 +3,7 @@
 gcloud -v
 gcloud components update
 if [ -d "build" ]; then rm -rf "build"; fi
-if [ -f ".env" ]; then cp -p .env .env.local
+if [ -f ".env" ]; then cp -p .env .env.local; fi
 cp -p .env.production .env
 npm run build
 gcloud config set project stimson-web-curator-ui

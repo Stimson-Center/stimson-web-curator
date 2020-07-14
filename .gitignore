@@ -57,3 +57,4 @@ amplify/.config/local-env-info.json
 
 backend/tests/stimson-web-api.pid
 stimson-web-api.pid
+frontend/.env.local
