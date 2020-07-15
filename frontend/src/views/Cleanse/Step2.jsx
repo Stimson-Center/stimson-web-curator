@@ -1,11 +1,10 @@
 import React from "react";
-import axios from "axios";
 // react plugin used to create DropdownMenu for selecting items
 // reactstrap components
 import {TextArea} from "@thumbtack/thumbprint-react";
 // components
 import {Button, CardBody, Col, FormGroup, Input, Label, Row} from "reactstrap";
-import {getScraperBaseUrl, isEmpty, replaceNewlineWithSpace, isEquivalent} from "../../Utils";
+import {isEmpty, replaceNewlineWithSpace, isEquivalent} from "../../Utils";
 import {Article} from "../../components/Article/Article";
 
 // core components
