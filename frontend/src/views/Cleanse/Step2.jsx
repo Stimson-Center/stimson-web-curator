@@ -81,9 +81,10 @@ class Step2 extends React.Component {
 
   showArticleInProgress() {
     const {article} = this.state;
-    // console.log("showArticleInProgress=" + JSON.stringify(article, null, 2));
-    if (localStorage.getItem('articleUrlChanged') && article && article.workflow.length === 0) {
+    if (article && article.workflow.length === 0) {
+      // if (localStorage.getItem('articleUrlChanged') && article && article.workflow.length === 0) {
       // console.log("showArticleInProgress");
+      // console.log("showArticleInProgress=" + JSON.stringify(article, null, 2));
       return (
         <>
           <Article
@@ -198,17 +199,19 @@ class Step2 extends React.Component {
   }
 
   render() {
-    const {wizardData} = this.props;
+    const {wizardData, article} = this.props;
+    // console.log("Step2: article=" + article + "\nwizardData.Download" + wizardData.Download);
     if (this.currentWizardData !== wizardData.Download) {
       this.currentWizardData = wizardData.Download;
       this.resetArticle();
-      return (<div></div>);
+      // return (<div></div>);
     }
     if (isEmpty(this.currentWizardData)) {
       // noinspection CheckTagEmptyBody
       return (<div></div>);
     } else {
       // console.log("Step2: article.url=" + article.url + "\nwizardData.Download.url" + wizardData.Download.url);
+      // console.log("currentWizardData=" + JSON.stringify(this.currentWizardData, null, 2));
       return (
         <>
           {this.showArticleInProgress()}
