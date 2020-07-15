@@ -5,7 +5,7 @@ import axios from "axios";
 import {TextArea} from "@thumbtack/thumbprint-react";
 // components
 import {Button, CardBody, Col, FormGroup, Input, Label, Row} from "reactstrap";
-import {getScraperBaseUrl, isEmpty, replaceNewlineWithSpace} from "../../Utils";
+import {getScraperBaseUrl, isEmpty, replaceNewlineWithSpace, isEquivalent} from "../../Utils";
 import {Article} from "../../components/Article/Article";
 
 // core components
@@ -14,15 +14,13 @@ class Step2 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      article: {url: null, progress: 0},
-      threadId: 0
+      article: {url: null, workflow: []},
     };
     this.currentWizardData = null;
     this.handleProgress = this.handleProgress.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.showArticleInProgress = this.showArticleInProgress.bind(this);
     this.showCompletedArticle = this.showCompletedArticle.bind(this);
-    this.clearCache = this.clearCache.bind(this);
   }
 
   // to stop the warning of calling setState of unmounted component
@@ -36,22 +34,20 @@ class Step2 extends React.Component {
 
   isValidated() {
     const {article} = this.state;
-    // console.log("Step2: isValidated progress=" + article.progress);
-    if (article.progress < 100) {
+    if (!article.workflow.includes('NLPED')) {
       this.render();
     }
-    return article.progress === 100;
+    return article.workflow.includes('NLPED');
   }
 
   handleProgress(event) {
     // This function is called back from component 'Article"
-    if (event.threadId > 0) {
-      const {article} = this.state;
-      if (event.article.progress !== article.progress) {
-        // console.log("Step2: handleProgress=" + JSON.stringify(event, null, 2));
-        this.setState({article: event.article, threadId: event.threadId});
-      }
-      // console.log("Article progress=" + event.article.progress);
+    const {article} = this.state;
+    if (!isEquivalent(event.article, article)) {
+      // console.log("Step2: handleProgress=" + JSON.stringify(event, null, 2));
+      this.setState({article: event.article});
+    } else {
+      this.render();
     }
   }
 
@@ -85,8 +81,9 @@ class Step2 extends React.Component {
   }
 
   showArticleInProgress() {
-    const {article, threadId} = this.state;
-    if (localStorage.getItem('articleUrlChanged') || article.progress < 100) {
+    const {article} = this.state;
+    // console.log("showArticleInProgress=" + JSON.stringify(article, null, 2));
+    if (localStorage.getItem('articleUrlChanged') && article && article.workflow.length === 0) {
       // console.log("showArticleInProgress");
       return (
         <>
@@ -94,7 +91,6 @@ class Step2 extends React.Component {
             url={this.currentWizardData.url}
             language={this.currentWizardData.language}
             translate={this.currentWizardData.translate}
-            threadId={threadId}
             onProgress={this.handleProgress}
           />
         </>
@@ -105,7 +101,7 @@ class Step2 extends React.Component {
   showCompletedArticle() {
     const {article} = this.state;
     const summary = replaceNewlineWithSpace(article.summary);
-    if (article.progress === 100) {
+    if (article.workflow.includes('NLPED')) {
       // console.log("showCompletedArticle");
       return (
         <>
@@ -198,20 +194,8 @@ class Step2 extends React.Component {
     }
   }
 
-  clearCache() {
-    const {article, threadId} = this.state;
-    if (article.progress === 100 && threadId > 0) {
-      const scraperApiUrl = getScraperBaseUrl().concat('/article/' + threadId);
-      // noinspection JSIgnoredPromiseFromCall
-      axios.delete(scraperApiUrl)
-        .catch(error => {
-          console.log(error);
-        })
-    }
-  }
-
   resetArticle = () => {
-    this.setState({article: {url: null, progress: 0}, threadId: 0});
+    this.setState({article: {url: null, workflow: []}});
   }
 
   render() {
@@ -230,7 +214,6 @@ class Step2 extends React.Component {
         <>
           {this.showArticleInProgress()}
           {this.showCompletedArticle()}
-          {this.clearCache()}
         </>
 
       );
