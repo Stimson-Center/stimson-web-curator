@@ -3,7 +3,7 @@ FROM tiangolo/uwsgi-nginx-flask:python3.8
 RUN mkhomedir_helper nginx
 
 RUN apt-get -y update && \
-    apt-get -y install build-essential libpoppler-cpp-dev pkg-config python-dev libpoppler-dev systemd pipenv python3-venv
+    apt-get -y install build-essential libpoppler-cpp-dev pkg-config python-dev libpoppler-dev systemd pipenv python3-venv uwsgi-plugin-python3
 
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 COPY ./default.conf /etc/nginx/conf.d/default.conf
@@ -44,6 +44,7 @@ RUN  python -m spacy download en_core_web_sm  # English
 RUN  python -m spacy download fr_core_news_sm # French
 RUN  python -m spacy download de_core_news_sm # German
 RUN  python -m spacy download el_core_news_sm # Greek
+RUN  python -m spacy download ja_core_news_sm # Japanese
 RUN  python -m spacy download it_core_news_sm # Italian
 RUN  python -m spacy download lt_core_news_sm # Lithuanian
 RUN  python -m spacy download xx_ent_wiki_sm  # Multi-language
