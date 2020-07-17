@@ -71,8 +71,6 @@ Go to Credentials and get API key
     mkdir ~/.cloudshell
     touch ~/.cloudshell/no-python-warning
     touch .env
-    echo FLASK_APP=app.py >> .env
-    echo FLASK_ENV=development >> .env
     echo GOOGLE_SECRET_API_KEY="from google procedure above"  >> .env
     echo GOOGLE_SECRET_CUSTOM_SEARCH_ID="from google procedure above"  >> .env
 ```
@@ -94,12 +92,12 @@ See DOCKER.md for more more details
 ```bash
     cd ~/stimson-web-curator/backend
     ./run_docker.sh
-    open http://localhost:8000
+    open http://localhost:8080
 ```
 
 To debug docker container
 
 ```bash
-    docker run -p 8000:8000 -it --entrypoint=/bin/bash stimson-web-curator-api 
+    docker run -p 8080:8080 -it --entrypoint=/bin/bash stimson-web-curator-api 
 ```
 
