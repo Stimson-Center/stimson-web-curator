@@ -58,37 +58,6 @@ const isEquivalent = (a, b) => {
   return true;
 }
 
-// https://stackoverflow.com/questions/18729405/how-to-convert-utf8-string-to-byte-array/18729931
-const toUTF8Array = (str) => {
-  var utf8 = [];
-  for (var i = 0; i < str.length; i++) {
-    var charcode = str.charCodeAt(i);
-    if (charcode < 0x80) utf8.push(charcode);
-    else if (charcode < 0x800) {
-      utf8.push(0xc0 | (charcode >> 6),
-        0x80 | (charcode & 0x3f));
-    } else if (charcode < 0xd800 || charcode >= 0xe000) {
-      utf8.push(0xe0 | (charcode >> 12),
-        0x80 | ((charcode >> 6) & 0x3f),
-        0x80 | (charcode & 0x3f));
-    }
-    // surrogate pair
-    else {
-      i++;
-      // UTF-16 encodes 0x10000-0x10FFFF by
-      // subtracting 0x10000 and splitting the
-      // 20 bits of 0x0-0xFFFFF into two halves
-      charcode = 0x10000 + (((charcode & 0x3ff) << 10)
-        | (str.charCodeAt(i) & 0x3ff));
-      utf8.push(0xf0 | (charcode >> 18),
-        0x80 | ((charcode >> 12) & 0x3f),
-        0x80 | ((charcode >> 6) & 0x3f),
-        0x80 | (charcode & 0x3f));
-    }
-  }
-  return utf8;
-}
-
 // https://gist.github.com/getify/3667624
 // NOTE: only escapes a " if it's not already escaped
 const escapeDoubleQuotes = (str) => {
@@ -106,11 +75,11 @@ const getValueByIndex = (object, idx) => {
 
 const getScraperBaseUrl = () => {
   const GCLOUD = "https://stimson-web-curator-api.uk.r.appspot.com";
-  const LOCAL = "http://localhost:5000";
-  const env = config().parsed;
-  if (env && env.hasOwnProperty('SCRAPPER_URL')) {
-    return env.SCRAPPER_URL === "production" ? GCLOUD : LOCAL;
-  }
+  // const LOCAL = "http://localhost:5000";
+  // const env = config().parsed;
+  // if (env && env.hasOwnProperty('SCRAPPER_URL')) {
+  //   return env.SCRAPPER_URL === "production" ? GCLOUD : LOCAL;
+  // }
   return GCLOUD;
 }
 
@@ -153,6 +122,49 @@ const replaceNewlineWithSpace = (str) => {
 }
 
 
+const ab2str = (buf) => {
+  return String.fromCharCode.apply(null, new Uint8Array(buf));
+}
+
+
+// core components
+// https://developers.google.com/web/updates/2012/06/How-to-convert-ArrayBuffer-to-and-from-String
+const str2ab = (str) => {
+  let buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
+  let bufView = new Uint8Array(buf);
+  for (let i = 0, strLen = str.length; i < strLen; i++) {
+    bufView[i] = str.charCodeAt(i);
+  }
+  return buf;
+}
+
+// https://gist.github.com/joni/3760795/8f0c1a608b7f0c8b3978db68105c5b1d741d0446
+const toUTF8Array = (str) => {
+  let utf8 = [];
+  for (let i=0; i < str.length; i++) {
+    let charcode = str.charCodeAt(i);
+    if (charcode < 0x80) utf8.push(charcode);
+    else if (charcode < 0x800) {
+      utf8.push(0xc0 | (charcode >> 6),
+        0x80 | (charcode & 0x3f));
+    }
+    else if (charcode < 0xd800 || charcode >= 0xe000) {
+      utf8.push(0xe0 | (charcode >> 12),
+        0x80 | ((charcode>>6) & 0x3f),
+        0x80 | (charcode & 0x3f));
+    }
+    // surrogate pair
+    else {
+      i++;
+      charcode = (((charcode&0x3ff)<<10)|(str.charCodeAt(i)&0x3ff)) + 0x010000;
+      utf8.push(0xf0 | (charcode >>18),
+        0x80 | ((charcode>>12) & 0x3f),
+        0x80 | ((charcode>>6) & 0x3f),
+        0x80 | (charcode & 0x3f));
+    }
+  }
+  return utf8;
+}
 export {
   sleep,
   isEmpty,
@@ -165,5 +177,7 @@ export {
   getValueByIndex,
   getScraperBaseUrl,
   hexToRGB,
-  replaceNewlineWithSpace
+  replaceNewlineWithSpace,
+  ab2str,
+  str2ab
 };
