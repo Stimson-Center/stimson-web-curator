@@ -4,8 +4,15 @@ import React from "react";
 import {TextArea} from "@thumbtack/thumbprint-react";
 // components
 import {Button, CardBody, Col, FormGroup, Input, Label, Row} from "reactstrap";
-import {isEmpty, replaceNewlineWithSpace, isEquivalent} from "../../Utils";
+import {
+  isEmpty,
+  replaceNewlineWithSpace,
+  isEquivalent,
+  getScraperBaseUrl,
+  str2ab
+} from "../../Utils";
 import {Article} from "../../components/Article/Article";
+import axios from "axios";
 
 // core components
 
@@ -61,7 +68,7 @@ class Step2 extends React.Component {
     this.setState({article: articleUpdate})
   };
 
-  dowloadFileToDefaultFolder = () => {
+  downloadJsonFileToDefaultFolder = (contentType) => {
     const {article} = this.state;
     const {wizardData} = this.props;
     let languageCode = 'en';
@@ -69,14 +76,58 @@ class Step2 extends React.Component {
       languageCode = wizardData.Download.language.substring(0, 2);
     }
     // console.log("ARTICLE=" + JSON.stringify(article, null, 2));
-    const filename = `${article.publish_date} ${article.title}.${languageCode}.json`;
+    const filename = `${article.publish_date}_${article.title}.${languageCode}.json`;
     const content = JSON.stringify(article, null, 4);
-    const blob = new Blob([content], {type: "application/json"});
+    const blob = new Blob([content], {type: contentType});
     const url = URL.createObjectURL(blob);
     let a = document.createElement('a');
     a.href = url;
     a.download = filename;
     a.click();
+  }
+
+  // https://stackoverflow.com/questions/23451726/saving-binary-data-as-file-using-javascript-from-a-browser
+  saveByteArray = (function () {
+    let a = document.createElement("a");
+    document.body.appendChild(a);
+    a.style = "display: none";
+    return function (data, name) {
+      // console.log("saveByteArray data=" + data);
+      // const blob = new Blob(data, {type: "application/octet-stream"});
+      const blob = new Blob(data, {type: "application/pdf"});
+      const url = window.URL.createObjectURL(blob);
+      a.href = window.URL.createObjectURL(blob);
+      a.download = name;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    };
+  }());
+
+  downloadPdfFileToDefaultFolder = async() => {
+    const {article} = this.state;
+    const {wizardData} = this.props;
+    // This should be a Uint8Array or ArrayBuffer
+    // This data can be obtained in a number of different ways
+    // If you're running in a Node environment, you could use fs.readFile()
+    // In the browser, you could make a fetch() call and use res.arrayBuffer()
+    let languageCode = 'en';
+    if (!wizardData.Download.translate) {
+      languageCode = wizardData.Download.language.substring(0, 2);
+    }
+    // console.log("downloadPdfFileToDefaultFolder ARTICLE=" + JSON.stringify(article, null, 2));
+    const scraperApiUrl = getScraperBaseUrl().concat('/pdf');
+    axios.post(scraperApiUrl, article)
+      .then(response => {
+        const data = response.data.trim();
+        if (!isEmpty(data)) {
+          const filename = `${article.publish_date}_${article.title}.${languageCode}.pdf`;
+          this.saveByteArray([str2ab(data)], filename);
+          // this.saveByteArray([toUTF8Array(data)], filename);
+        }
+      }).catch(error => {
+      // catch and print the error
+      console.log(error);
+    });
   }
 
   showArticleInProgress() {
@@ -175,15 +226,28 @@ class Step2 extends React.Component {
             </Col>
           </Row>
           <Row className="justify-content-center">
-            <Col xs={12} lg={10}>
+            <Col >
               <CardBody>
                 <div className="btns-mr-5">
                   <Button
                     color="primary"
                     className="btn-round"
-                    onClick={() => this.dowloadFileToDefaultFolder("application/json")}
+                    onClick={() => this.downloadJsonFileToDefaultFolder("application/json")}
                   >
-                    <i className="now-ui-icons ui-2_favourite-28"/> Download Article
+                    <i className="now-ui-icons ui-2_favourite-28"/> Download JSON
+                  </Button>
+                </div>
+              </CardBody>
+            </Col>
+            <Col >
+              <CardBody>
+                <div className="btns-mr-5">
+                  <Button
+                    color="success"
+                    className="btn-round"
+                    onClick={() => this.downloadPdfFileToDefaultFolder()}
+                  >
+                    <i className="now-ui-icons ui-2_favourite-28"/> Download PDF
                   </Button>
                 </div>
               </CardBody>
@@ -199,12 +263,11 @@ class Step2 extends React.Component {
   }
 
   render() {
-    const {wizardData, article} = this.props;
+    const {wizardData} = this.props;
     // console.log("Step2: article=" + article + "\nwizardData.Download" + wizardData.Download);
     if (this.currentWizardData !== wizardData.Download) {
       this.currentWizardData = wizardData.Download;
       this.resetArticle();
-      // return (<div></div>);
     }
     if (isEmpty(this.currentWizardData)) {
       // noinspection CheckTagEmptyBody
@@ -217,7 +280,6 @@ class Step2 extends React.Component {
           {this.showArticleInProgress()}
           {this.showCompletedArticle()}
         </>
-
       );
     }
   }

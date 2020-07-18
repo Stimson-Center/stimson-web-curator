@@ -1,115 +1,43 @@
-stimson-web-curator
-===================
+stimson-web-curator backend
+===========================
 
-Interactive curation of scraped web pages
+RESTful API for web page scraping and crawling
 
 Table of Contents
 =================
 
-   * [stimson-web-curator](#stimson-web-curator)
+   * [stimson-web-curator backend](#stimson-web-curator-backend)
    * [Table of Contents](#table-of-contents)
    * [Getting Started](#getting-started)
-      * [Git on the Server Generating Your SSH Public Key](#git-on-the-server-generating-your-ssh-public-key)
-      * [Install the selenium-webdriver](#install-the-selenium-webdriver)
+      * [Microsoft Windows](#microsoft-windows)
+      * [macOS](#macos)
+      * [Start Docker service on your computer](#start-docker-service-on-your-computer)
       * [Get the source code hierarchy](#get-the-source-code-hierarchy)
-      * [Building](#building)
    * [Make a Google Custom Search Engine](#make-a-google-custom-search-engine)
    * [Make a Google Cloud Console "Project" to get API key](#make-a-google-cloud-console-project-to-get-api-key)
-      * [Development RESTful API Server](#development-restful-api-server)
-      * [Development GUI Server](#development-gui-server)
-      * [Running Tests](#running-tests)
-      * [Deploy](#deploy)
    * [Docker](#docker)
  
 # Getting Started
 
-```bash
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    xcode-select --install
-    brew update
-    brew upgrade
-        
-    brew install node
-    node --version
-        v8.7.0
+## Microsoft Windows
 
-    npm i -g npm to update 
-    npm i -g npm
-    npm install -g nwb
-    nwb --version
-        v0.21.0
+[Docker for Windows download and installation](https://docs.docker.com/docker-for-windows/install/)
 
-    brew install python3
-    python3 --version
-        Python 3.7.4
+## macOS
 
-    pip3 install -U pytest
-    py.test --version
-        This is pytest version 4.5.0, imported from /usr/local/lib/python3.7/site-packages/pytest.py
+Download and install [Docker Community Edition](https://www.docker.com/community-edition). if you have Homebrew-Cask, just type `brew cask install docker`.
 
- ```
+## Start Docker service on your computer
 
-## Git on the Server Generating Your SSH Public Key
-
-[Reference](https://git-scm.com/book/en/v2/Git-on-the-Server-Generating-Your-SSH-)
-
-```bash
-open https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
-```
-
-```
-check to make sure your github key has been added to the ssh-agent list.  Here's my ~/.ssh/config file
-
- Host github.com github
-     IdentityFile ~/.ssh/id_rsa
-     IdentitiesOnly yes
-     UseKeyChain yes
-     AddKeysToAgent yes
-```
-
-```bash
-    cd ~/.ssh
-    ssh-keygen -o
-    ssh-add -K ~/.ssh/id_rsa
-    ssh-add -L
-```
-## Install the selenium-webdriver
-
-You must download and install the Selenium Chrome driver component so that website page scraping
-can work properly. The driver for Chrome is a standalone executable that should be placed on your system
-[PATH].
-
-* Download the chrome driver that matches the host operating system of this project
-
-```bash
-    open https://sites.google.com/a/chromium.org/chromedriver/downloads
-```
-* unzip the file
-
-```bash
-   unzip chromedriver_mac64.zip
-```
-* copy the file to a directory or folder in the terminal window's search path
-
-For example:
-```bash
-   cp -p chromedriver /usr/local/bin/
-```
+Once you've installed Docker Community Edition, click the docker icon in Launchpad. Then start up a container:
 
 ## Get the source code hierarchy
+
+Open up a Microsoft Command Window or a Mac Terminal Window
 
 ```bash
     cd ~
     git clone https://github.com/Stimson-Center/stimson-web-curator.git
-```
-
-
-## Building
-
-```bash
-  cd ~/stimson-web-curator
-  npm install
-  pip3 install -r requirements.txt
 ```
 
 # Make a Google Custom Search Engine
@@ -139,20 +67,12 @@ Get your credentials for Custom Search API
 Go to Credentials and get API key
 
 ```bash
-    mkdir ~/.cloudshell
-    touch ~/.cloudshell/no-python-warning
-
     cd ~/stimson-web-curator/backend
     touch .env
     echo FLASK_APP=app.py >> .env
     echo FLASK_ENV=development >> .env
-    echo GOOGLE_SECRET_API_KEY="from google procedure above"  >> .env
-    echo GOOGLE_SECRET_CUSTOM_SEARCH_ID="from google procedure above"  >> .env
-
-    cd ~/stimson-web-curator/frontenv
-    touch .env
-    echo SKIP_PREFLIGHT_CHECK=true >> .env
- 
+    echo GOOGLE_SECRET_API_KEY="from google procedure above"
+    echo GOOGLE_SECRET_CUSTOM_SEARCH_ID="from google procedure above"
 ```
 
 Links:
@@ -165,58 +85,19 @@ Links:
 
 [Google CustomSearch API v1](http://developers.google.com/apis-explorer/#p/customsearch/v1)
 
-- `npm run build` creates a production build by default.
-
-   To create a development build, set the `NODE_ENV` environment variable to `development` while running this command.
-
-- `npm run clean` will delete built resources.
-
-
-## Development RESTful API Server
-
-```bash
-    cd ~/stimson-web-curator/backend
-    ./start.sh
-```
-
-- will run the app's development api server at [http://localhost:5000](http://localhost:5000) without hot module reloading.
-
-
-## Development GUI Server
-
-
-```bash
-    cd ~/stimson-web-curator/frontend
-    npm run start 
-```
--  will run the app's development server at [http://localhost:3000](http://localhost:3000) with hot module reloading.
-
-## Running Tests
-
-- `npm run test` will run the tests once.
-
-- `npm run test:coverage` will run the tests and produce a coverage report in `coverage/`.
-
-- `npm run test:watch` will run the tests on every change.
-
 # Docker
 
 See DOCKER.md for more more details
 
 ```bash
+    cd ~/stimson-web-curator/frontend
     ./run_docker.sh
-    open http://localhost:3000
-```
-
-Note: the API server is running on port 5000, to optionall prove that it is working:
-
-```bash
-    open http://localhost:5000    
+    open http://localhost
 ```
 
 To debug docker container
 
 ```bash
-    docker run --user ubuntu -it --entrypoint=/bin/bash stimson-web-curator
+    docker run -it -v `pwd`:/app --entrypoint=/bin/bash stimson-web-curator-ui
 ```
 

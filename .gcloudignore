@@ -12,8 +12,20 @@
 # below:
 .git
 .gitignore
+.github
+.idea
 
-# Python pycache:
-__pycache__/
-# Ignored by the build system
-/setup.cfg
+# Node.js dependencies:
+node_modules/
+src/
+
+.DS_Store
+Dockerfile.NGINX
+Documentation
+run_deploy.sh
+
+app.yaml
+.dockerignore
+README.md
+.env
+.env.local
