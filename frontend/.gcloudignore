@@ -12,6 +12,22 @@
 # below:
 .git
 .gitignore
+.github
+.idea
 
 # Node.js dependencies:
 node_modules/
+src/
+
+.DS_Store
+Dockerfile.NGINX
+Documentation
+bashrc
+run_deploy.sh
+run_docker.sh
+
+app.yaml
+.dockerignore
+README.md
+.env
+.env.local
