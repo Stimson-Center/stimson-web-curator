@@ -74,7 +74,7 @@ const getValueByIndex = (object, idx) => {
 }
 
 const getScraperBaseUrl = () => {
-  const GCLOUD = "https://stimson-web-curator-api.uk.r.appspot.com";
+  const GCLOUD = "https://stimson-web-api.uk.r.appspot.com";
   // const LOCAL = "http://localhost:5000";
   // const env = config().parsed;
   // if (env && env.hasOwnProperty('SCRAPPER_URL')) {
