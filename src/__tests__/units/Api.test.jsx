@@ -80,9 +80,9 @@ it('PDF', async () => {
     "text": "Myawaddy industrial zone set for 2017 opening\n\nThe Mae Sot checkpoint in Tak province is a main trade point ",
   }
   const scraperApiUrl = getScraperBaseUrl().concat('/pdf');
-  // const response = await axios.post(scraperApiUrl, payload);
+  const response = await axios.post(scraperApiUrl, payload);
   // const response = await axios.post("http://localhost:8080/pdf", payload);
-  const response = await axios.post("http://localhost:5000/pdf", payload);
+  // const response = await axios.post("http://localhost:5000/pdf", payload);
   // const response = await axios.post("http://localhost:3000/pdf", payload);
   expect(response.status).toEqual(200);
   expect(response.statusText).toEqual("OK");
