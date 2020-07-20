@@ -14,17 +14,16 @@
 .gitignore
 .github
 .idea
-
+.DS_Store
 docs/
+
 # Node.js dependencies:
 node_modules/
 src/
 
-.DS_Store
 run_deploy.sh
-
+bashrc
 app.yaml
-.dockerignore
 README.md
 .env
 .env.local
