@@ -15,13 +15,12 @@
 .github
 .idea
 
+docs/
 # Node.js dependencies:
 node_modules/
 src/
 
 .DS_Store
-Dockerfile.NGINX
-Documentation
 run_deploy.sh
 
 app.yaml
