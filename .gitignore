@@ -1,14 +1,10 @@
-**/.env
-.env
-.env.bak
-
 .idea/
 *.swp
 .bundle
 Docker/*.tar
 .DS_Store
-.vagrant
 
+.env
 bundle.js
 bundle.js.map
 config-react.py
@@ -18,8 +14,6 @@ node_modules
 *.log
 output/
 
-
-bootstrap_conda.sh
 
 env\.back
 
@@ -34,18 +28,3 @@ yarn-error.log
 build/
 dist/
 
-*.pyc
-**/__pycache__
-
-.bash_history
-.cache
-.config/configstore/update-notifier-npm.json
-
-**/.local/
-**/nltk_data/
-**/.config/
-**/.bash_profile
-**/nohup.out
-.GOOGLE_APPLICATION_CREDENTIALS.json
-
-frontend/.env.local
