@@ -9,7 +9,8 @@ import {
   replaceNewlineWithSpace,
   isEquivalent,
   getScraperBaseUrl,
-  str2ab
+  str2ab,
+  toUTF8Array
 } from "../../Utils";
 import {Article} from "../../components/Article/Article";
 import axios from "axios";
@@ -86,23 +87,6 @@ class Step2 extends React.Component {
     a.click();
   }
 
-  // https://stackoverflow.com/questions/23451726/saving-binary-data-as-file-using-javascript-from-a-browser
-  saveByteArray = (function () {
-    let a = document.createElement("a");
-    document.body.appendChild(a);
-    a.style = "display: none";
-    return function (data, name) {
-      // console.log("saveByteArray data=" + data);
-      // const blob = new Blob(data, {type: "application/octet-stream"});
-      const blob = new Blob(data, {type: "application/pdf"});
-      const url = window.URL.createObjectURL(blob);
-      a.href = window.URL.createObjectURL(blob);
-      a.download = name;
-      a.click();
-      window.URL.revokeObjectURL(url);
-    };
-  }());
-
   downloadPdfFileToDefaultFolder = async() => {
     const {article} = this.state;
     const {wizardData} = this.props;
@@ -116,18 +100,20 @@ class Step2 extends React.Component {
     }
     // console.log("downloadPdfFileToDefaultFolder ARTICLE=" + JSON.stringify(article, null, 2));
     const scraperApiUrl = getScraperBaseUrl().concat('/pdf');
-    axios.post(scraperApiUrl, article)
-      .then(response => {
-        const data = response.data.trim();
-        if (!isEmpty(data)) {
-          const filename = `${article.publish_date}_${article.title}.${languageCode}.pdf`;
-          this.saveByteArray([str2ab(data)], filename);
-          // this.saveByteArray([toUTF8Array(data)], filename);
-        }
-      }).catch(error => {
-      // catch and print the error
-      console.log(error);
-    });
+    // lost a week of time on this: https://www.thetopsites.net/article/52684083.shtml
+    axios({
+      method:'post',
+      url:scraperApiUrl,
+      responseType:'arraybuffer',
+      data: article
+    })
+      .then(function(response) {
+        let blob = new Blob([response.data], { type:   'application/pdf' } );
+        let link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = `${article.publish_date}_${article.title}.${languageCode}.pdf`;
+        link.click();
+      });
   }
 
   showArticleInProgress() {
