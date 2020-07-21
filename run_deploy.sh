@@ -9,7 +9,7 @@ cp -p .env.production .env
 npm run build
 gcloud config set project stimson-web-curator
 # gcloud app deploy --project=stimson-web-curator --stop-previous-version --promote --verbosity=debug
-gcloud app deploy --project=stimson-web-curator --promote
+gcloud app deploy --project=stimson-web-curator --promote --quiet
 cp -p .env.local .env
 gcloud app describe --project=stimson-web-curator
 gcloud app browse

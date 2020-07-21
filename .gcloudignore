@@ -24,6 +24,6 @@ src/
 run_deploy.sh
 bashrc
 app.yaml
-README.md
+*.md
 .env
 .env.local
