@@ -1,4 +1,3 @@
-import {config} from "dotenv";
 
 // https://flaviocopes.com/javascript-sleep/
 const sleep = (milliseconds) => {

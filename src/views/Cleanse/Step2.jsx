@@ -8,9 +8,7 @@ import {
   isEmpty,
   replaceNewlineWithSpace,
   isEquivalent,
-  getScraperBaseUrl,
-  str2ab,
-  toUTF8Array
+  getScraperBaseUrl
 } from "../../Utils";
 import {Article} from "../../components/Article/Article";
 import axios from "axios";

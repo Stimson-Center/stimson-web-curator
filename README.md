@@ -1,5 +1,5 @@
-stimson-web-curator backend
-===========================
+stimson-web-curator
+===================
 
 RESTful API for web page scraping and crawling
 

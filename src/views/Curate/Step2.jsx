@@ -40,7 +40,8 @@ class Step2 extends Component {
         fileType: "any",
         sort: ""
       },
-      data: this.handleData([[]])
+      data: this.handleData([[]]),
+      searchResults: []
     };
     this.handleData = this.handleData.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -152,13 +153,59 @@ class Step2 extends Component {
             });
           }
           // console.log("newDataTable=" + JSON.stringify(newDataTable, null, 2));
-          this.setState({query: payload, data: this.handleData(newDataTable)});
+          this.setState({
+            query: payload,
+            data: this.handleData(newDataTable),
+            searchResults: data
+          });
         }).catch(error => {
         // catch and print the error
         console.log(error);
       });
 
     }
+  }
+
+  // https://stackoverflow.com/questions/14964035/how-to-export-javascript-array-info-to-csv-on-client-side
+  downloadCSVFileToDefaultFolder = () => {
+    const {searchResults} = this.state;
+
+    // Building the CSV from the Data two-dimensional array
+    // Each column is separated by ";" and new line "\n" for next row
+    let csvContent = "Domain,Snippet,Url\n";
+    searchResults.forEach(function (d, index) {
+      // https://stackoverflow.com/questions/2116558/fastest-method-to-replace-all-instances-of-a-character-in-a-string
+      let snippet = d.snippet.replace(/,/g, ' ');
+      snippet = snippet.replace(/(\r\n|\n|\r)/gm, ' ');
+      // Given that you also want to cover tabs, newlines, etc, just replace \s\s+ with ' ':
+      snippet = snippet.replace(/\s\s+/g, ' ');
+      let row = `${d.displayLink},${snippet},${d.link}`;
+      csvContent += index < searchResults.length ? row + '\n' : row;
+    });
+
+    // The download function takes a CSV string, the filename and mimeType as parameters
+    // Scroll/look down at the bottom of this snippet to see how download is called
+    let download = (content, fileName, mimeType) => {
+      let a = document.createElement('a');
+      mimeType = mimeType || 'application/octet-stream';
+
+      if (navigator.msSaveBlob) { // IE10
+        navigator.msSaveBlob(new Blob([content], {
+          type: mimeType
+        }), fileName);
+      } else if (URL && 'download' in a) { //html5 A[download]
+        a.href = URL.createObjectURL(new Blob([content], {
+          type: mimeType
+        }));
+        a.setAttribute('download', fileName);
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } // else {
+      //   location.href = 'data:application/octet-stream,' + encodeURIComponent(content); // only this mime type is supported
+      // }
+    }
+    download(csvContent, 'custom_search_results.csv', 'text/csv;encoding:utf-8');
   }
 
   // https://medium.com/p/4de5e517354a/responses/show
@@ -214,6 +261,21 @@ class Step2 extends Component {
                   />
                 </CardBody>
               </Card>
+            </Col>
+          </Row>
+          <Row className="justify-content-center">
+            <Col>
+              <CardBody>
+                <div className="btns-mr-5">
+                  <Button
+                    color="primary"
+                    className="btn-round"
+                    onClick={() => this.downloadCSVFileToDefaultFolder()}
+                  >
+                    <i className="now-ui-icons ui-2_favourite-28"/> Download Spreadsheet
+                  </Button>
+                </div>
+              </CardBody>
             </Col>
           </Row>
         </div>
