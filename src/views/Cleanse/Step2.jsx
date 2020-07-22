@@ -3,7 +3,7 @@ import React from "react";
 // reactstrap components
 import {TextArea} from "@thumbtack/thumbprint-react";
 // components
-import {Button, CardBody, Col, FormGroup, Input, Label, Row} from "reactstrap";
+import {Col, FormGroup, Input, Label, Row} from "reactstrap";
 import {
   isEmpty,
   replaceNewlineWithSpace,
@@ -26,6 +26,7 @@ class Step2 extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.showArticleInProgress = this.showArticleInProgress.bind(this);
     this.showCompletedArticle = this.showCompletedArticle.bind(this);
+    this.finishButtonClick = this.finishButtonClick.bind(this);
   }
 
   // to stop the warning of calling setState of unmounted component
@@ -209,37 +210,14 @@ class Step2 extends React.Component {
               </FormGroup>
             </Col>
           </Row>
-          <Row className="justify-content-center">
-            <Col >
-              <CardBody>
-                <div className="btns-mr-5">
-                  <Button
-                    color="primary"
-                    className="btn-round"
-                    onClick={() => this.downloadJsonFileToDefaultFolder("application/json")}
-                  >
-                    <i className="now-ui-icons ui-2_favourite-28"/> Download JSON
-                  </Button>
-                </div>
-              </CardBody>
-            </Col>
-            <Col >
-              <CardBody>
-                <div className="btns-mr-5">
-                  <Button
-                    color="success"
-                    className="btn-round"
-                    onClick={() => this.downloadPdfFileToDefaultFolder()}
-                  >
-                    <i className="now-ui-icons ui-2_favourite-28"/> Download PDF
-                  </Button>
-                </div>
-              </CardBody>
-            </Col>
-          </Row>
         </>
       );
     }
+  }
+
+  finishButtonClick() {
+    this.downloadJsonFileToDefaultFolder("application/json");
+    this.downloadPdfFileToDefaultFolder();
   }
 
   resetArticle = () => {

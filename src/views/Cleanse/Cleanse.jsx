@@ -52,6 +52,7 @@ class Cleanse extends Component {
               description=""
               headerTextCenter
               color="blue"
+              finishButtonText="Download"
               finishButtonClasses="btn-wd"
               nextButtonClasses="btn-wd"
               previousButtonClasses="btn-wd"

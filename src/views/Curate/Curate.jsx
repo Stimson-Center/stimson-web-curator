@@ -52,7 +52,7 @@ class Curate extends Component {
               description=""
               headerTextCenter
               color="blue"
-              finishButtonClick={this.handleFinishButton}
+              finishButtonText="Download"
               finishButtonClasses="btn-wd"
               nextButtonClasses="btn-wd"
               previousButtonClasses="btn-wd"

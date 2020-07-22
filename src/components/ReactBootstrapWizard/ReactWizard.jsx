@@ -67,7 +67,7 @@ class ReactWizard extends React.Component {
   componentWillUnmount() {
     this.isCancelled = true;
     window.removeEventListener("resize", this.updateWidth);
-    var id = window.setTimeout(null, 0);
+    let id = window.setTimeout(null, 0);
     while (id--) {
       window.clearTimeout(id);
     }
@@ -78,9 +78,9 @@ class ReactWizard extends React.Component {
   }
   navigationStepChange(key) {
     if (this.props.navSteps) {
-      var validationState = true;
+      let validationState = true;
       if (this.props.validate && key > this.state.currentStep) {
-        for (var i = this.state.currentStep; i < key; i++) {
+        for (let i = this.state.currentStep; i < key; i++) {
           if (
             this.refs[this.props.steps[i].stepName].isValidated !== undefined &&
             this.refs[this.props.steps[i].stepName].isValidated() === false
@@ -122,7 +122,7 @@ class ReactWizard extends React.Component {
       this.props.validate === undefined ||
       !this.props.validate
     ) {
-      var key = this.state.currentStep + 1;
+      let key = this.state.currentStep + 1;
       this.setState({
         wizardData: {
           ...this.state.wizardData,
@@ -141,7 +141,7 @@ class ReactWizard extends React.Component {
     }
   }
   previousButtonClick() {
-    var key = this.state.currentStep - 1;
+    let key = this.state.currentStep - 1;
     if (key >= 0) {
       this.setState({
         wizardData: {
@@ -193,19 +193,19 @@ class ReactWizard extends React.Component {
     }
   }
   refreshAnimation(index) {
-    var total = this.props.steps.length;
-    var li_width = 100 / total;
+    let total = this.props.steps.length;
+    let li_width = 100 / total;
 
-    var total_steps =
+    let total_steps =
       this.props.steps !== undefined ? this.props.steps.length : 0;
-    var move_distance =
+    let move_distance =
       this.refs.wizard !== undefined
         ? this.refs.navStepsLi.children[0].clientWidth / total_steps
         : 0;
-    var index_temp = index;
-    var vertical_level = 0;
+    let index_temp = index;
+    let vertical_level = 0;
 
-    var mobile_device = window.innerWidth < 600 && total > 3;
+    let mobile_device = window.innerWidth < 600 && total > 3;
 
     if (mobile_device) {
       move_distance = this.refs.navStepsLi.children[0].clientWidth / 2;
@@ -215,7 +215,7 @@ class ReactWizard extends React.Component {
 
     this.setState({ width: li_width + "%" });
 
-    var step_width = move_distance;
+    let step_width = move_distance;
 
     move_distance = move_distance * index_temp;
 
@@ -224,7 +224,7 @@ class ReactWizard extends React.Component {
       vertical_level = vertical_level * 38;
     }
 
-    var movingTabStyle = {
+    let movingTabStyle = {
       width: step_width,
       transform:
         "translate3d(" + move_distance + "px, " + vertical_level + "px, 0)",
@@ -237,6 +237,17 @@ class ReactWizard extends React.Component {
       }
     });
   }
+
+  OnFinishButtonClick() {
+      if (this.refs[this.props.steps[this.state.currentStep].stepName].finishButtonClick !== undefined) {
+        // call the FinishButtonClick function in the user defined step class
+        this.refs[this.props.steps[this.state.currentStep].stepName].finishButtonClick();
+      } else {
+        // call the default FinishButtonClick function in this class
+        this.finishButtonClick();
+      }
+  }
+
   render() {
     return (
       <div className="wizard-container" ref="wizard">
@@ -345,19 +356,20 @@ class ReactWizard extends React.Component {
                     : "Next"}
                 </Button>
               ) : null}
-{/*               {this.state.finishButton ? ( */}
-{/*                 <Button */}
-{/*                   className={classnames("btn-finish d-inline-block", { */}
-{/*                     [this.props.finishButtonClasses]: */}
-{/*                       this.props.finishButtonClasses !== undefined */}
-{/*                   })} */}
-{/*                   onClick={() => this.finishButtonClick()} */}
-{/*                 > */}
-{/*                   {this.props.finishButtonText !== undefined */}
-{/*                     ? this.props.finishButtonText */}
-{/*                     : "Finish"} */}
-{/*                 </Button> */}
-{/*               ) : null} */}
+              {this.state.finishButton ? (
+                <Button
+                  color="primary"
+                  className={classnames("btn-finish d-inline-block", {
+                    [this.props.finishButtonClasses]:
+                      this.props.finishButtonClasses !== undefined
+                  })}
+                  onClick={() => this.OnFinishButtonClick()}
+                >
+                  {this.props.finishButtonText !== undefined
+                    ? this.props.finishButtonText
+                    : "Finish"}
+                </Button>
+              ) : null}
             </div>
             <div style={{ float: "left" }}>
               {this.state.previousButton ? (

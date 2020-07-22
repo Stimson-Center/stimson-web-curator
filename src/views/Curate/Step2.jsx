@@ -52,6 +52,10 @@ class Step2 extends Component {
     }
   }
 
+  finishButtonClick() {
+    this.downloadCSVFileToDefaultFolder();
+  }
+
   handleData(dataTable) {
     // noinspection UnnecessaryLocalVariableJS
     let rows = dataTable.map((prop, key) => {
@@ -252,25 +256,6 @@ class Step2 extends Component {
                       />
                     </CardBody>
                   </Card>
-                </Col>
-              </Row>
-            ) : (<div></div>)
-          }
-          {
-            searchResults.length ? (
-              <Row className="justify-content-center">
-                <Col>
-                  <CardBody>
-                    <div className="btns-mr-5">
-                      <Button
-                        color="primary"
-                        className="btn-round"
-                        onClick={() => this.downloadCSVFileToDefaultFolder()}
-                      >
-                        <i className="now-ui-icons ui-2_favourite-28"/> Download Spreadsheet
-                      </Button>
-                    </div>
-                  </CardBody>
                 </Col>
               </Row>
             ) : (<div></div>)
