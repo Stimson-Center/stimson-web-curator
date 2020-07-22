@@ -106,7 +106,7 @@ class Step2 extends React.Component {
       data: article
     })
       .then(function(response) {
-        let blob = new Blob([response.data], { type:   'application/pdf' } );
+        let blob = new Blob([response.data], { type: 'application/pdf' } );
         let link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
         link.download = `${article.publish_date}_${article.title}.${languageCode}.pdf`;

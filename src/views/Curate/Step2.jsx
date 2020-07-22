@@ -214,7 +214,7 @@ class Step2 extends Component {
   }
 
   render() {
-    const {data, searchResults} = this.state;
+    const {searchResults} = this.state;
     return (
       <>
         {this.handleSearch()}
