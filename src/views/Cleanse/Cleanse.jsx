@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 // react plugin used to create a form with multiple steps
-import ReactWizard from "react-bootstrap-wizard";
+// import ReactWizard from "react-bootstrap-wizard";
+import ReactWizard from "../../components/ReactBootstrapWizard/ReactWizard";
 // reactstrap components
 import {Col} from "reactstrap";
 // core components
