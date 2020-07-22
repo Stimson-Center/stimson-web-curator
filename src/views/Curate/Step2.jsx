@@ -10,18 +10,6 @@ import axios from 'axios';
 // core components
 import {getScraperBaseUrl, isEmpty, isEquivalent} from "../../Utils";
 
-
-// // https://github.com/tannerlinsley/react-table/issues/94
-// const getColumnWidth = (rows, accessor, headerText) => {
-//   const maxWidth = 800
-//   const magicSpacing = 10
-//   const cellLength = Math.max(
-//     ...rows.map(row => (`${row[accessor]}` || '').length),
-//     headerText.length,
-//   )
-//   return Math.min(maxWidth, cellLength * magicSpacing)
-// }
-
 class Step2 extends Component {
   constructor(props) {
     super(props);
@@ -226,58 +214,67 @@ class Step2 extends Component {
   }
 
   render() {
+    const {data, searchResults} = this.state;
     return (
       <>
         {this.handleSearch()}
         {this.renderRedirect()}
         <div className="content">
-          <Row>
-            <Col xs={12} md={12}>
-              <Card>
-                <CardBody>
-                  <ReactTable
-                    data={this.state.data}
-                    filterable
-                    columns={[
-                      {
-                        Header: "Website",
-                        accessor: "displayLink",
-                      },
-                      {
-                        Header: "Summary",
-                        accessor: "summary"
-                      },
-                      {
-                        Header: "Actions",
-                        accessor: "actions",
-                        sortable: false,
-                        filterable: false
-                      }
-                    ]}
-                    defaultPageSize={10}
-                    showPaginationTop
-                    showPaginationBottom={false}
-                    className="-striped -highlight"
-                  />
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-          <Row className="justify-content-center">
-            <Col>
-              <CardBody>
-                <div className="btns-mr-5">
-                  <Button
-                    color="primary"
-                    className="btn-round"
-                    onClick={() => this.downloadCSVFileToDefaultFolder()}
-                  >
-                    <i className="now-ui-icons ui-2_favourite-28"/> Download Spreadsheet
-                  </Button>
-                </div>
-              </CardBody>
-            </Col>
-          </Row>
+          {
+            searchResults.length ? (
+              <Row>
+                <Col xs={12} md={12}>
+                  <Card>
+                    <CardBody>
+                      <ReactTable
+                        data={this.state.data}
+                        filterable
+                        columns={[
+                          {
+                            Header: "Website",
+                            accessor: "displayLink",
+                          },
+                          {
+                            Header: "Summary",
+                            accessor: "summary"
+                          },
+                          {
+                            Header: "Actions",
+                            accessor: "actions",
+                            sortable: false,
+                            filterable: false
+                          }
+                        ]}
+                        defaultPageSize={10}
+                        showPaginationTop
+                        showPaginationBottom={false}
+                        className="-striped -highlight"
+                      />
+                    </CardBody>
+                  </Card>
+                </Col>
+              </Row>
+            ) : (<div></div>)
+          }
+          {
+            searchResults.length ? (
+              <Row className="justify-content-center">
+                <Col>
+                  <CardBody>
+                    <div className="btns-mr-5">
+                      <Button
+                        color="primary"
+                        className="btn-round"
+                        onClick={() => this.downloadCSVFileToDefaultFolder()}
+                      >
+                        <i className="now-ui-icons ui-2_favourite-28"/> Download Spreadsheet
+                      </Button>
+                    </div>
+                  </CardBody>
+                </Col>
+              </Row>
+            ) : (<div></div>)
+          }
         </div>
       </>
     );
