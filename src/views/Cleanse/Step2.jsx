@@ -68,7 +68,7 @@ class Step2 extends React.Component {
     this.setState({article: articleUpdate})
   };
 
-  downloadJsonFileToDefaultFolder = (contentType) => {
+  downloadJsonFileToDefaultFolder = () => {
     const {article} = this.state;
     const {wizardData} = this.props;
     let languageCode = 'en';
@@ -78,7 +78,7 @@ class Step2 extends React.Component {
     // console.log("ARTICLE=" + JSON.stringify(article, null, 2));
     const filename = `${article.publish_date}_${article.title}.${languageCode}.json`;
     const content = JSON.stringify(article, null, 4);
-    const blob = new Blob([content], {type: contentType});
+    const blob = new Blob([content], {type: "application/json"});
     const url = URL.createObjectURL(blob);
     let a = document.createElement('a');
     a.href = url;
@@ -216,8 +216,8 @@ class Step2 extends React.Component {
   }
 
   finishButtonClick() {
-    this.downloadJsonFileToDefaultFolder("application/json");
     this.downloadPdfFileToDefaultFolder();
+    this.downloadJsonFileToDefaultFolder();
   }
 
   resetArticle = () => {
