@@ -24,32 +24,31 @@ export function Article({...props}) {
       if (url !== null && article.workflow.length === 0) {
         const scraperApiUrl = getScraperBaseUrl().concat(encodeURI('/article?url=' + url + '&language=' + language));
         let response1 = await axios.get(scraperApiUrl);
-        if (!isEmpty(response1) && !isEmpty(response1.data)) {
-          // console.log("Article1: data=" + JSON.stringify(response1.data.workflow, null, 2));
-          setArticle(response1.data);
-        }
+        setArticle(response1.data); // causes useEffect() to be called again
       } else if (article.url) {
-        if (!article.workflow.includes("NLPED")) {
+        let response = null;
+        let scraperApiUrl = null;
+        if (!article.workflow.includes("DOWNLOADED")) {
           await sleep(1000);
-          const scraperApiUrl = getScraperBaseUrl().concat('/article');
-          axios.post(scraperApiUrl, article)
-            .then(response2 => {
-              // console.log("Article2: data=" + JSON.stringify(response2.data.workflow, null, 2));
-              setArticle(response2.data);
-            })
-            .catch(error => {
-              console.log(error);
-            })
-        } else if (translate && !article.workflow.includes("TRANSLATED")) {
-            const scraperApiUrl = getScraperBaseUrl().concat('/article/translate');
-            axios.post(scraperApiUrl, article)
-              .then(response3 => {
-                // console.log("Article3: data=" + JSON.stringify(response3.data.workflow, null, 2));
-                setArticle(response3.data);
-              })
-              .catch(error => {
-                console.log(error);
-              })
+          scraperApiUrl = getScraperBaseUrl().concat('/article/download');
+          response = await axios.post(scraperApiUrl, article);
+          setArticle(response.data); // causes useEffect() to be called again
+        }
+        else if (!article.workflow.includes("PARSED")) {
+          await sleep(1000);
+          scraperApiUrl = getScraperBaseUrl().concat('/article/parse');
+          response = await axios.post(scraperApiUrl, article);
+          setArticle(response.data); // causes useEffect() to be called again
+        } else if (!article.workflow.includes(final_step)) {
+          await sleep(1000);
+          if (translate && !article.workflow.includes("TRANSLATED")) {
+            scraperApiUrl = getScraperBaseUrl().concat('/article/translate');
+            response = await axios.post(scraperApiUrl, article)
+          } else {
+            const scraperApiUrl = getScraperBaseUrl().concat('/article/nlp');
+            response = await axios.post(scraperApiUrl, article)
+          }
+          setArticle(response.data); // causes useEffect() to be called again
         }
         if (article.workflow.includes(final_step)) {
           notify(props.onProgress, {article: article});
