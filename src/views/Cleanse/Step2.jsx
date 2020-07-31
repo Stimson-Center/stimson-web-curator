@@ -68,25 +68,7 @@ class Step2 extends React.Component {
     this.setState({article: articleUpdate})
   };
 
-  downloadJsonFileToDefaultFolder = () => {
-    const {article} = this.state;
-    const {wizardData} = this.props;
-    let languageCode = 'en';
-    if (!wizardData.Download.translate) {
-      languageCode = wizardData.Download.language.substring(0, 2);
-    }
-    // console.log("ARTICLE=" + JSON.stringify(article, null, 2));
-    const filename = `${article.publish_date}_${article.title}.${languageCode}.json`;
-    const content = JSON.stringify(article, null, 4);
-    const blob = new Blob([content], {type: "application/json"});
-    const url = URL.createObjectURL(blob);
-    let a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.click();
-  }
-
-  downloadPdfFileToDefaultFolder = async() => {
+  downloadPdfFileToDefaultFolder = async () => {
     const {article} = this.state;
     const {wizardData} = this.props;
     // This should be a Uint8Array or ArrayBuffer
@@ -101,16 +83,16 @@ class Step2 extends React.Component {
     const scraperApiUrl = getScraperBaseUrl().concat('/pdf');
     // lost a week of time on this: https://www.thetopsites.net/article/52684083.shtml
     axios({
-      method:'post',
-      url:scraperApiUrl,
-      responseType:'arraybuffer',
+      method: 'post',
+      url: scraperApiUrl,
+      responseType: 'arraybuffer',
       data: article
     })
-      .then(function(response) {
-        let blob = new Blob([response.data], { type: 'application/pdf' } );
+      .then(function (response) {
+        let blob = new Blob([response.data], {type: 'application/pdf'});
         let link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
-        link.download = `${article.publish_date}_${article.title}.${languageCode}.pdf`;
+        link.download = `${article.publish_date} ${article.title}.${languageCode}.pdf`;
         link.click();
       });
   }
@@ -217,7 +199,6 @@ class Step2 extends React.Component {
 
   finishButtonClick() {
     this.downloadPdfFileToDefaultFolder();
-    this.downloadJsonFileToDefaultFolder();
   }
 
   resetArticle = () => {
