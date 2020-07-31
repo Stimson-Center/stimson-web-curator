@@ -1,4 +1,14 @@
 
+const getScraperBaseUrl = () => {
+  const GCLOUD = "https://stimson-web-api.uk.r.appspot.com";
+  // const LOCAL = "http://localhost:5000";
+  // const env = config().parsed;
+  // if (env && env.hasOwnProperty('SCRAPPER_URL')) {
+  //   return env.SCRAPPER_URL === "production" ? GCLOUD : LOCAL;
+  // }
+  return GCLOUD;
+}
+
 // https://flaviocopes.com/javascript-sleep/
 const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
@@ -70,16 +80,6 @@ const getKeyByValue = (object, value) => {
 const getValueByIndex = (object, idx) => {
   const key = Object.keys(object)[idx];
   return object[key]
-}
-
-const getScraperBaseUrl = () => {
-  const GCLOUD = "https://stimson-web-api.uk.r.appspot.com";
-  // const LOCAL = "http://localhost:5000";
-  // const env = config().parsed;
-  // if (env && env.hasOwnProperty('SCRAPPER_URL')) {
-  //   return env.SCRAPPER_URL === "production" ? GCLOUD : LOCAL;
-  // }
-  return GCLOUD;
 }
 
 // ##############################
