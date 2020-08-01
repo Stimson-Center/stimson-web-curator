@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 // reactstrap components
 import {Progress} from "reactstrap";
 import axios from "axios";
-import {getScraperBaseUrl, sleep} from '../../Utils';
+import {getScraperBaseUrl, isEquivalent} from '../../Utils';
 
 function notify(handler, args) {
   handler && handler.apply(null, [].concat(args));
@@ -11,7 +11,7 @@ function notify(handler, args) {
 
 // https://reactnavigation.org/docs/en/params.html
 export function Article({...props}) {
-  const [article, setArticle] = useState({workflow: []});
+  const [article, setArticle] = useState({workflow: [], article_step: ''});
 
   const url = props.url;
   const language = props.language;
@@ -21,67 +21,68 @@ export function Article({...props}) {
   useEffect(() => {
     const fetchData = async () => {
       // console.log("In Article fetchData workflow=" + JSON.stringify(article.workflow));
+      let response = null;
       if (url !== null && article.workflow.length === 0) {
+        console.log("INIT");
         const scraperApiUrl = getScraperBaseUrl().concat(encodeURI('/article?url=' + url + '&language=' + language));
-        let response = await axios.get(scraperApiUrl);
-        setArticle(response.data); // causes useEffect() to be called again
+        response = await axios.get(scraperApiUrl);
+        response.data.article_step = 'INIT';
       } else if (article.url) {
-        let response = null;
         let scraperApiUrl = null;
         if (!article.workflow.includes("DOWNLOADED")) {
-          await sleep(1000);
+          console.log("DOWNLOADED");
           scraperApiUrl = getScraperBaseUrl().concat('/article/download');
           response = await axios.post(scraperApiUrl, article);
-          setArticle(response.data); // causes useEffect() to be called again
+          response.data.article_step = 'DOWNLOADED';
         }
         else if (!article.workflow.includes("PARSED")) {
-          await sleep(1000);
+          console.log("PARSED");
           scraperApiUrl = getScraperBaseUrl().concat('/article/parse');
           response = await axios.post(scraperApiUrl, article);
-          setArticle(response.data); // causes useEffect() to be called again
+          response.data.article_step = 'PARSED';
         } else if (!article.workflow.includes(final_step)) {
-          await sleep(1000);
           if (translate && !article.workflow.includes("TRANSLATED")) {
+            console.log("TRANSLATED");
             scraperApiUrl = getScraperBaseUrl().concat('/article/translate');
             response = await axios.post(scraperApiUrl, article)
+            response.data.article_step = 'TRANSLATED';
           } else {
+            console.log("NLPED");
             const scraperApiUrl = getScraperBaseUrl().concat('/article/nlp');
             response = await axios.post(scraperApiUrl, article)
+            response.data.article_step = 'NLPED';
           }
-          setArticle(response.data); // causes useEffect() to be called again
-        }
-        if (article.workflow.includes(final_step)) {
-          notify(props.onProgress, {article: article});
         }
       }
+      if (article.workflow.includes(final_step)) {
+        notify(props.onProgress, {article: article});
+      } else if (response && !isEquivalent(response.data, article)) {
+        setArticle(response.data); // causes useEffect() to be called again (recursion) immediately!
+      }
     }
+    // https://www.robinwieruch.de/react-hooks-fetch-data
     // noinspection JSIgnoredPromiseFromCall
     fetchData();
-  }); // Empty array ensures that effect is only run on mount and unmount
+  });
 
   let progressText = 'Initialization should be brief';
   let progressPercent = 0;
-  if (article.workflow.includes('INIT')) {
+  if (article.article_step === 'INIT') {
     progressPercent = 20
     progressText = 'Downloading can take a minute';
-  }
-  if (article.workflow.includes('DOWNLOADED')) {
+  } else if (article.article_step === 'DOWNLOADED') {
     progressPercent = 40
     progressText = 'Parsing can take a minute';
-  }
-  if (article.workflow.includes('PARSED')) {
+  } else if (article.article_step === 'PARSED') {
     progressPercent = 60
     progressText = 'Natural Language Processing can take a minute';
-  }
-  if (article.workflow.includes('NLPED')) {
+  } else if (article.article_step === 'NLPED') {
     progressPercent = 80
     progressText = 'Translation.';
-  }
-  if (article.workflow.includes(final_step)) {
+  } else if (article.article_step === final_step) {
     progressPercent = 100
     progressText = 'Done.';
   }
-  // console.log("progressPercent=" + progressPercent);
 
   return (
     <div className="progress-container">
