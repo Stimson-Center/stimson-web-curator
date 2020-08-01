@@ -23,8 +23,8 @@ export function Article({...props}) {
       // console.log("In Article fetchData workflow=" + JSON.stringify(article.workflow));
       if (url !== null && article.workflow.length === 0) {
         const scraperApiUrl = getScraperBaseUrl().concat(encodeURI('/article?url=' + url + '&language=' + language));
-        let response1 = await axios.get(scraperApiUrl);
-        setArticle(response1.data); // causes useEffect() to be called again
+        let response = await axios.get(scraperApiUrl);
+        setArticle(response.data); // causes useEffect() to be called again
       } else if (article.url) {
         let response = null;
         let scraperApiUrl = null;
