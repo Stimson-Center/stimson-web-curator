@@ -4,5 +4,6 @@ env_variables:
   SKIP_PREFLIGHT_CHECK: true
   BUCKET_NAME: "stimson-gcs-ds-bucket"
   NODE_ENV: "production"
-  SCRAPPER_URL: "production"
+  REACT_APP_SCRAPPER_URL: "production"
+  REACT_APP_CHANGEME: "Stimson123!"
 #secure: always

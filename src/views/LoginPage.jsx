@@ -34,13 +34,19 @@ import {
 // core components
 import nowLogo from "../assets/img/Stimson_Logo.png";
 import bgImage from "../assets/img/Stimson_Background.jpg";
+import {verifyEmail, verifyPassword} from "../Utils";
 
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       login: false,
-      register: false
+      register: false,
+      email: null,
+      emailConforms: false,
+      password: null,
+      passwordConforms: false,
+      authenticated: false
     };
   }
 
@@ -63,7 +69,32 @@ class LoginPage extends React.Component {
     }
   }
 
+  // required callback for wizard steps
+  isValidated() {
+    const {emailConforms, passwordConforms} = this.state;
+    if (emailConforms && passwordConforms) {
+      this.setState({login: true, authenticated: true});
+      return true;
+    }
+    return false;
+  }
+
+  handleChange(event, stateName) {
+    switch (stateName) {
+      case "email":
+        this.setState({[stateName + "Conforms"]: verifyEmail(event.target.value)});
+        break;
+      case "password":
+        this.setState({[stateName + "Conforms"]: verifyPassword(event.target.value)});
+        break;
+      default:
+        break;
+    }
+    this.setState({[stateName]: event.target.value});
+  }
+
   render() {
+    const {emailConforms, passwordConforms} = this.state;
     return (
       <>
         {this.renderRedirect()}
@@ -82,7 +113,7 @@ class LoginPage extends React.Component {
                       <InputGroup
                         className={
                           "no-border form-control-lg " +
-                          (this.state.firstnameFocus ? "input-group-focus" : "")
+                          (this.state.emailFocus ? "input-group-focus" : "")
                         }
                       >
                         <InputGroupAddon addonType="prepend">
@@ -91,16 +122,18 @@ class LoginPage extends React.Component {
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
+                          id={'email'}
                           type="text"
-                          placeholder="First Name..."
-                          onFocus={e => this.setState({firstnameFocus: true})}
-                          onBlur={e => this.setState({firstnameFocus: false})}
+                          placeholder="email"
+                          onFocus={e => this.setState({emailFocus: true})}
+                          onBlur={e => this.setState({emailFocus: false})}
+                          onChange={event => this.handleChange(event, "email", "length", 8)}
                         />
                       </InputGroup>
                       <InputGroup
                         className={
                           "no-border form-control-lg " +
-                          (this.state.lastnameFocus ? "input-group-focus" : "")
+                          (this.state.passwordFocus ? "input-group-focus" : "")
                         }
                       >
                         <InputGroupAddon addonType="prepend">
@@ -109,10 +142,13 @@ class LoginPage extends React.Component {
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
-                          type="text"
-                          placeholder="Last Name..."
-                          onFocus={e => this.setState({lastnameFocus: true})}
-                          onBlur={e => this.setState({lastnameFocus: false})}
+                          id={'current-password'}
+                          type="password"
+                          disabled={!emailConforms}
+                          placeholder="Password"
+                          onFocus={e => this.setState({passwordFocus: true})}
+                          onBlur={e => this.setState({passwordFocus: false})}
+                          onChange={event => this.handleChange(event, "password")}
                         />
                       </InputGroup>
                     </CardBody>
@@ -123,9 +159,10 @@ class LoginPage extends React.Component {
                         size="lg"
                         href="#pablo"
                         className="mb-3 btn-round"
-                        onClick={e => this.setState({login: true})}
+                        disabled={!emailConforms || !passwordConforms}
+                        onClick={() => this.isValidated()}
                       >
-                        Get Started
+                        Sign In
                       </Button>
                       <div className="pull-left">
                         <h6>

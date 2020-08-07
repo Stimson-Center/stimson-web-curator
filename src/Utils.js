@@ -1,13 +1,27 @@
-
 const getScraperBaseUrl = () => {
   const GCLOUD = "https://stimson-web-api.uk.r.appspot.com";
   // const LOCAL = "http://localhost:5000";
-  // const env = config().parsed;
-  // if (env && env.hasOwnProperty('SCRAPPER_URL')) {
-  //   return env.SCRAPPER_URL === "production" ? GCLOUD : LOCAL;
+  // if (process.env.REACT_APP_CHANGEME) {
+  //   return process.env.REACT_APP_CHANGEMEL === "production" ? GCLOUD : LOCAL;
   // }
   return GCLOUD;
 }
+
+
+// function that returns true if value is email, false otherwise
+// noinspection JSMethodCanBeStatic
+const verifyEmail = (value) => {
+  const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return (emailRex.test(value));
+};
+
+// function that verifies if a string has a given length or not
+// noinspection JSMethodCanBeStatic
+const verifyPassword = (value) => {
+  // TODO: Cooper: make this match Google rules
+  return value.trim() === process.env.REACT_APP_CHANGEME.trim();
+};
+
 
 // https://flaviocopes.com/javascript-sleep/
 const sleep = (milliseconds) => {
@@ -144,31 +158,33 @@ const str2ab = (str) => {
 // https://gist.github.com/joni/3760795/8f0c1a608b7f0c8b3978db68105c5b1d741d0446
 const toUTF8Array = (str) => {
   let utf8 = [];
-  for (let i=0; i < str.length; i++) {
+  for (let i = 0; i < str.length; i++) {
     let charcode = str.charCodeAt(i);
     if (charcode < 0x80) utf8.push(charcode);
     else if (charcode < 0x800) {
       utf8.push(0xc0 | (charcode >> 6),
         0x80 | (charcode & 0x3f));
-    }
-    else if (charcode < 0xd800 || charcode >= 0xe000) {
+    } else if (charcode < 0xd800 || charcode >= 0xe000) {
       utf8.push(0xe0 | (charcode >> 12),
-        0x80 | ((charcode>>6) & 0x3f),
+        0x80 | ((charcode >> 6) & 0x3f),
         0x80 | (charcode & 0x3f));
     }
     // surrogate pair
     else {
       i++;
-      charcode = (((charcode&0x3ff)<<10)|(str.charCodeAt(i)&0x3ff)) + 0x010000;
-      utf8.push(0xf0 | (charcode >>18),
-        0x80 | ((charcode>>12) & 0x3f),
-        0x80 | ((charcode>>6) & 0x3f),
+      charcode = (((charcode & 0x3ff) << 10) | (str.charCodeAt(i) & 0x3ff)) + 0x010000;
+      utf8.push(0xf0 | (charcode >> 18),
+        0x80 | ((charcode >> 12) & 0x3f),
+        0x80 | ((charcode >> 6) & 0x3f),
         0x80 | (charcode & 0x3f));
     }
   }
   return utf8;
 }
 export {
+  getScraperBaseUrl,
+  verifyEmail,
+  verifyPassword,
   sleep,
   isEmpty,
   convertTimestampToDateFormat,
@@ -178,7 +194,6 @@ export {
   escapeDoubleQuotes,
   getKeyByValue,
   getValueByIndex,
-  getScraperBaseUrl,
   hexToRGB,
   replaceNewlineWithSpace,
   ab2str,
