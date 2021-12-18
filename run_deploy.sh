@@ -7,6 +7,8 @@ if [ -d "build" ]; then rm -rf "build"; fi
 if [ -f ".env" ]; then cp -p .env .env.local; fi
 cp -p .env.production .env
 npm run build
+To set the active account, run:
+gcloud config set account hstimson89@gmail.com
 gcloud config set project stimson-web-curator
 # gcloud app deploy --project=stimson-web-curator --stop-previous-version --promote --verbosity=debug
 gcloud app deploy --project=stimson-web-curator --promote --quiet
